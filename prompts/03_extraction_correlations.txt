@@ -1,0 +1,98 @@
+TAS-20 PAGE CORRELATION EXTRACTION PROMPT (VLM)
+Input
+You are shown one image of a single PDF page from a scientific article.
+Goal
+Extract any TAS-20 (Toronto Alexithymia Scale, 20-item) correlation information shown on THIS page only. Specifically:
+Correlations between TAS-20 factors, and/or
+Correlations between TAS-20 items.
+Do NOT extract factor loadings in this task.
+Important
+Do NOT infer values from other pages.
+If a correlation table is continued from a previous or next page and the current page does not show all rows/columns, extract only what is visible and note the limitation.
+What to output
+Return exactly one valid JSON object (parsable by json.loads).
+No explanation.
+No extra text.
+JSON schema
+{
+"samples": [
+{
+"sample_id": "string",
+"factor_correlations": {
+"R1.2": number|null,
+"R1.3": number|null,
+"R2.3": number|null
+},
+"item_correlations": {
+"r1.2": number|null,
+"r1.3": number|null,
+"r1.4": number|null,
+...
+"r19.20": number|null
+},
+"metadata": {
+"n": number|null,
+"group_label": "string|null",
+"language": "string|null"
+},
+"notes": "string"
+}
+]
+}
+Key rules
+Multiple samples
+If the page reports multiple groups or samples (e.g., English vs French; clinical vs nonclinical; Sample 1 vs Sample 2), output one separate object in the "samples" list for each sample.
+Do not combine samples.
+If it is unclear which correlations belong to which sample, create separate samples only if the page visibly separates them; otherwise use one sample and explain ambiguity in the notes field.
+Factor naming normalization
+Map factor names used in the paper to F1/F2/F3 as follows unless the paper explicitly defines a different mapping:
+F1 = DIF (Difficulty Identifying Feelings)
+F2 = DDF (Difficulty Describing Feelings)
+F3 = EOT (Externally Oriented Thinking)
+Also accept synonyms such as:
+“Difficulty identifying feelings” → DIF → F1
+“Difficulty describing feelings” → DDF → F2
+“Externally oriented thinking” → EOT → F3
+If the paper labels factors as “Factor 1 / Factor 2 / Factor 3” without descriptive names, do not guess; map Factor 1→F1, Factor 2→F2, Factor 3→F3 and record uncertainty in notes.
+Factor correlations
+Use keys:
+R1.2 (correlation between F1 and F2)
+R1.3 (correlation between F1 and F3)
+R2.3 (correlation between F2 and F3)
+If a factor correlation is explicitly reported on this page, record the numeric value (range −1 to 1).
+If not reported on this page, use null.
+Do NOT set missing correlations to 0.0.
+Item identification
+Recognize TAS-20 items by:
+item numbers 1–20, and/or
+recognizable TAS-20 item text fragments (e.g., “I am often confused about what emotion I am feeling”).
+Use the item number as the canonical identifier.
+Item correlations
+Use keys of the form rI.J where I < J (e.g., r1.2, r1.3, … r19.20).
+If an item correlation is explicitly shown on this page, record its numeric value.
+If the table/matrix is partially visible, extract only the visible correlations and set all others to null.
+If item correlations are not reported on this page at all, all item-correlation keys should be null.
+Do NOT infer symmetric values that are not visible.
+Multiple correlation tables / models
+If the page shows multiple correlation matrices (e.g., different models, different samples, or pre/post):
+Extract only the matrix clearly labeled as the main, final, or primary results for this page.
+If unclear, extract the first complete correlation table shown and explain the ambiguity in notes.
+Metadata extraction
+If visible on the page, extract:
+n (sample size)
+group_label (e.g., “English-speaking”, “French-speaking”, “clinical”, “Sample 1”)
+language (e.g., English, French)
+If not visible, set metadata fields to null.
+Strict output constraints
+Output must be valid JSON only.
+Use null for genuinely missing correlations or metadata.
+Never invent, average, or interpolate values.
+Always describe uncertainty, partial tables, or continuation issues in the notes field.
+Sample_id guidance
+Use a short identifier derived from visible labels on the page, e.g.:
+"english"
+"french"
+"sample1"
+"clinical"
+If no label is visible, use "sample1".
+Now perform the task on the provided page image and output the JSON.

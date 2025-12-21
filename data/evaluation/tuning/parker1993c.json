@@ -1,0 +1,307 @@
+{
+  "study": "parker1993c",
+  "page": 6,
+  "factor_loadings": {
+    "F1.1": {
+      "extracted": 0.62,
+      "true": 0.62,
+      "accuracy": 1
+    },
+    "F1.2": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.3": {
+      "extracted": 0.38,
+      "true": 0.38,
+      "accuracy": 1
+    },
+    "F1.4": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.5": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.6": {
+      "extracted": 0.63,
+      "true": 0.63,
+      "accuracy": 1
+    },
+    "F1.7": {
+      "extracted": 0.51,
+      "true": 0.51,
+      "accuracy": 1
+    },
+    "F1.8": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.9": {
+      "extracted": 0.7,
+      "true": 0.7,
+      "accuracy": 1
+    },
+    "F1.10": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.11": {
+      "extracted": 0.61,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F1.12": {
+      "extracted": 0.61,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F1.13": {
+      "extracted": 0.73,
+      "true": 0.73,
+      "accuracy": 1
+    },
+    "F1.14": {
+      "extracted": 0.65,
+      "true": 0.65,
+      "accuracy": 1
+    },
+    "F1.15": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.16": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.17": {
+      "extracted": 0.52,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F1.18": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.19": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.20": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.1": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.2": {
+      "extracted": 0.69,
+      "true": 0.69,
+      "accuracy": 1
+    },
+    "F2.3": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.4": {
+      "extracted": 0.74,
+      "true": 0.74,
+      "accuracy": 1
+    },
+    "F2.5": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.6": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.7": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.8": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.9": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.10": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.11": {
+      "extracted": 0.61,
+      "true": 0.61,
+      "accuracy": 1
+    },
+    "F2.12": {
+      "extracted": 0.61,
+      "true": 0.61,
+      "accuracy": 1
+    },
+    "F2.13": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.14": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.15": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.16": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.17": {
+      "extracted": 0.0,
+      "true": 0.52,
+      "accuracy": 0
+    },
+    "F2.18": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.19": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.20": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.1": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.2": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.3": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.4": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.5": {
+      "extracted": 0.48,
+      "true": 0.48,
+      "accuracy": 1
+    },
+    "F3.6": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.7": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.8": {
+      "extracted": 0.41,
+      "true": 0.41,
+      "accuracy": 1
+    },
+    "F3.9": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.10": {
+      "extracted": 0.54,
+      "true": 0.54,
+      "accuracy": 1
+    },
+    "F3.11": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.12": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.13": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.14": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.15": {
+      "extracted": 0.42,
+      "true": 0.42,
+      "accuracy": 1
+    },
+    "F3.16": {
+      "extracted": 0.39,
+      "true": 0.39,
+      "accuracy": 1
+    },
+    "F3.17": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.18": {
+      "extracted": 0.43,
+      "true": 0.43,
+      "accuracy": 1
+    },
+    "F3.19": {
+      "extracted": 0.69,
+      "true": 0.69,
+      "accuracy": 1
+    },
+    "F3.20": {
+      "extracted": 0.51,
+      "true": 0.51,
+      "accuracy": 1
+    }
+  },
+  "factor_correlations": {}
+}

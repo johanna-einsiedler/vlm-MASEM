@@ -1,0 +1,91 @@
+{
+  "study": "praceres2000",
+  "pages": [
+    {
+      "number": 1,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 2,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 3,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 4,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 5,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 6,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 7,
+      "relevance": true,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 8,
+      "relevance": true,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 9,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 10,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 11,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 12,
+      "relevance": false,
+      "confidence": "extremely strong"
+    },
+    {
+      "number": 13,
+      "relevance": false,
+      "confidence": "extremely strong"
+    }
+  ],
+  "relevant_pages": [
+    {
+      "number": 7,
+      "path": "data/image_data/tuning/praceres2000/page7.png"
+    },
+    {
+      "number": 8,
+      "path": "data/image_data/tuning/praceres2000/page8.png"
+    }
+  ],
+  "extractions": [
+    {
+      "study": "praceres2000",
+      "pages": [
+        {
+          "number": 7,
+          "result": "```json\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"adultos_sem_queixa\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.645, \"F1.2\": 0.0, \"F1.3\": 0.412, \"F1.4\": 0.0, \"F1.5\": 0.0, \"F1.6\": 0.659, \"F1.7\": 0.607, \"F1.8\": 0.0, \"F1.9\": 0.699, \"F1.10\": 0.0, \"F1.11\": 0.0, \"F1.12\": 0.0, \"F1.13\": 0.694, \"F1.14\": 0.554, \"F1.15\": 0.0, \"F1.16\": 0.0, \"F1.17\": 0.0, \"F1.18\": 0.0, \"F1.19\": 0.0, \"F1.20\": 0.0,\n        \"F2.1\": 0.0, \"F2.2\": 0.703, \"F2.3\": 0.0, \"F2.4\": 0.454, \"F2.5\": 0.0, \"F2.6\": 0.0, \"F2.7\": 0.0, \"F2.8\": 0.290, \"F2.9\": 0.0, \"F2.10\": 0.201, \"F2.11\": 0.575, \"F2.12\": 0.336, \"F2.13\": 0.0, \"F2.14\": 0.0, \"F2.15\": 0.758, \"F2.16\": 0.489, \"F2.17\": 0.453, \"F2.18\": 0.127, \"F2.19\": 0.121, \"F2.20\": 0.209,\n        \"F3.1\": 0.0, \"F3.2\": 0.0, \"F3.3\": 0.0, \"F3.4\": 0.0, \"F3.5\": 0.015, \"F3.6\": 0.0, \"F3.7\": 0.0, \"F3.8\": 0.0, \"F3.9\": 0.0, \"F3.10\": 0.0, \"F3.11\": 0.0, \"F3.12\": 0.0, \"F3.13\": 0.0, \"F3.14\": 0.0, \"F3.15\": 0.0, \"F3.16\": 0.0, \"F3.17\": 0.0, \"F3.18\": 0.0, \"F3.19\": 0.0, \"F3.20\": 0.0\n      },\n      \"notes\": \"Table shows factor loadings for Amostra 1: Adultos sem queixa. Some loadings are marked with an asterisk indicating they do not saturate significantly (p>0.05).\"\n    },\n    {\n      \"sample_id\": \"estudantes_universitarios\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.696, \"F1.2\": 0.0, \"F1.3\": 0.582, \"F1.4\": 0.0, \"F1.5\": 0.0, \"F1.6\": 0.551, \"F1.7\": 0.674, \"F1.8\": 0.0, \"F1.9\": 0.783, \"F1.10\": 0.0, \"F1.11\": 0.0, \"F1.12\": 0.0, \"F1.13\": 0.649, \"F1.14\": 0.550, \"F1.15\": 0.0, \"F1.16\": 0.0, \"F1.17\": 0.0, \"F1.18\": 0.0, \"F1.19\": 0.0, \"F1.20\": 0.0,\n        \"F2.1\": 0.0, \"F2.2\": 0.684, \"F2.3\": 0.0, \"F2.4\": 0.596, \"F2.5\": 0.0, \"F2.6\": 0.0, \"F2.7\": 0.0, \"F2.8\": 0.0, \"F2.9\": 0.0, \"F2.10\": 0.0, \"F2.11\": 0.692, \"F2.12\": 0.264, \"F2.13\": 0.0, \"F2.14\": 0.0, \"F2.15\": 0.0, \"F2.16\": 0.0, \"F2.17\": 0.365, \"F2.18\": 0.0, \"F2.19\": 0.0, \"F2.20\": 0.0,\n        \"F3.1\": 0.0, \"F3.2\": 0.0, \"F3.3\": 0.0, \"F3.4\": 0.0, \"F3.5\": 0.365, \"F3.6\": 0.0, \"F3.7\": 0.0, \"F3.8\": 0.281, \"F3.9\": 0.0, \"F3.10\": 0.475, \"F3.11\": 0.0, \"F3.12\": 0.0, \"F3.13\": 0.0, \"F3.14\": 0.0, \"F3.15\": 0.425, \"F3.16\": 0.372, \"F3.17\": 0.0, \"F3.18\": 0.438, \"F3.19\": 0.461, \"F3.20\": 0.442\n      },\n      \"notes\": \"Table shows factor loadings for Amostra 2: Estudantes universit\u00e1rios. Some loadings are marked with an asterisk indicating they do not saturate significantly (p>0.05).\"\n    }\n  ]\n}\n```"
+        }
+      ]
+    }
+  ]
+}

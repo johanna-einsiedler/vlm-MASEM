@@ -1,0 +1,54 @@
+TAS-20 PAGE-LEVEL TABLE CLASSIFICATION PROMPT
+Task
+You are shown one image of a single PDF page from a scientific article.
+Determine whether this page contains at least one table reporting:
+Factor loadings for the Toronto Alexithymia Scale (TAS-20), and/or
+Correlations involving TAS-20 factors or TAS-20 items.
+You must classify the page into exactly one of four options.
+Output Rule
+Return exactly one of the following single-letter outputs:
+A → Factor matrix only
+B → Correlation matrix only
+C → Both factor matrix and correlation matrix
+D → Neither factor matrix nor correlation matrix
+What Counts as a Factor Matrix
+A factor matrix is present if any visible table on the page includes numeric values (typically between −1 and 1) and clearly represents factor loadings for TAS-20, including but not limited to:
+Item-level loadings for items 1–20
+Columns or rows labeled DIF, DDF, EOT, Factor 1, Factor 2, Factor 3
+Headings such as: Factor Loadings, Pattern Matrix, Measurement Model, Confirmatory Factor Analysis
+Standardized or unstandardized loadings from EFA or CFA
+What Counts as a Correlation Matrix
+A correlation matrix is present if any visible table on the page includes numeric values (typically between −1 and 1) and clearly represents correlations involving TAS-20, including:
+Correlations between TAS-20 factors (e.g., DIF–DDF, F1–F2)
+Correlations between TAS-20 items (e.g., item 1 × item 2)
+Lower-triangular, upper-triangular, or full correlation matrices
+Headings such as: Interfactor correlations, Correlation matrix, Inter-item correlations
+Partial tables or tables marked as “continued” count.
+What Does Not Count
+The following do NOT count as either factor or correlation matrices:
+Fit indices only (CFI, RMSEA, chi-square, AIC)
+Reliability tables only (Cronbach’s alpha, omega)
+Descriptive statistics (means, standard deviations)
+Regression coefficients unrelated to factor analysis
+Text-only mentions of loadings or correlations
+Tables unrelated to TAS-20
+Decision Rules
+If the page contains only a factor matrix → output A
+If the page contains only a correlation matrix → output B
+If the page contains both → output C
+If the page contains neither → output D
+Rules
+Judge only the visible page.
+Do not infer content from other pages.
+If unsure, output D.
+Do not hallucinate.
+Output Format
+Output exactly one character:
+A
+B
+C
+or
+D
+No explanation.
+No extra text.
+No formatting.

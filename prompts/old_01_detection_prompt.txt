@@ -1,0 +1,39 @@
+Task
+You are shown one image of a single PDF page from a scientific article.
+Determine whether this page contains at least one table reporting either:
+Factor loadings for the Toronto Alexithymia Scale (TAS-20), OR
+Correlations involving TAS-20 factors or TAS-20 items.
+Output Rule
+Return:
+1 if the page contains any table with TAS-20 factor loadings or TAS-20 correlations.
+0 if the page contains neither.
+What Counts as 1
+Return 1 if any visible table on the page includes numeric values (typically between −1 and 1) and clearly relates to TAS-20, including but not limited to:
+Factor loadings:
+Item-level loadings for items 1–20
+Columns or rows labeled DIF, DDF, EOT, Factor 1, Factor 2, Factor 3
+Headings such as: Factor Loadings, Pattern Matrix, Measurement Model, Confirmatory Factor Analysis
+Correlations:
+Correlation matrices or tables involving TAS-20 factors (e.g., DIF–DDF, F1–F2)
+Correlation tables involving TAS-20 items (e.g., item 1 × item 2)
+Headings such as: Interfactor correlations, Correlation matrix, Inter-item correlations
+Partial tables or tables marked as continued count.
+What Does Not Count as 1
+Fit indices only (CFI, RMSEA, chi-square, AIC)
+Reliability tables only (Cronbach’s alpha, omega)
+Descriptive statistics (means, standard deviations)
+Text-only mentions of correlations or loadings
+Tables unrelated to TAS-20
+Output Format
+Output exactly one character:
+1
+or
+0
+No explanation.
+No extra text.
+No formatting.
+Rules
+Judge only the visible page.
+Do not infer content from other pages.
+If unsure, return 0.
+Do not hallucinate.
