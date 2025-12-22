@@ -1,7 +1,7 @@
 Task
 You are shown one image of a single PDF page from a scientific article.
 Determine whether this page contains at least one table reporting either:
-Factor loadings for the Toronto Alexithymia Scale (TAS-20), OR
+ - Factor loadings for the Toronto Alexithymia Scale (TAS-20), OR
 Correlations involving TAS-20 factors or TAS-20 items.
 Output Rule
 Return:

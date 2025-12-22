@@ -5,6 +5,11 @@ from __future__ import annotations
 
 import argparse
 from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 
 from document_parsing.utils import pdf_to_images
 
@@ -65,8 +70,8 @@ def main() -> None:
     parser.add_argument(
         "--dpi",
         type=int,
-        default=200,
-        help="DPI to use when rendering PDF pages (default: 200).",
+        default=600,
+        help="DPI to use when rendering PDF pages (default: 600).",
     )
     args = parser.parse_args()
     _convert_dataset(args.dataset, dpi=args.dpi)
