@@ -1,0 +1,9 @@
+{
+  "study": "bolat2017",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\"samples\": [{\"sample_id\": \"sample1\", \"factor_correlations\": {\"R1.2\": 0, \"R1.3\": 0, \"R1.4\": 0, \"R1.5\": 0, \"R2.3\": 0, \"R2.4\": 0, \"R2.5\": 0, \"R3.4\": 0, \"R3.5\": 0, \"R4.5\": 0}, \"notes\": \"No correlation pages detected (no B or C pages). All correlations set to 0 (orthogonal rotation assumed).\"}]}"
+    }
+  ]
+}

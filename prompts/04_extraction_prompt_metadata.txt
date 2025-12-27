@@ -1,0 +1,153 @@
+Goal
+
+Extract study- and sample-level metadata from a parsed paper, using:
+(1) the full parsed paper text, and
+(2) previously extracted factor-analytic results (factor loadings + factor correlations) provided as JSON input.
+
+Your task is to output one clean metadata record per sample/group reported in the paper.
+
+
+Inputs
+
+You will be given two inputs:
+
+A) EXTRACTED_RESULTS_JSON
+- This is a JSON object containing extracted factor loadings and/or factor correlations.
+- It includes one or more samples with sample_id fields.
+
+B) PAPER_TEXT
+- The full parsed paper as plain text/markdown.
+
+
+What to output
+
+Return exactly one valid JSON object (parsable by json.loads). No extra text.
+
+JSON schema
+{
+  "records": [
+    {
+      "pubyear": number,
+      "country": "string|null",
+      "continent": "string|null",
+      "lang": "string|null",
+      "pubtype": number|null,
+      "n": number|null,
+      "sex": number|null,
+      "age": number|null,
+      "clinical": number|null,
+      "res": number|null,
+      "nfac": number|null,
+      "cfa": number|null,
+      "met": number|null,
+      "rot": number|null,
+      "source_sample_id": "string",
+    }
+  ]
+}
+
+
+Variables (must follow exactly)
+
+pubyear:
+- Publication year (<= 2020 per spec).
+- Extract from the paper (preferred) or from citation header. If not visible, null.
+
+country:
+- Country of origin of participants (open text).
+- Only fill if explicitly stated or clearly inferable from recruitment location (e.g., “German university students in Berlin” -> Germany).
+- If unclear, null.
+
+continent:
+- Continent of origin of participants (open text).
+- If country is available, you may map country -> continent.
+- If country is null and continent is explicitly stated, fill continent; otherwise null.
+
+lang:
+- Language of questionnaire (open text), e.g., "German", "English", "French".
+- Use explicit statements like “German version”, “translated into …”, etc. If not stated, null.
+
+pubtype:
+- Publication type:
+  1 = article in journal
+  2 = book
+  3 = thesis (master/phd)
+  4 = presentation/proceedings
+  5 = other
+- Determine from the paper context; if uncertain, null and explain in notes.
+
+n:
+- Sample size (integer).
+- If multiple groups, use the n corresponding to the record’s sample_id.
+- If not clearly matched, set null and describe ambiguity in notes.
+
+sex:
+- Percentage of women in sample (%) in [0, 100].
+- Extract if reported. If only counts are reported, compute percentage if n is known and report the computed percentage; mention computation in notes.
+- If not reported, null.
+
+age:
+- Mean age (years).
+- Prefer mean; if only a range/median is given, set null and note.
+
+clinical:
+- 0 = no (non-clinical)
+- 1 = yes (clinical patients)
+- 2 = mixed
+- Determine from sample description; if unclear, null.
+
+res:
+- Number of response options (Likert points), integer >= 5.
+- Extract from TAS-20 response format description (e.g., “5-point Likert scale” -> 5).
+- If not stated, null.
+
+nfac:
+- Number of extracted factors (1–10).
+- Determine from the factor-analytic model described in the paper AND/OR from EXTRACTED_RESULTS_JSON (e.g., if loadings include F1..F3 -> 3).
+- If inconsistent across models, prefer the main/final/preferred solution used for the extracted results; explain in notes.
+
+cfa:
+- Factoranalytic type:
+  0 = EFA
+  1 = CFA
+- Determine based on the method corresponding to the extracted results.
+- If both EFA and CFA exist but extracted results correspond to one, code that one and note both in notes.
+
+met:
+- Extraction/estimation method:
+  1 = principal component
+  2 = principal axis
+  3 = maximum likelihood
+  4 = other
+- Use the method used for the extracted solution. If not stated, null.
+- If “other”, briefly name it in notes (e.g., “ULS”, “WLSMV”, “GLS”, “Bayesian”, etc.).
+
+rot:
+- Rotation method:
+  1 = orthogonal (e.g., varimax)
+  2 = oblique (e.g., oblimin, promax)
+- If no rotation is applicable (e.g., CFA), set rot = null.
+- If rotation name is given, classify orthogonal vs oblique accordingly.
+
+source_sample_id:
+- Must match exactly one sample_id in EXTRACTED_RESULTS_JSON.
+- Create one metadata record per extracted sample. If paper has multiple samples but extracted JSON has only one, output one record and explain mismatch in notes.
+
+
+
+Matching rules: linking metadata to extracted samples
+
+- Use sample_id labels inside EXTRACTED_RESULTS_JSON (e.g., "sample1", "clinical", "english", "french") to find the corresponding group in PAPER_TEXT.
+- Match by explicit headings, group descriptors, or n values if uniquely identifiable.
+
+
+
+Strict rules
+
+- Do not invent values.
+- If a value is not explicitly stated or cannot be reasonably inferred from the paper text, use null.
+- The output must be JSON only, no markdown, no commentary.
+
+
+Now perform the task:
+

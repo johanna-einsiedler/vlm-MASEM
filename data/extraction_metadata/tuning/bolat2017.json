@@ -1,0 +1,55 @@
+{
+  "records": [
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": null,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "source_sample_id": "12-17"
+    },
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": null,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "source_sample_id": "12-14"
+    },
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": null,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "source_sample_id": "15-17"
+    }
+  ]
+}

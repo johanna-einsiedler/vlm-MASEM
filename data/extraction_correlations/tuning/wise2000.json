@@ -1,0 +1,9 @@
+{
+  "study": "wise2000",
+  "pages": [
+    {
+      "number": 2,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.39,\n        \"R1.3\": 0.35,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.42,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Table 4 provides interfactor correlations for the TAS-20 (3-factor solution). Correlations are reported as percentages (e.g., 39) and have been converted to decimal form (0.39). No factors 4 or 5 are reported; their correlations are set to null.\"\n    }\n  ]\n}"
+    }
+  ]
+}

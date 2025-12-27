@@ -1,0 +1,21 @@
+{
+  "records": [
+    {
+      "pubyear": 2008,
+      "country": "Iran",
+      "continent": "Asia",
+      "lang": "Farsi",
+      "pubtype": 1,
+      "n": 321,
+      "sex": 41.7,
+      "age": 35.3,
+      "clinical": 1,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 0,
+      "met": null,
+      "rot": null,
+      "source_sample_id": "sample1"
+    }
+  ]
+}

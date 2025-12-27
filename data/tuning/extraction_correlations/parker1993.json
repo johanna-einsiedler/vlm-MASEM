@@ -1,0 +1,9 @@
+{
+  "study": "parker1993",
+  "pages": [
+    {
+      "number": 7,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"german\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.61,\n        \"R1.3\": 0.12,\n        \"R2.3\": 0.46\n      },\n      \"item_correlations\": {},\n      \"metadata\": {\n        \"n\": null,\n        \"group_label\": \"German\",\n        \"language\": \"German\"\n      },\n      \"notes\": \"Factor correlations extracted for German sample. No item-level correlations are presented on this page.\"\n    },\n    {\n      \"sample_id\": \"american\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.71,\n        \"R1.3\": 0.28,\n        \"R2.3\": 0.39\n      },\n      \"item_correlations\": {},\n      \"metadata\": {\n        \"n\": null,\n        \"group_label\": \"American\",\n        \"language\": \"English\"\n      },\n      \"notes\": \"Factor correlations extracted for American sample. No item-level correlations are presented on this page.\"\n    },\n    {\n      \"sample_id\": \"canadian\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.59,\n        \"R1.3\": 0.17,\n        \"R2.3\": 0.40\n      },\n      \"item_correlations\": {},\n      \"metadata\": {\n        \"n\": null,\n        \"group_label\": \"Canadian\",\n        \"language\": \"English\"\n      },\n      \"notes\": \"Factor correlations extracted for Canadian sample. No item-level correlations are presented on this page.\"\n    }\n  ]\n}"
+    }
+  ]
+}

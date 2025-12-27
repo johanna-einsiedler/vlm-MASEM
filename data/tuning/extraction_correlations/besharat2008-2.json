@@ -1,0 +1,9 @@
+{
+  "study": "besharat2008-2",
+  "pages": [
+    {
+      "number": 6,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"farsi\",\n      \"factor_correlations\": {\n        \"R1.2\": null,\n        \"R1.3\": null,\n        \"R2.3\": null\n      },\n      \"item_correlations\": {},\n      \"metadata\": {\n        \"n\": null,\n        \"group_label\": null,\n        \"language\": \"Farsi\"\n      },\n      \"notes\": \"No TAS-20 factor\u2011factor or item\u2011item correlations are presented on this page; only correlations between TAS-20 factors and other constructs are shown.\"\n    }\n  ]\n}"
+    }
+  ]
+}

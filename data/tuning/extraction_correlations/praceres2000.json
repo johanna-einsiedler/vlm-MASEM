@@ -1,0 +1,9 @@
+{
+  "study": "praceres2000",
+  "pages": [
+    {
+      "number": 8,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"amostra1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.839,\n        \"R1.3\": 0.228,\n        \"R2.3\": 0.476\n      },\n      \"item_correlations\": {},\n      \"metadata\": {\n        \"n\": null,\n        \"group_label\": \"Adultos sem queixa\",\n        \"language\": \"Portuguese\"\n      },\n      \"notes\": \"Only factor correlations are presented on this page. Item correlations are not reported. The correlation F1-F3 (R1.3) for Sample 2 is marked as non\u2011significant (p>.05) but the numeric value is still recorded.\"\n    },\n    {\n      \"sample_id\": \"amostra2\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.801,\n        \"R1.3\": 0.025,\n        \"R2.3\": 0.232\n      },\n      \"item_correlations\": {},\n      \"metadata\": {\n        \"n\": null,\n        \"group_label\": \"Estudantes universit\u00e1rios\",\n        \"language\": \"Portuguese\"\n      },\n      \"notes\": \"Only factor correlations are presented on this page. Item correlations are not reported. The correlation F1-F3 (R1.3) is marked as non\u2011significant (p>.05) but the numeric value is still recorded.\"\n    }\n  ]\n}"
+    }
+  ]
+}

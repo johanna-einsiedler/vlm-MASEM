@@ -1,0 +1,9 @@
+{
+  "study": "besharat2007-2",
+  "pages": [
+    {
+      "number": 7,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"farsi\",\n      \"factor_correlations\": {\n        \"R1.2\": null,\n        \"R1.3\": null,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": null,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"The provided tables only include Pearson correlations of each factor with external variables (Emotional Intelligence, PWB, PD) and do not report a factor\u2011factor correlation matrix. Only three factors (F1, F2, F3) are defined, so correlations involving Factors 4 and 5 are not applicable. All factor correlations are therefore set to null.\"\n    }\n  ]\n}"
+    }
+  ]
+}

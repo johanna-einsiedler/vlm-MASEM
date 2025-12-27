@@ -1,329 +1,333 @@
+#!/usr/bin/env python3
+"""Streamlit app for reviewing extraction evaluation results."""
+
 import json
-import re
 from pathlib import Path
+from typing import Dict, List, Optional
 
 import pandas as pd
 import streamlit as st
+from PIL import Image
 
-st.set_page_config(page_title="Summary Reviewer", layout="wide")
+st.set_page_config(page_title="Extraction Evaluation Viewer", layout="wide")
 
 # -------- Settings --------
-SUMMARIES_DIR = Path("summaries")
-IMAGES_ROOT = Path("data/image_data")
-OUTPUT_DIR = Path("outputs")
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-
-DEFAULT_COLUMNS = ["Item", "F1", "F2", "F3"]
-DEFAULT_N_ROWS = 20
+EVALUATION_DIR = Path("data/evaluation/tuning")
+IMAGES_ROOT = Path("data/image_data/tuning")
+DETECTION_DIR = Path("data/detection")
 
 
-# -------- Helpers --------
-def list_summaries(summaries_dir: Path):
-    files = sorted(summaries_dir.glob("*.json"))
+# -------- Helper Functions --------
+def list_evaluation_files() -> Dict[str, Path]:
+    """List all evaluation JSON files."""
+    if not EVALUATION_DIR.exists():
+        return {}
+    files = sorted(EVALUATION_DIR.glob("*.json"))
     return {path.stem: path for path in files}
 
 
-def list_tuning_studies(images_root: Path) -> list[str]:
-    tuning_dir = images_root / "tuning"
-    if not tuning_dir.exists():
-        return []
-    return sorted([path.name for path in tuning_dir.iterdir() if path.is_dir()])
+def load_evaluation(path: Path) -> dict:
+    """Load evaluation JSON file."""
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
-def load_summary(path: Path):
-    with path.open("r", encoding="utf-8") as handle:
-        return json.load(handle)
-
-
-def load_detection(study: str) -> dict:
-    detection_path = Path("data/detection") / f"{study}.json"
+def load_detection(study_base: str) -> dict:
+    """Load detection results for a study."""
+    # Remove suffix (a, b, c) to get base study name
+    study = study_base.rstrip("abc")
+    detection_path = DETECTION_DIR / f"{study}.json"
     if not detection_path.exists():
         return {}
     return json.loads(detection_path.read_text(encoding="utf-8"))
 
 
-def load_consistency(study: str) -> dict:
-    consistency_path = Path("consistency_checks") / f"{study}.json"
-    if not consistency_path.exists():
+def get_study_images(study_base: str) -> Dict[int, Path]:
+    """Get all page images for a study."""
+    study = study_base.rstrip("abc")
+    study_dir = IMAGES_ROOT / study
+    if not study_dir.exists():
         return {}
-    return json.loads(consistency_path.read_text(encoding="utf-8"))
+
+    images = {}
+    for img_path in study_dir.glob("page*.png"):
+        try:
+            page_num = int(img_path.stem.replace("page", ""))
+            images[page_num] = img_path
+        except ValueError:
+            continue
+    return images
 
 
-def _filter_relevant_pages(pages: list, detection: dict) -> list:
-    if not detection:
-        return [page for page in pages if page.get("relevance")]
-    flagged = set()
+def get_pages_by_label(detection: dict, labels: tuple) -> List[int]:
+    """Get page numbers with specific detection labels."""
+    pages = []
     for page in detection.get("pages", []):
         label = str(page.get("result", "")).strip().upper()
-        if label in {"A", "C"}:
-            flagged.add(page.get("number"))
-    if not flagged:
-        return [page for page in pages if page.get("relevance")]
-    return [page for page in pages if page.get("number") in flagged]
+        if label in labels:
+            pages.append(page.get("number"))
+    return sorted(pages)
 
 
-def resolve_image_path(study: str, page_number: int, summary: dict):
-    for entry in summary.get("relevant_pages", []):
-        if entry.get("number") == page_number and entry.get("path"):
-            return Path(entry["path"])
-    matches = list(IMAGES_ROOT.glob(f"*/{study}/page{page_number}.png"))
-    return matches[0] if matches else None
+def format_comparison_table(data: dict, data_type: str) -> pd.DataFrame:
+    """Format extracted vs true values as a DataFrame.
 
-
-def load_table_for_name(save_name: str) -> tuple[pd.DataFrame, bool]:
-    """Load existing CSV for this name if it exists, else create default empty table."""
-    csv_path = OUTPUT_DIR / f"{save_name}.csv"
-    if csv_path.exists():
-        try:
-            return pd.read_csv(csv_path), True
-        except Exception:
-            pass
-
-    df = pd.DataFrame({c: [""] * DEFAULT_N_ROWS for c in DEFAULT_COLUMNS})
-    if "Item" in df.columns:
-        for i in range(min(DEFAULT_N_ROWS, 20)):
-            df.loc[i, "Item"] = str(i + 1)
-    return df, False
-
-
-def save_table(save_name: str, df: pd.DataFrame):
-    csv_path = OUTPUT_DIR / f"{save_name}.csv"
-    json_path = OUTPUT_DIR / f"{save_name}.json"
-
-    df.to_csv(csv_path, index=False)
-
-    records = df.to_dict(orient="records")
-    with json_path.open("w", encoding="utf-8") as handle:
-        json.dump(records, handle, ensure_ascii=False, indent=2)
-
-    return csv_path, json_path
-
-
-def _build_table_from_extraction(extractions: list, page_number: int) -> pd.DataFrame:
-    factor_loadings = None
-    for extraction in extractions:
-        pages = extraction.get("pages") or []
-        if not pages:
+    Args:
+        data: Dictionary with keys as field names and values as dicts with 'extracted', 'true', 'accuracy'
+        data_type: Type of data ('factors', 'correlations', 'metadata')
+    """
+    rows = []
+    for key, values in data.items():
+        if not isinstance(values, dict):
             continue
-        if pages[0].get("number") != page_number:
-            continue
-        raw_result = pages[0].get("result", "")
-        payload = None
-        if isinstance(raw_result, str):
-            match = re.search(r"```json\s*(\{.*?\})\s*```", raw_result, re.DOTALL)
-            if match:
-                try:
-                    payload = json.loads(match.group(1))
-                except Exception:
-                    payload = None
-            if payload is None:
-                match = re.search(r"```\s*(\{.*?\})\s*```", raw_result, re.DOTALL)
-                if match:
-                    try:
-                        payload = json.loads(match.group(1))
-                    except Exception:
-                        payload = None
-            if payload is None:
-                try:
-                    payload = json.loads(raw_result)
-                except Exception:
-                    payload = None
-        elif isinstance(raw_result, dict):
-            payload = raw_result
-        if not payload:
-            continue
-        samples = payload.get("samples") or []
-        if not samples:
-            continue
-        factor_loadings = samples[0].get("factor_loadings") or {}
-        break
 
-    df = pd.DataFrame({c: [""] * DEFAULT_N_ROWS for c in DEFAULT_COLUMNS})
-    if "Item" in df.columns:
-        for i in range(min(DEFAULT_N_ROWS, 20)):
-            df.loc[i, "Item"] = str(i + 1)
+        extracted = values.get("extracted")
+        true = values.get("true")
+        accuracy = values.get("accuracy", 0)
 
-    if not factor_loadings:
-        return df
+        # Format values
+        if extracted is None:
+            extracted_str = "null"
+        elif isinstance(extracted, (int, float)):
+            extracted_str = f"{extracted:.2f}" if extracted != 0 else "0.00"
+        else:
+            extracted_str = str(extracted)
 
-    for i in range(1, DEFAULT_N_ROWS + 1):
-        for factor in ("F1", "F2", "F3"):
-            key = f"{factor}.{i}"
-            if key in factor_loadings:
-                df.loc[i - 1, factor] = factor_loadings.get(key)
-    return df
+        if true is None:
+            true_str = "null"
+        elif isinstance(true, (int, float)):
+            true_str = f"{true:.2f}" if true != 0 else "0.00"
+        else:
+            true_str = str(true)
+
+        match = "✓" if accuracy == 1 else "✗"
+
+        rows.append({
+            "Field": key,
+            "Extracted": extracted_str,
+            "True": true_str,
+            "Match": match
+        })
+
+    return pd.DataFrame(rows)
 
 
-def _confidence_color(label: str) -> str:
-    mapping = {
-        "extremely strong": "#1b5e20",
-        "strong": "#2e7d32",
-        "moderate": "#f9a825",
-        "weak evidence": "#ef6c00",
-        "very uncertain": "#c62828",
-        "unknown": "#757575",
-    }
-    return mapping.get(label, "#757575")
+def render_value_comparison(label: str, extracted, true, accuracy: int):
+    """Render a single value comparison."""
+    match_color = "#2e7d32" if accuracy == 1 else "#c62828"
+    match_symbol = "✓" if accuracy == 1 else "✗"
 
-
-def _render_confidence(label: str) -> None:
-    color = _confidence_color(label)
     st.markdown(
-        f"<span style='color:{color}; font-size:1.2em;'>●</span> {label}",
-        unsafe_allow_html=True,
+        f"**{label}**: {extracted} → {true} "
+        f"<span style='color:{match_color}; font-size:1.2em;'>{match_symbol}</span>",
+        unsafe_allow_html=True
     )
 
 
-def _render_status(label: str, ok: bool, invert: bool = False) -> None:
-    is_ok = not ok if invert else ok
-    color = "#2e7d32" if is_ok else "#c62828"
-    status = "TRUE" if ok else "FALSE"
-    st.markdown(
-        f"<span style='color:{color}; font-size:1.2em;'>●</span> {label}: {status}",
-        unsafe_allow_html=True,
-    )
+# -------- Main App --------
+st.title("Extraction Evaluation Viewer")
 
-
-# -------- UI --------
-st.title("Summary Reviewer")
-
-summaries = list_summaries(SUMMARIES_DIR)
-available_tuning = list_tuning_studies(IMAGES_ROOT)
-study_list_source = available_tuning if available_tuning else sorted(summaries.keys())
-if not study_list_source:
-    st.error("No studies found in tuning images or summaries.")
+# Load all evaluation files
+evaluations = list_evaluation_files()
+if not evaluations:
+    st.error(f"No evaluation files found in {EVALUATION_DIR}")
     st.stop()
-study_list_source = sorted(study_list_source)
-summary_map = {study: summaries.get(study) for study in study_list_source}
 
-st.sidebar.header("Study")
-study_list = study_list_source
+study_list = sorted(evaluations.keys())
+
+# Sidebar navigation
+st.sidebar.header("Study Navigation")
+
 if "study_index" not in st.session_state:
-    st.session_state.study_index = 0
-if st.session_state.study_index >= len(study_list):
     st.session_state.study_index = 0
 
 col_prev, col_next = st.sidebar.columns(2)
 with col_prev:
-    if st.button("Previous study"):
+    if st.button("⬅ Previous"):
         st.session_state.study_index = max(0, st.session_state.study_index - 1)
         st.rerun()
+
 with col_next:
-    if st.button("Next study"):
-        st.session_state.study_index = min(
-            len(study_list) - 1, st.session_state.study_index + 1
-        )
+    if st.button("Next ➡"):
+        st.session_state.study_index = min(len(study_list) - 1, st.session_state.study_index + 1)
         st.rerun()
 
 study = st.sidebar.selectbox(
-    "Select study",
+    "Select Study",
     study_list,
     index=st.session_state.study_index,
 )
 st.session_state.study_index = study_list.index(study)
-summary_path = summary_map.get(study)
-if not summary_path:
-    st.warning(f"No summary found for {study}. Run summarize.py for this study.")
-    st.stop()
-summary = load_summary(summary_path)
-pages = summary.get("pages", [])
-if not pages:
-    st.error(f"No pages found in summary: {summary_path}")
-    st.stop()
 
-consistency = load_consistency(study)
+# Load evaluation data
+eval_data = load_evaluation(evaluations[study])
 detection = load_detection(study)
-pages = _filter_relevant_pages(pages, detection)
-if not pages:
-    st.warning("No relevant pages found for factor loading extraction.")
-    st.stop()
+study_images = get_study_images(study)
 
-st.sidebar.header("Navigation")
-idx = st.sidebar.number_input(
-    "Page index",
-    min_value=1,
-    max_value=len(pages),
-    value=1,
-    step=1,
-) - 1
-page = pages[idx]
-page_number = page.get("number")
-image_path = resolve_image_path(study, page_number, summary)
-extractions = summary.get("extractions") or []
+# Get relevant pages
+factor_pages = get_pages_by_label(detection, ("A", "C"))
+correlation_pages = get_pages_by_label(detection, ("B", "C"))
 
-st.sidebar.header("Save As")
-save_name = st.sidebar.text_input("Output name", value=study).strip() or study
+st.header(f"Study: {study}")
 
-colA, colB = st.columns([1, 1], gap="large")
+# -------- Section 1: Metadata --------
+st.subheader("📋 Metadata (Extracted vs. True)")
 
-with colA:
-    st.subheader("Page image")
-    st.caption(f"Study: {study} | Page: {page_number}")
-    if image_path and image_path.exists():
-        st.image(str(image_path), use_container_width=True)
-    else:
-        st.warning("No image found for this page.")
+metadata = eval_data.get("metadata", {})
+if metadata:
+    meta_df = format_comparison_table(metadata, "metadata")
 
-with colB:
-    if consistency:
-        st.subheader("Consistency check")
-        page_key = f"{study}{chr(ord('a') + idx)}" if len(consistency) > 1 else study
-        page_check = consistency.get(page_key)
-        if page_check:
-            _render_status("All fields extracted", page_check.get("all_fields", False))
-            _render_status(
-                "Values within [-1, 1]",
-                page_check.get("possible_values", False),
-            )
-            _render_status(
-                "Table likely continued",
-                page_check.get("table_likely_continued", False),
-                invert=True,
-            )
-            _render_status(
-                "All extracted values are zero",
-                page_check.get("all_zeros", False),
-                invert=True,
-            )
+    # Color code the dataframe
+    def highlight_match(row):
+        if row["Match"] == "✓":
+            return ['background-color: #e8f5e9'] * len(row)
         else:
-            st.caption("No consistency record for this page.")
-    st.markdown("Certainty about relevance of page:")
-    _render_confidence(page.get("confidence", "unknown"))
+            return ['background-color: #ffebee'] * len(row)
 
-    st.subheader("Extracted table (editable)")
-    extracted_df = _build_table_from_extraction(extractions, page_number)
-    if image_path and image_path.exists():
-        df, has_saved = load_table_for_name(save_name)
-        if not has_saved:
-            df = extracted_df
+    styled_df = meta_df.style.apply(highlight_match, axis=1)
+    st.dataframe(styled_df, use_container_width=True, hide_index=True)
+
+    # Summary stats
+    total = len(meta_df)
+    correct = len(meta_df[meta_df["Match"] == "✓"])
+    accuracy = correct / total if total > 0 else 0
+    st.metric("Metadata Accuracy", f"{accuracy:.1%}", f"{correct}/{total} correct")
+else:
+    st.warning("No metadata evaluation found")
+
+st.divider()
+
+# -------- Section 2: Factor Loadings --------
+st.subheader("📊 Factor Loadings (Extracted vs. True)")
+
+# Show factor loading images
+if factor_pages:
+    st.caption(f"Factor loading pages: {factor_pages}")
+
+    # Display images
+    img_cols = st.columns(min(len(factor_pages), 3))
+    for i, page_num in enumerate(factor_pages[:3]):  # Show max 3 images
+        if page_num in study_images:
+            with img_cols[i % 3]:
+                img = Image.open(study_images[page_num])
+                st.image(img, caption=f"Page {page_num}", use_container_width=True)
+
+factor_loadings = eval_data.get("factor_loadings", {})
+if factor_loadings:
+    # Show only non-zero true values for clarity
+    non_zero_factors = {
+        k: v for k, v in factor_loadings.items()
+        if isinstance(v, dict) and v.get("true") not in (None, 0)
+    }
+
+    if non_zero_factors:
+        factor_df = format_comparison_table(non_zero_factors, "factors")
+
+        def highlight_match(row):
+            if row["Match"] == "✓":
+                return ['background-color: #e8f5e9'] * len(row)
+            else:
+                return ['background-color: #ffebee'] * len(row)
+
+        styled_df = factor_df.style.apply(highlight_match, axis=1)
+        st.dataframe(styled_df, use_container_width=True, hide_index=True, height=400)
+
+        # Summary stats
+        total = len(factor_df)
+        correct = len(factor_df[factor_df["Match"] == "✓"])
+        accuracy = correct / total if total > 0 else 0
+        st.metric("Factor Loadings Accuracy (non-zero only)", f"{accuracy:.1%}", f"{correct}/{total} correct")
     else:
-        df = extracted_df
+        st.info("All factor loadings are zero or null")
 
-    edited = st.data_editor(
-        df,
-        num_rows="dynamic",
-        use_container_width=True,
-        key=f"editor_{study}_{page_number}",
-    )
+    # Show option to view all values
+    if st.checkbox("Show all factor loadings (including zeros)"):
+        all_factors_df = format_comparison_table(factor_loadings, "factors")
+        st.dataframe(all_factors_df, use_container_width=True, hide_index=True, height=600)
+else:
+    st.warning("No factor loadings evaluation found")
 
-    st.write("")
-    c1, c2, c3 = st.columns([1, 1, 2])
+st.divider()
 
-    with c1:
-        if st.button("Submit / Save", type="primary"):
-            csv_path, json_path = save_table(save_name, edited)
-            st.success(f"Saved: {csv_path.name} and {json_path.name}")
+# -------- Section 3: Factor Correlations --------
+st.subheader("🔗 Factor Correlations (Extracted vs. True)")
 
-    with c2:
-        if st.button("Reset to empty"):
-            for ext in ("csv", "json"):
-                p = OUTPUT_DIR / f"{save_name}.{ext}"
-                if p.exists():
-                    p.unlink()
-            st.rerun()
+# Show correlation images
+if correlation_pages:
+    st.caption(f"Correlation pages: {correlation_pages}")
 
-    with c3:
-        st.caption(f"Edits are saved to: {OUTPUT_DIR.resolve()}")
+    # Display images
+    img_cols = st.columns(min(len(correlation_pages), 3))
+    for i, page_num in enumerate(correlation_pages[:3]):  # Show max 3 images
+        if page_num in study_images:
+            with img_cols[i % 3]:
+                img = Image.open(study_images[page_num])
+                st.image(img, caption=f"Page {page_num}", use_container_width=True)
 
-st.sidebar.write("---")
-st.sidebar.caption("Run: streamlit run app.py")
+factor_correlations = eval_data.get("factor_correlations", {})
+if factor_correlations:
+    # Show only non-null true values
+    non_null_corrs = {
+        k: v for k, v in factor_correlations.items()
+        if isinstance(v, dict) and v.get("true") is not None
+    }
+
+    if non_null_corrs:
+        corr_df = format_comparison_table(non_null_corrs, "correlations")
+
+        def highlight_match(row):
+            if row["Match"] == "✓":
+                return ['background-color: #e8f5e9'] * len(row)
+            else:
+                return ['background-color: #ffebee'] * len(row)
+
+        styled_df = corr_df.style.apply(highlight_match, axis=1)
+        st.dataframe(styled_df, use_container_width=True, hide_index=True)
+
+        # Summary stats
+        total = len(corr_df)
+        correct = len(corr_df[corr_df["Match"] == "✓"])
+        accuracy = correct / total if total > 0 else 0
+        st.metric("Correlations Accuracy (reported values only)", f"{accuracy:.1%}", f"{correct}/{total} correct")
+    else:
+        st.info("All correlations are null (factors 4-5 not present or orthogonal rotation)")
+
+    # Show option to view all values
+    if st.checkbox("Show all correlations (including nulls)"):
+        all_corrs_df = format_comparison_table(factor_correlations, "correlations")
+        st.dataframe(all_corrs_df, use_container_width=True, hide_index=True)
+else:
+    st.warning("No factor correlations evaluation found")
+
+st.divider()
+
+# -------- Summary Statistics --------
+st.subheader("📈 Overall Summary")
+
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    if factor_loadings:
+        all_factor_correct = sum(1 for v in factor_loadings.values() if isinstance(v, dict) and v.get("accuracy") == 1)
+        all_factor_total = len(factor_loadings)
+        all_factor_acc = all_factor_correct / all_factor_total if all_factor_total > 0 else 0
+        st.metric("All Factor Loadings", f"{all_factor_acc:.1%}", f"{all_factor_correct}/{all_factor_total}")
+
+with col2:
+    if factor_correlations:
+        all_corr_correct = sum(1 for v in factor_correlations.values() if isinstance(v, dict) and v.get("accuracy") == 1)
+        all_corr_total = len(factor_correlations)
+        all_corr_acc = all_corr_correct / all_corr_total if all_corr_total > 0 else 0
+        st.metric("All Correlations", f"{all_corr_acc:.1%}", f"{all_corr_correct}/{all_corr_total}")
+
+with col3:
+    if metadata:
+        all_meta_correct = sum(1 for v in metadata.values() if isinstance(v, dict) and v.get("accuracy") == 1)
+        all_meta_total = len(metadata)
+        all_meta_acc = all_meta_correct / all_meta_total if all_meta_total > 0 else 0
+        st.metric("All Metadata", f"{all_meta_acc:.1%}", f"{all_meta_correct}/{all_meta_total}")
+
+# -------- Sidebar Info --------
+st.sidebar.divider()
+st.sidebar.caption(f"Evaluation files: {EVALUATION_DIR}")
+st.sidebar.caption(f"Total studies: {len(study_list)}")
+st.sidebar.caption(f"Current: {st.session_state.study_index + 1}/{len(study_list)}")

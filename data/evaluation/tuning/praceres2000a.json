@@ -1,6 +1,5 @@
 {
   "study": "praceres2000a",
-  "page": 7,
   "factor_loadings": {
     "F1.1": {
       "extracted": 0.645,
@@ -138,9 +137,9 @@
       "accuracy": 1
     },
     "F2.8": {
-      "extracted": 0.29,
+      "extracted": 0.0,
       "true": 0.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F2.9": {
       "extracted": 0.0,
@@ -148,9 +147,9 @@
       "accuracy": 1
     },
     "F2.10": {
-      "extracted": 0.201,
+      "extracted": 0.0,
       "true": 0.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F2.11": {
       "extracted": 0.575,
@@ -173,14 +172,14 @@
       "accuracy": 1
     },
     "F2.15": {
-      "extracted": 0.758,
+      "extracted": 0.0,
       "true": 0.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F2.16": {
-      "extracted": 0.489,
+      "extracted": 0.0,
       "true": 0.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F2.17": {
       "extracted": 0.453,
@@ -188,19 +187,19 @@
       "accuracy": 1
     },
     "F2.18": {
-      "extracted": 0.127,
+      "extracted": 0.0,
       "true": 0.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F2.19": {
-      "extracted": 0.121,
+      "extracted": 0.0,
       "true": 0.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F2.20": {
-      "extracted": 0.209,
+      "extracted": 0.0,
       "true": 0.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F3.1": {
       "extracted": 0.0,
@@ -238,9 +237,9 @@
       "accuracy": 1
     },
     "F3.8": {
-      "extracted": 0.0,
+      "extracted": 0.29,
       "true": 0.29,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F3.9": {
       "extracted": 0.0,
@@ -248,9 +247,9 @@
       "accuracy": 1
     },
     "F3.10": {
-      "extracted": 0.0,
+      "extracted": 0.201,
       "true": 0.201,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F3.11": {
       "extracted": 0.0,
@@ -273,14 +272,14 @@
       "accuracy": 1
     },
     "F3.15": {
-      "extracted": 0.0,
+      "extracted": 0.758,
       "true": 0.758,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F3.16": {
-      "extracted": 0.0,
+      "extracted": 0.489,
       "true": 0.489,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F3.17": {
       "extracted": 0.0,
@@ -288,20 +287,348 @@
       "accuracy": 1
     },
     "F3.18": {
-      "extracted": 0.0,
+      "extracted": 0.127,
       "true": 0.127,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F3.19": {
-      "extracted": 0.0,
+      "extracted": 0.121,
       "true": 0.121,
-      "accuracy": 0
+      "accuracy": 1
     },
     "F3.20": {
-      "extracted": 0.0,
+      "extracted": 0.209,
       "true": 0.209,
-      "accuracy": 0
+      "accuracy": 1
+    },
+    "F4.1": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.2": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.3": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.6": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.7": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.8": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.9": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.10": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.11": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.12": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.13": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.14": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.15": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.16": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.17": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.18": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.19": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.20": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.1": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.2": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.3": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.6": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.7": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.8": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.9": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.10": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.11": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.12": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.13": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.14": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.15": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.16": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.17": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.18": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.19": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.20": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
     }
   },
-  "factor_correlations": {}
+  "factor_correlations": {
+    "R1.2": {
+      "extracted": 0.839,
+      "true": 0.839,
+      "accuracy": 1
+    },
+    "R1.3": {
+      "extracted": 0.228,
+      "true": 0.228,
+      "accuracy": 1
+    },
+    "R1.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R1.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R2.3": {
+      "extracted": 0.476,
+      "true": 0.476,
+      "accuracy": 1
+    },
+    "R2.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R2.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R3.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R3.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R4.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    }
+  },
+  "metadata": {
+    "pubyear": {
+      "extracted": 2000.0,
+      "true": 2000.0,
+      "accuracy": 1
+    },
+    "country": {
+      "extracted": "Portugal",
+      "true": "Portugal",
+      "accuracy": 1
+    },
+    "continent": {
+      "extracted": "Europe",
+      "true": "Europe",
+      "accuracy": 1
+    },
+    "lang": {
+      "extracted": "Portuguese",
+      "true": "Portuguese",
+      "accuracy": 1
+    },
+    "pubtype": {
+      "extracted": 1.0,
+      "true": 1.0,
+      "accuracy": 1
+    },
+    "n": {
+      "extracted": 133.0,
+      "true": 133.0,
+      "accuracy": 1
+    },
+    "sex": {
+      "extracted": 52.63,
+      "true": 52.63157894736842,
+      "accuracy": 0
+    },
+    "age": {
+      "extracted": 35.62,
+      "true": 35.62,
+      "accuracy": 1
+    },
+    "clinical": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "res": {
+      "extracted": 5.0,
+      "true": 5.0,
+      "accuracy": 1
+    },
+    "nfac": {
+      "extracted": 3.0,
+      "true": 3.0,
+      "accuracy": 1
+    },
+    "cfa": {
+      "extracted": 1.0,
+      "true": 1.0,
+      "accuracy": 1
+    },
+    "met": {
+      "extracted": 3.0,
+      "true": 3.0,
+      "accuracy": 1
+    },
+    "rot": {
+      "extracted": null,
+      "true": 2.0,
+      "accuracy": 0
+    },
+    "source_sample_id": {
+      "extracted": "sample1",
+      "true": null,
+      "accuracy": 0
+    }
+  }
 }
