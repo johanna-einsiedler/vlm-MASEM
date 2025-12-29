@@ -3,7 +3,7 @@
   "pages": [
     {
       "number": 6,
-      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"tas2003\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.09,\n        \"R1.3\": 0.51,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.39,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Table 3 provides correlations among the three factors (F1, F2, F3) for TAS-20K (2003). The matrix appears as lower\u2011triangular: F1\u2011F2 = 0.09, F1\u2011F3 = 0.51*, F2\u2011F3 = 0.39*. No correlations for Factors 4 or 5 are reported, so those entries are set to null.\"\n    }\n  ]\n}"
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.09,\n        \"R1.3\": 0.51,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.39,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Table 3 provides correlations for the three factors (F1, F2, F3) of TAS-20K (2003): F1-F2 = 0.09, F1-F3 = 0.51, F2-F3 = 0.39. No correlations involving factors 4 or 5 are reported, so those entries are set to null.\"\n    }\n  ]\n}"
     }
   ]
 }

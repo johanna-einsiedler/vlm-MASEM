@@ -13,26 +13,8 @@
       "res": 5,
       "nfac": 4,
       "cfa": 1,
-      "met": 3,
-      "rot": null,
-      "source_sample_id": "french"
-    },
-    {
-      "pubyear": 2016,
-      "country": "Canada",
-      "continent": "North America",
-      "lang": null,
-      "pubtype": 1,
-      "n": null,
-      "sex": null,
-      "age": null,
-      "clinical": null,
-      "res": 5,
-      "nfac": null,
-      "cfa": null,
       "met": null,
-      "rot": null,
-      "source_sample_id": "sample1"
+      "rot": 1
     }
   ]
 }

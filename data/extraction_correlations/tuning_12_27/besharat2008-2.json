@@ -1,0 +1,9 @@
+{
+  "study": "besharat2008-2",
+  "pages": [
+    {
+      "number": 6,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": null,\n        \"R1.3\": null,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": null,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"The provided markdown contains correlations between TAS-20 total score and external constructs, but does not include a factor correlation (Phi) matrix for the latent factors of the TAS-20. Therefore all factor correlations are unavailable.\"\n    }\n  ]\n}"
+    }
+  ]
+}

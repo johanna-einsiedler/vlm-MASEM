@@ -587,12 +587,12 @@
     },
     "sex": {
       "extracted": 54.3,
-      "true": 54.32098765432099,
+      "true": 54.32,
       "accuracy": 0
     },
     "age": {
       "extracted": null,
-      "true": 20.94567901234568,
+      "true": 20.95,
       "accuracy": 0
     },
     "clinical": {
@@ -601,9 +601,9 @@
       "accuracy": 1
     },
     "res": {
-      "extracted": null,
+      "extracted": 5.0,
       "true": 5.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "nfac": {
       "extracted": 3.0,
@@ -621,14 +621,9 @@
       "accuracy": 0
     },
     "rot": {
-      "extracted": null,
+      "extracted": 2.0,
       "true": 2.0,
-      "accuracy": 0
-    },
-    "source_sample_id": {
-      "extracted": "canadian",
-      "true": null,
-      "accuracy": 0
+      "accuracy": 1
     }
   }
 }

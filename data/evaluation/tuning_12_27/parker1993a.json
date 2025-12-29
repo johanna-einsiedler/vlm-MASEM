@@ -1,0 +1,634 @@
+{
+  "study": "parker1993a",
+  "factor_loadings": {
+    "F1.1": {
+      "extracted": 0.69,
+      "true": 0.69,
+      "accuracy": 1
+    },
+    "F1.2": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.3": {
+      "extracted": 0.36,
+      "true": 0.36,
+      "accuracy": 1
+    },
+    "F1.4": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.5": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.6": {
+      "extracted": 0.54,
+      "true": 0.54,
+      "accuracy": 1
+    },
+    "F1.7": {
+      "extracted": 0.67,
+      "true": 0.67,
+      "accuracy": 1
+    },
+    "F1.8": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.9": {
+      "extracted": 0.69,
+      "true": 0.69,
+      "accuracy": 1
+    },
+    "F1.10": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.11": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.12": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.13": {
+      "extracted": 0.63,
+      "true": 0.63,
+      "accuracy": 1
+    },
+    "F1.14": {
+      "extracted": 0.6,
+      "true": 0.6,
+      "accuracy": 1
+    },
+    "F1.15": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.16": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.17": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.18": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.19": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F1.20": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.1": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.2": {
+      "extracted": 0.78,
+      "true": 0.78,
+      "accuracy": 1
+    },
+    "F2.3": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.4": {
+      "extracted": 0.76,
+      "true": 0.76,
+      "accuracy": 1
+    },
+    "F2.5": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.6": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.7": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.8": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.9": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.10": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.11": {
+      "extracted": 0.63,
+      "true": 0.63,
+      "accuracy": 1
+    },
+    "F2.12": {
+      "extracted": 0.6,
+      "true": 0.6,
+      "accuracy": 1
+    },
+    "F2.13": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.14": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.15": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.16": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.17": {
+      "extracted": 0.5,
+      "true": 0.5,
+      "accuracy": 1
+    },
+    "F2.18": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.19": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F2.20": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.1": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.2": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.3": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.4": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.5": {
+      "extracted": 0.33,
+      "true": 0.33,
+      "accuracy": 1
+    },
+    "F3.6": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.7": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.8": {
+      "extracted": 0.32,
+      "true": 0.32,
+      "accuracy": 1
+    },
+    "F3.9": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.10": {
+      "extracted": 0.24,
+      "true": 0.24,
+      "accuracy": 1
+    },
+    "F3.11": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.12": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.13": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.14": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.15": {
+      "extracted": 0.52,
+      "true": 0.52,
+      "accuracy": 1
+    },
+    "F3.16": {
+      "extracted": 0.53,
+      "true": 0.53,
+      "accuracy": 1
+    },
+    "F3.17": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "F3.18": {
+      "extracted": 0.44,
+      "true": 0.44,
+      "accuracy": 1
+    },
+    "F3.19": {
+      "extracted": 0.36,
+      "true": 0.36,
+      "accuracy": 1
+    },
+    "F3.20": {
+      "extracted": 0.54,
+      "true": 0.54,
+      "accuracy": 1
+    },
+    "F4.1": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.2": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.3": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.6": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.7": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.8": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.9": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.10": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.11": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.12": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.13": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.14": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.15": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.16": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.17": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.18": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.19": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F4.20": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.1": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.2": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.3": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.6": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.7": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.8": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.9": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.10": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.11": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.12": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.13": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.14": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.15": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.16": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.17": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.18": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.19": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "F5.20": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    }
+  },
+  "factor_correlations": {
+    "R1.2": {
+      "extracted": 0.61,
+      "true": 0.61,
+      "accuracy": 1
+    },
+    "R1.3": {
+      "extracted": 0.12,
+      "true": 0.12,
+      "accuracy": 1
+    },
+    "R1.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R1.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R2.3": {
+      "extracted": 0.46,
+      "true": 0.46,
+      "accuracy": 1
+    },
+    "R2.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R2.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R3.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R3.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R4.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    }
+  },
+  "metadata": {
+    "pubyear": {
+      "extracted": 1993.0,
+      "true": 1993.0,
+      "accuracy": 1
+    },
+    "country": {
+      "extracted": "Germany",
+      "true": "Germany",
+      "accuracy": 1
+    },
+    "continent": {
+      "extracted": "Europe",
+      "true": "Europe",
+      "accuracy": 1
+    },
+    "lang": {
+      "extracted": null,
+      "true": "German",
+      "accuracy": 0
+    },
+    "pubtype": {
+      "extracted": 1.0,
+      "true": 1.0,
+      "accuracy": 1
+    },
+    "n": {
+      "extracted": 303.0,
+      "true": 306.0,
+      "accuracy": 0
+    },
+    "sex": {
+      "extracted": 65.7,
+      "true": 65.67656765676567,
+      "accuracy": 0
+    },
+    "age": {
+      "extracted": null,
+      "true": 27.934323432343234,
+      "accuracy": 0
+    },
+    "clinical": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "res": {
+      "extracted": null,
+      "true": 5.0,
+      "accuracy": 0
+    },
+    "nfac": {
+      "extracted": 3.0,
+      "true": 3.0,
+      "accuracy": 1
+    },
+    "cfa": {
+      "extracted": 1.0,
+      "true": 1.0,
+      "accuracy": 1
+    },
+    "met": {
+      "extracted": null,
+      "true": 3.0,
+      "accuracy": 0
+    },
+    "rot": {
+      "extracted": null,
+      "true": 2.0,
+      "accuracy": 0
+    },
+    "source_sample_id": {
+      "extracted": "german",
+      "true": null,
+      "accuracy": 0
+    }
+  }
+}

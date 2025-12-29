@@ -10,12 +10,11 @@
       "sex": null,
       "age": null,
       "clinical": 0,
-      "res": null,
+      "res": 5,
       "nfac": 3,
       "cfa": 1,
       "met": null,
-      "rot": null,
-      "source_sample_id": "12-17"
+      "rot": 1
     },
     {
       "pubyear": 2017,
@@ -27,12 +26,11 @@
       "sex": null,
       "age": null,
       "clinical": 0,
-      "res": null,
+      "res": 5,
       "nfac": 3,
       "cfa": 1,
       "met": null,
-      "rot": null,
-      "source_sample_id": "12-14"
+      "rot": 1
     },
     {
       "pubyear": 2017,
@@ -44,12 +42,11 @@
       "sex": null,
       "age": null,
       "clinical": 0,
-      "res": null,
+      "res": 5,
       "nfac": 3,
       "cfa": 1,
       "met": null,
-      "rot": null,
-      "source_sample_id": "15-17"
+      "rot": 1
     }
   ]
 }

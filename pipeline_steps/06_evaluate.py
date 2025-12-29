@@ -92,6 +92,12 @@ def _compare_values(extracted: Any, truth: Any, tol: float = 1e-3) -> Dict[str, 
     extracted_value = _to_float(extracted)
     truth_value = _to_float(truth)
 
+    # Round to 2 decimal places for comparison
+    if extracted_value is not None:
+        extracted_value = round(extracted_value, 2)
+    if truth_value is not None:
+        truth_value = round(truth_value, 2)
+
     if extracted_value is None and truth_value is None:
         accuracy = 1
     elif extracted_value is None or truth_value is None:

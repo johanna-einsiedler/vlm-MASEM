@@ -36,6 +36,10 @@ JSON schema
 
 Key rules
 
+Place to find the information:
+- In the results section, usually the words „correl*“ (correlated/correlation) and „factors“ are close together, in combination with number values [-1; 1]. There may be an „r“ to indicate the correlation.
+- Factor correlations may appear as either (a) the lower/upper triangle with nfac*(nfac-1)/2 unique correlations or (b) the full symmetric correlation matrix with nfac² entries (nfac² - nfac off-diagonal, often shown as 2*nfac·(nfac-1)/2), where nfac is the number of factors.
+
 Multiple samples:
 If the file reports multiple groups/samples (e.g., language groups, clinical vs nonclinical, Sample 1 vs Sample 2), output one separate object in the "samples" list per sample.
 Do not combine samples.
@@ -59,10 +63,9 @@ If the file has fewer than 5 factors, set correlations involving non-existent fa
 If the file has more than 5 factors, extract at least the correlations among Factors 1–5 as above, and note that additional factor correlations exist but were not extracted due to schema constraints.
 
 Filling values:
-- If a correlation is explicitly reported for a factor-pair, record it as a number (negative allowed; typically in [-1, 1]).
 - If the file has fewer than 5 factors, set correlations involving non-existent factors to null.
 - If the correlation is not reported / suppressed / not visible / table cut off, set it to null.
-- SPECIAL CASE: If the file explicitly states that correlations were NOT computed or are NOT available (e.g., orthogonal rotation, independent factors, no correlation matrix reported), set ALL correlation values to 0 instead of null.
+- Search for terms such as “varimax,” “quartimax,” “equamax,” “orthomax,” and “parsimax” for the rotation method used , set ALL correlation values to 0 instead of null.
   (Important: only use 0 when correlations are confirmed to not exist; otherwise use null for missing/unreported values.)
 
 Multiple models / methods:

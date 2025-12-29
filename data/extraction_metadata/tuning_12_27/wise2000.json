@@ -1,0 +1,21 @@
+{
+  "records": [
+    {
+      "pubyear": null,
+      "country": null,
+      "continent": null,
+      "lang": null,
+      "pubtype": 1,
+      "n": 236,
+      "sex": null,
+      "age": null,
+      "clinical": 1,
+      "res": null,
+      "nfac": 3,
+      "cfa": 0,
+      "met": null,
+      "rot": 2,
+      "source_sample_id": "sample1"
+    }
+  ]
+}

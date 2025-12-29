@@ -587,7 +587,7 @@
     },
     "sex": {
       "extracted": 59.5,
-      "true": 59.11413969335605,
+      "true": 59.11,
       "accuracy": 0
     },
     "age": {
@@ -623,11 +623,6 @@
     "rot": {
       "extracted": null,
       "true": 2.0,
-      "accuracy": 0
-    },
-    "source_sample_id": {
-      "extracted": "farsi",
-      "true": null,
       "accuracy": 0
     }
   }

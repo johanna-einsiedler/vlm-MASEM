@@ -1,0 +1,55 @@
+{
+  "records": [
+    {
+      "pubyear": 1993,
+      "country": "Germany",
+      "continent": "Europe",
+      "lang": null,
+      "pubtype": 1,
+      "n": 303,
+      "sex": 65.7,
+      "age": null,
+      "clinical": 0,
+      "res": null,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "source_sample_id": "german"
+    },
+    {
+      "pubyear": 1993,
+      "country": "United States",
+      "continent": "North America",
+      "lang": null,
+      "pubtype": 1,
+      "n": 292,
+      "sex": 61.3,
+      "age": null,
+      "clinical": 0,
+      "res": null,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "source_sample_id": "american"
+    },
+    {
+      "pubyear": 1993,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": null,
+      "pubtype": 1,
+      "n": 405,
+      "sex": 54.3,
+      "age": null,
+      "clinical": 0,
+      "res": null,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "source_sample_id": "canadian"
+    }
+  ]
+}

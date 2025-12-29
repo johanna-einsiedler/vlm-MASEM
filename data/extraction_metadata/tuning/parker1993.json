@@ -10,12 +10,11 @@
       "sex": 65.7,
       "age": null,
       "clinical": 0,
-      "res": null,
+      "res": 5,
       "nfac": 3,
       "cfa": 1,
       "met": null,
-      "rot": null,
-      "source_sample_id": "german"
+      "rot": 2
     },
     {
       "pubyear": 1993,
@@ -27,12 +26,11 @@
       "sex": 61.3,
       "age": null,
       "clinical": 0,
-      "res": null,
+      "res": 5,
       "nfac": 3,
       "cfa": 1,
       "met": null,
-      "rot": null,
-      "source_sample_id": "american"
+      "rot": 2
     },
     {
       "pubyear": 1993,
@@ -44,12 +42,11 @@
       "sex": 54.3,
       "age": null,
       "clinical": 0,
-      "res": null,
+      "res": 5,
       "nfac": 3,
       "cfa": 1,
       "met": null,
-      "rot": null,
-      "source_sample_id": "canadian"
+      "rot": 2
     }
   ]
 }

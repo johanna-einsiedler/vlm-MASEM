@@ -601,9 +601,9 @@
       "accuracy": 1
     },
     "res": {
-      "extracted": null,
+      "extracted": 5.0,
       "true": 5.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "nfac": {
       "extracted": 2.0,
@@ -624,11 +624,6 @@
       "extracted": 1.0,
       "true": 1.0,
       "accuracy": 1
-    },
-    "source_sample_id": {
-      "extracted": "sample1",
-      "true": null,
-      "accuracy": 0
     }
   }
 }

@@ -587,7 +587,7 @@
     },
     "sex": {
       "extracted": 41.7,
-      "true": 41.74454828660436,
+      "true": 41.74,
       "accuracy": 0
     },
     "age": {
@@ -611,9 +611,9 @@
       "accuracy": 1
     },
     "cfa": {
-      "extracted": 0.0,
+      "extracted": 1.0,
       "true": 1.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "met": {
       "extracted": null,
@@ -623,11 +623,6 @@
     "rot": {
       "extracted": null,
       "true": 2.0,
-      "accuracy": 0
-    },
-    "source_sample_id": {
-      "extracted": "sample1",
-      "true": null,
       "accuracy": 0
     }
   }

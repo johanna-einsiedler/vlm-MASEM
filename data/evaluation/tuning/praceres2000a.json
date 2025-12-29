@@ -2,8 +2,8 @@
   "study": "praceres2000a",
   "factor_loadings": {
     "F1.1": {
-      "extracted": 0.645,
-      "true": 0.645,
+      "extracted": 0.65,
+      "true": 0.65,
       "accuracy": 1
     },
     "F1.2": {
@@ -12,8 +12,8 @@
       "accuracy": 1
     },
     "F1.3": {
-      "extracted": 0.412,
-      "true": 0.412,
+      "extracted": 0.41,
+      "true": 0.41,
       "accuracy": 1
     },
     "F1.4": {
@@ -27,13 +27,13 @@
       "accuracy": 1
     },
     "F1.6": {
-      "extracted": 0.659,
-      "true": 0.659,
+      "extracted": 0.66,
+      "true": 0.66,
       "accuracy": 1
     },
     "F1.7": {
-      "extracted": 0.607,
-      "true": 0.607,
+      "extracted": 0.61,
+      "true": 0.61,
       "accuracy": 1
     },
     "F1.8": {
@@ -42,8 +42,8 @@
       "accuracy": 1
     },
     "F1.9": {
-      "extracted": 0.699,
-      "true": 0.699,
+      "extracted": 0.7,
+      "true": 0.7,
       "accuracy": 1
     },
     "F1.10": {
@@ -62,13 +62,13 @@
       "accuracy": 1
     },
     "F1.13": {
-      "extracted": 0.694,
-      "true": 0.694,
+      "extracted": 0.69,
+      "true": 0.69,
       "accuracy": 1
     },
     "F1.14": {
-      "extracted": 0.554,
-      "true": 0.554,
+      "extracted": 0.55,
+      "true": 0.55,
       "accuracy": 1
     },
     "F1.15": {
@@ -107,8 +107,8 @@
       "accuracy": 1
     },
     "F2.2": {
-      "extracted": 0.703,
-      "true": 0.703,
+      "extracted": 0.7,
+      "true": 0.7,
       "accuracy": 1
     },
     "F2.3": {
@@ -117,8 +117,8 @@
       "accuracy": 1
     },
     "F2.4": {
-      "extracted": 0.454,
-      "true": 0.454,
+      "extracted": 0.45,
+      "true": 0.45,
       "accuracy": 1
     },
     "F2.5": {
@@ -152,13 +152,13 @@
       "accuracy": 1
     },
     "F2.11": {
-      "extracted": 0.575,
-      "true": 0.575,
+      "extracted": 0.57,
+      "true": 0.57,
       "accuracy": 1
     },
     "F2.12": {
-      "extracted": 0.336,
-      "true": 0.336,
+      "extracted": 0.34,
+      "true": 0.34,
       "accuracy": 1
     },
     "F2.13": {
@@ -182,8 +182,8 @@
       "accuracy": 1
     },
     "F2.17": {
-      "extracted": 0.453,
-      "true": 0.453,
+      "extracted": 0.45,
+      "true": 0.45,
       "accuracy": 1
     },
     "F2.18": {
@@ -222,8 +222,8 @@
       "accuracy": 1
     },
     "F3.5": {
-      "extracted": 0.015,
-      "true": 0.015,
+      "extracted": 0.01,
+      "true": 0.01,
       "accuracy": 1
     },
     "F3.6": {
@@ -247,8 +247,8 @@
       "accuracy": 1
     },
     "F3.10": {
-      "extracted": 0.201,
-      "true": 0.201,
+      "extracted": 0.2,
+      "true": 0.2,
       "accuracy": 1
     },
     "F3.11": {
@@ -272,13 +272,13 @@
       "accuracy": 1
     },
     "F3.15": {
-      "extracted": 0.758,
-      "true": 0.758,
+      "extracted": 0.76,
+      "true": 0.76,
       "accuracy": 1
     },
     "F3.16": {
-      "extracted": 0.489,
-      "true": 0.489,
+      "extracted": 0.49,
+      "true": 0.49,
       "accuracy": 1
     },
     "F3.17": {
@@ -287,18 +287,18 @@
       "accuracy": 1
     },
     "F3.18": {
-      "extracted": 0.127,
-      "true": 0.127,
+      "extracted": 0.13,
+      "true": 0.13,
       "accuracy": 1
     },
     "F3.19": {
-      "extracted": 0.121,
-      "true": 0.121,
+      "extracted": 0.12,
+      "true": 0.12,
       "accuracy": 1
     },
     "F3.20": {
-      "extracted": 0.209,
-      "true": 0.209,
+      "extracted": 0.21,
+      "true": 0.21,
       "accuracy": 1
     },
     "F4.1": {
@@ -504,13 +504,13 @@
   },
   "factor_correlations": {
     "R1.2": {
-      "extracted": 0.839,
-      "true": 0.839,
+      "extracted": 0.84,
+      "true": 0.84,
       "accuracy": 1
     },
     "R1.3": {
-      "extracted": 0.228,
-      "true": 0.228,
+      "extracted": 0.23,
+      "true": 0.23,
       "accuracy": 1
     },
     "R1.4": {
@@ -524,8 +524,8 @@
       "accuracy": 1
     },
     "R2.3": {
-      "extracted": 0.476,
-      "true": 0.476,
+      "extracted": 0.48,
+      "true": 0.48,
       "accuracy": 1
     },
     "R2.4": {
@@ -587,8 +587,8 @@
     },
     "sex": {
       "extracted": 52.63,
-      "true": 52.63157894736842,
-      "accuracy": 0
+      "true": 52.63,
+      "accuracy": 1
     },
     "age": {
       "extracted": 35.62,
@@ -616,19 +616,14 @@
       "accuracy": 1
     },
     "met": {
-      "extracted": 3.0,
+      "extracted": null,
       "true": 3.0,
-      "accuracy": 1
+      "accuracy": 0
     },
     "rot": {
-      "extracted": null,
+      "extracted": 2.0,
       "true": 2.0,
-      "accuracy": 0
-    },
-    "source_sample_id": {
-      "extracted": "sample1",
-      "true": null,
-      "accuracy": 0
+      "accuracy": 1
     }
   }
 }

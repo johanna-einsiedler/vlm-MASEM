@@ -12,10 +12,9 @@
       "clinical": 1,
       "res": 5,
       "nfac": 3,
-      "cfa": 0,
+      "cfa": 1,
       "met": null,
-      "rot": null,
-      "source_sample_id": "sample1"
+      "rot": null
     }
   ]
 }

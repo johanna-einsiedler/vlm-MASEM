@@ -1,0 +1,9 @@
+{
+  "study": "parker1993",
+  "pages": [
+    {
+      "number": 7,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"german\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.61,\n        \"R1.3\": 0.12,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.46,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Only three factors (F1-F3) reported; correlations involving factors 4 and 5 set to null.\"\n    },\n    {\n      \"sample_id\": \"american\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.71,\n        \"R1.3\": 0.28,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.39,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Only three factors (F1-F3) reported; correlations involving factors 4 and 5 set to null.\"\n    },\n    {\n      \"sample_id\": \"canadian\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.59,\n        \"R1.3\": 0.17,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.40,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Only three factors (F1-F3) reported; correlations involving factors 4 and 5 set to null.\"\n    }\n  ]\n}"
+    }
+  ]
+}

@@ -1,21 +1,20 @@
 {
   "records": [
     {
-      "pubyear": null,
+      "pubyear": 2000,
       "country": null,
       "continent": null,
-      "lang": null,
+      "lang": "English",
       "pubtype": 1,
-      "n": 236,
+      "n": 243,
       "sex": null,
       "age": null,
       "clinical": 1,
-      "res": null,
+      "res": 5,
       "nfac": 3,
       "cfa": 0,
       "met": null,
-      "rot": 2,
-      "source_sample_id": "sample1"
+      "rot": 2
     }
   ]
 }

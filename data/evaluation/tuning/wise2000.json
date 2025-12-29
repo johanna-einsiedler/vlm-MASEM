@@ -556,9 +556,9 @@
   },
   "metadata": {
     "pubyear": {
-      "extracted": null,
+      "extracted": 2000.0,
       "true": 2000.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "country": {
       "extracted": null,
@@ -571,9 +571,9 @@
       "accuracy": 0
     },
     "lang": {
-      "extracted": null,
+      "extracted": "English",
       "true": "English",
-      "accuracy": 0
+      "accuracy": 1
     },
     "pubtype": {
       "extracted": 1.0,
@@ -581,13 +581,13 @@
       "accuracy": 1
     },
     "n": {
-      "extracted": 236.0,
+      "extracted": 243.0,
       "true": 257.0,
       "accuracy": 0
     },
     "sex": {
       "extracted": null,
-      "true": 52.918287937743195,
+      "true": 52.92,
       "accuracy": 0
     },
     "age": {
@@ -601,9 +601,9 @@
       "accuracy": 1
     },
     "res": {
-      "extracted": null,
+      "extracted": 5.0,
       "true": 5.0,
-      "accuracy": 0
+      "accuracy": 1
     },
     "nfac": {
       "extracted": 3.0,
@@ -624,11 +624,6 @@
       "extracted": 2.0,
       "true": 2.0,
       "accuracy": 1
-    },
-    "source_sample_id": {
-      "extracted": "sample1",
-      "true": null,
-      "accuracy": 0
     }
   }
 }

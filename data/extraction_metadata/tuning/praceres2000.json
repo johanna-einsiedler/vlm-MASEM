@@ -13,9 +13,8 @@
       "res": 5,
       "nfac": 3,
       "cfa": 1,
-      "met": 3,
-      "rot": null,
-      "source_sample_id": "sample1"
+      "met": null,
+      "rot": 2
     },
     {
       "pubyear": 2000,
@@ -25,14 +24,13 @@
       "pubtype": 1,
       "n": 298,
       "sex": 53.36,
-      "age": 23.53,
+      "age": 24.36,
       "clinical": 0,
       "res": 5,
       "nfac": 3,
       "cfa": 1,
-      "met": 3,
-      "rot": null,
-      "source_sample_id": "sample2"
+      "met": null,
+      "rot": 2
     }
   ]
 }

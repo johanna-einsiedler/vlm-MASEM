@@ -9,30 +9,12 @@
       "n": 408,
       "sex": null,
       "age": null,
-      "clinical": 0,
-      "res": null,
+      "clinical": null,
+      "res": 5,
       "nfac": 3,
       "cfa": 1,
       "met": null,
-      "rot": null,
-      "source_sample_id": "sample1"
-    },
-    {
-      "pubyear": 2003,
-      "country": "South Korea",
-      "continent": "Asia",
-      "lang": "Korean",
-      "pubtype": 1,
-      "n": 408,
-      "sex": null,
-      "age": null,
-      "clinical": 0,
-      "res": null,
-      "nfac": 3,
-      "cfa": 1,
-      "met": null,
-      "rot": null,
-      "source_sample_id": "tas2003"
+      "rot": 2
     }
   ]
 }

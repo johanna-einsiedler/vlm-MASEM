@@ -1,0 +1,9 @@
+{
+  "study": "praceres2000",
+  "pages": [
+    {
+      "number": 8,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"adults\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.839,\n        \"R1.3\": 0.228,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.476,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Only three factors (F1-F3) reported for Amostra 1. Correlations involving non\u2011existent factors set to null.\"\n    },\n    {\n      \"sample_id\": \"students\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.801,\n        \"R1.3\": 0.025,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.232,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Only three factors (F1-F3) reported for Amostra 2. Correlation F1\u2011F3 (0.025) noted as non\u2011significant (p>.05). Correlations involving non\u2011existent factors set to null.\"\n    }\n  ]\n}"
+    }
+  ]
+}

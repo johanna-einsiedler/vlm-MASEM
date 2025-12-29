@@ -1,0 +1,85 @@
+Goal
+
+Extract 
+Extract TAS-20 (2003)  (Toronto Alexithymia Scale, 20-items) factor correlation information from the provided markdown file.
+
+Specifically:
+Extract factor correlations between latent factors (e.g., Factor 1–Factor 5) as reported in the file (correlation matrix / “Phi” matrix / latent factor correlations).
+
+
+What to output
+
+Return exactly one valid JSON object (parsable by json.loads). No extra text.
+
+JSON schema
+{
+  "samples": [
+    {
+      "sample_id": "string",
+      "factor_correlations": {
+        "R1.2": number,
+        "R1.3": number,
+        "R1.4": number,
+        "R1.5": number,
+        "R2.3": number,
+        "R2.4": number,
+        "R2.5": number,
+        "R3.4": number,
+        "R3.5": number,
+        "R4.5": number
+      },
+      "notes": "string"
+    }
+  ]
+}
+
+
+Key rules
+
+Multiple samples:
+If the file reports multiple groups/samples (e.g., language groups, clinical vs nonclinical, Sample 1 vs Sample 2), output one separate object in the "samples" list per sample.
+Do not combine samples.
+If unclear which values belong to which sample, create separate samples only if the file visibly separates them; otherwise use one sample and explain ambiguity in "notes".
+
+Correlation key normalization:
+Represent each unique factor-pair correlation using the key format:
+- R<i>.<j> where i < j
+Example: correlation(Factor 1, Factor 2) -> R1.2
+Assume correlations are symmetric; do not output both R1.2 and R2.1. Only output the i<j form.
+
+Factor numbering:
+Use the factor numbering as shown in the file (Factor 1, Factor 2, …).
+If the file uses names (e.g., DIF, DDF, EOT), map them to factor numbers only if the file explicitly defines the mapping; otherwise keep the factor indices implied by the table headings and explain any ambiguity in "notes".
+
+Required keys:
+For each sample, always include all keys listed in the schema:
+R1.2, R1.3, R1.4, R1.5, R2.3, R2.4, R2.5, R3.4, R3.5, R4.5
+
+If the file has fewer than 5 factors, set correlations involving non-existent factors to null and explain in "notes".
+If the file has more than 5 factors, extract at least the correlations among Factors 1–5 as above, and note that additional factor correlations exist but were not extracted due to schema constraints.
+
+Filling values:
+- If a correlation is explicitly reported for a factor-pair, record it as a number (negative allowed; typically in [-1, 1]).
+- If the file has fewer than 5 factors, set correlations involving non-existent factors to null.
+- If the correlation is not reported / suppressed / not visible / table cut off, set it to null.
+- SPECIAL CASE: If the file explicitly states that correlations were NOT computed or are NOT available (e.g., orthogonal rotation, independent factors, no correlation matrix reported), set ALL correlation values to 0 instead of null.
+  (Important: only use 0 when correlations are confirmed to not exist; otherwise use null for missing/unreported values.)
+
+Multiple models / methods:
+If the file shows multiple correlation solutions (e.g., EFA vs CFA, Model A vs Model B):
+- Extract only the solution clearly labeled as the main/final/preferred model.
+- If unclear, extract the first complete correlation matrix shown and explain uncertainty in "notes".
+
+Strict output constraints:
+- Output must be valid JSON only (no commentary outside JSON).
+- Use null for missing/unreported correlations.
+- Put any uncertainty, ambiguity, or “table continues / not fully visible” issues into the "notes" string.
+
+sample_id guidance:
+Use a short identifier derived from visible labels e.g.:
+"english", "french"
+"sample1", "sample2"
+"clinical", "nonclinical"
+If no label is visible, use "sample1".
+
+Now perform the task on the provided file and output JSON.

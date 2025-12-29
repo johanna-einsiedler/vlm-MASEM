@@ -1,0 +1,38 @@
+{
+  "records": [
+    {
+      "pubyear": 2000,
+      "country": "Portugal",
+      "continent": "Europe",
+      "lang": "Portuguese",
+      "pubtype": 1,
+      "n": 133,
+      "sex": 52.63,
+      "age": 35.62,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": 3,
+      "rot": null,
+      "source_sample_id": "sample1"
+    },
+    {
+      "pubyear": 2000,
+      "country": "Portugal",
+      "continent": "Europe",
+      "lang": "Portuguese",
+      "pubtype": 1,
+      "n": 298,
+      "sex": 53.36,
+      "age": 23.53,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": 3,
+      "rot": null,
+      "source_sample_id": "sample2"
+    }
+  ]
+}
