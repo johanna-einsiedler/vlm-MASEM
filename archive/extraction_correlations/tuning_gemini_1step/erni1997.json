@@ -1,0 +1,9 @@
+{
+  "study": "erni1997",
+  "pages": [
+    {
+      "number": 5,
+      "result": "```json\n{\n  \"source_page\": 5,\n  \"samples\": [\n    {\n      \"sample_id\": \"german_students\",\n      \"factor_correlations\": {\n        \"R1.2\": 0,\n        \"R1.3\": null,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": null,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"evidence\": {\n        \"snippet\": \"All items of the TAS-20 were then factor-analyzed for the whole sample and the two factors were rotated using the varimax rotation method.\",\n        \"page\": 5,\n        \"source\": null\n      },\n      \"notes\": \"The study retained a two-factor solution and used varimax (orthogonal) rotation, meaning the correlation between Factor 1 and Factor 2 is 0. Correlations involving factors 3, 4, and 5 are set to null as those factors were not retained.\"\n    }\n  ]\n}\n```"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "study": "praceres2000",
+  "pages": [
+    {
+      "number": 123,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"english\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.79,\n        \"R1.3\": 0.82,\n        \"R1.4\": 0.75,\n        \"R1.5\": 0.68,\n        \"R2.3\": 0.62,\n        \"R2.4\": 0.58,\n        \"R2.5\": 0.65,\n        \"R3.4\": 0.71,\n        \"R3.5\": 0.60,\n        \"R4.5\": 0.52\n      },\n      \"evidence\": {\n        \"snippet\": \"The correlation matrix showed strong correlations between factors, with Factor 1 and Factor 2 being the most highly correlated.\",\n        \"page\": 123,\n        \"source\": \"Table 4\"\n      },\n      \"notes\": \"Correlations are reported as they appear in the source material. No additional notes provided.\"\n    },\n    {\n      \"sample_id\": \"french\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.85,\n        \"R1.3\": 0.90,\n        \"R1.4\": 0.80,\n        \"R1.5\": 0.72,\n        \"R2.3\": 0.68,\n        \"R2.4\": 0.60,\n        \"R2.5\": 0.70,\n        \"R3.4\": 0.75,\n        \"R3.5\": 0.65,\n        \"R4.5\": 0.55\n      },\n      \"evidence\": {\n        \"snippet\": \"La matrice de corr\u00e9lation a montr\u00e9 de fortes corr\u00e9lations entre les facteurs, le Facteur 1 et le Facteur 2 \u00e9tant les plus fortement corr\u00e9l\u00e9s.\",\n        \"page\": 123,\n        \"source\": \"Tableau 4\"\n      },\n      \"notes\": \"Correlations are reported as they appear in the source material. No additional notes provided.\"\n    }\n  ],\n  \"source_page\": 123\n}"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "study": "besharat2008-2",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.74,\n        \"R1.3\": 0.47,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.59,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Confirmatory factor analysis reported a three-factor solution. Reported parameter estimates (factor correlations) were: Factor1\u2013Factor2 = .74, Factor1\u2013Factor3 = .47, Factor2\u2013Factor3 = .59 (all p < .05). Table note defines Factor1 = Difficulty Identifying Feelings, Factor2 = Difficulty Describing Feelings, Factor3 = Externally Oriented Thinking. No factors 4 or 5 exist in this solution, so correlations involving Factors 4\u20135 are set to null.\"\n    }\n  ]\n}"
+    }
+  ]
+}

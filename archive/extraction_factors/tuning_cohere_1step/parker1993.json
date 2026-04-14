@@ -1,0 +1,9 @@
+{
+  "study": "parker1993",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"string\",\n      \"factor_loadings\": {\n        \"F1.1\": number|null, \"F1.2\": number|null, ... \"F1.20\": number|null,\n        \"F2.1\": number|null, ... \"F2.20\": number|null,\n        \"F3.1\": number|null, ... \"F3.20\": number|null,\n        \"F4.1\": number|null, ... \"F4.20\": number|null,\n        \"F5.1\": number|null, ... \"F5.20\": number|null\n      },\n      \"evidence\": {\n        \"snippet\": \"string\",\n        \"page\": number|null,\n        \"source\": \"string|null\"\n      },\n      \"notes\": \"string\"\n    }\n  ],\n  \"source_page\": integer\n}"
+    }
+  ]
+}

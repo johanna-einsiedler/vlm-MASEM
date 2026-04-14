@@ -1,0 +1,9 @@
+{
+  "study": "wise2000",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.39,\n        \"R1.3\": 0.35,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.42,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Interfactor correlations extracted from Table 4 (Toronto Alexithymia Scale Interfactor Correlations: Promax rotation). Table lists values as integers with 100 on the diagonal (i.e., percentages); converted to correlations by dividing by 100. TAS-20 factors: 1=Identify, 2=Describe, 3=External. Only 3 factors reported for TAS-20, so correlations involving Factors 4\u20135 are set to null.\"\n    }\n  ]\n}"
+    }
+  ]
+}

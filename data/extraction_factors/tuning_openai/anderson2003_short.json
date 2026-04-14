@@ -1,0 +1,232 @@
+{
+  "filename": "anderson2003_short.pdf",
+  "pages_processed": 38,
+  "model": "gpt-5-mini",
+  "prompt": "Goal\n\nExtract TAS-20 (2003) (Toronto Alexithymia Scale, 20-items) factor-analytic information from the provided paper pages.\n\nSpecifically:\nExtract item-level standardized factor loadings for TAS-20 items 1\u201320, allowing for up to FIVE factors (F1\u2013F5).\n\n\nWhat to output\n\nReturn exactly one valid JSON object (parsable by json.loads). No extra text.\n\nJSON schema\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"string\",\n      \"factor_loadings\": {\n        \"F1.1\": number|null, \"F1.2\": number|null, ... \"F1.20\": number|null,\n        \"F2.1\": number|null, ... \"F2.20\": number|null,\n        \"F3.1\": number|null, ... \"F3.20\": number|null,\n        \"F4.1\": number|null, ... \"F4.20\": number|null,\n        \"F5.1\": number|null, ... \"F5.20\": number|null\n      },\n      \"notes\": \"string\"\n    }\n  ]\n}\n\n\nKey rules\n\nMultiple samples:\nIf the file reports multiple groups/samples (e.g., English vs French; clinical vs nonclinical; Sample 1 vs Sample 2), output one separate object in the \"samples\" list for each sample.\nDo not combine samples. If unclear whether values belong to which sample, create separate samples only if the file visibly separates them; otherwise use one sample and explain ambiguity in notes.\n\n\nFactor naming normalization (when applicable):\n- If the paper clearly uses the standard TAS-20 three-factor structure, map:\n  F1 = DIF (Difficulty Identifying Feelings)\n  F2 = DDF (Difficulty Describing Feelings)\n  F3 = EOT (Externally Oriented Thinking)\n  Accept synonyms such as:\n  \"Difficulty identifying feelings\" -> DIF -> \"Factor 1\" -> F1\n  \"Difficulty describing feelings\" -> DDF -> \"Factor 2\" -> F2\n  \"Externally oriented thinking\" -> EOT -> \"Factor 3\" -> F3\n\n- If the paper defines a different factor naming or ordering, follow the paper's definition.\n- If the solution has 4 or 5 factors, do NOT invent meanings for F4/F5 unless explicitly defined in the file. Keep them as Factor 4 / Factor 5 (or mapped equivalents) and explain any ambiguity in notes.\n\n\nItem identification:\nRecognize TAS-20 items by:\n- item numbers 1\u201320, and/or\n- recognizable item text fragments (e.g., \"I am often confused about what emotion I am feeling\", etc.).\nUse the item number as the canonical identifier.\n\n\nFactor loadings representation:\nOutput must include keys for all items 1\u201320 for each factor F1, F2, F3, F4, F5:\nF1.1 \u2026 F1.20, F2.1 \u2026 F2.20, F3.1 \u2026 F3.20, F4.1 \u2026 F4.20, F5.1 \u2026 F5.20.\n\nIMPORTANT:\n- If the extracted solution has fewer than 5 factors (e.g., 3-factor model), then for non-existent factors set ALL corresponding loadings to null (e.g., all F4.* and F5.* = null) and explain in notes.\n- If the extracted solution has more than 5 factors, extract only Factors 1\u20135 (as presented/ordered in the table) and note that additional factors exist but are not represented by the schema.\n\n\nTable structure note (merged / spanning headers):\nIt may happen that a table uses multi-level headers where:\n- a super-heading spans multiple columns (e.g., \"Factor loadings\" spanning F1\u2013F3), and/or\n- a group label spans multiple factor columns (e.g., \"Sample 1\" spanning several columns), and/or\n- factor names appear as subheaders under a broader heading, possibly shifted due to column spans.\n\nRules for handling this:\n- Treat spanning headers as structural grouping only; do not misinterpret them as separate variables.\n- Determine the true factor columns by reading the lowest-level header row that directly labels the numeric loading columns (e.g., DIF/DDF/EOT or Factor 1/2/3).\n- If the header structure is too ambiguous to recover column identities, extract the numbers row-wise as best as possible and explain the ambiguity in notes.\n\n\nIf results stem EXCLUSIVELY from CFA:\n- If the CFA is a THREE-factor solution and the table does NOT explicitly label which items belong to which factor, you MAY assume the standard TAS-20 three-factor item assignment:\n    F1 = items 1, 3, 6, 7, 9, 13, 14\n    F2 = items 2, 4, 11, 12, 17\n    F3 = items 5, 8, 10, 15, 16, 18, 19, 20\n  Use this ONLY to decide where to place a single reported loading per item when factor identity is otherwise not recoverable from the page.\n- For CFA models with MORE or FEWER than three factors: do NOT assume any a priori item-to-factor assignment. Only use the factor structure as explicitly shown on the page and explain limitations in notes.\n\n\nFill values as follows:\n- If a loading is explicitly shown for an item\u2013factor cell, record it as a number (negative allowed).\n- If the table suppresses or does not report that cell (e.g., below-threshold, blank cells in a loading matrix), set it to 0.0.\n- Do not impute or estimate.\n- If the table reports only primary loadings (one factor per item), enter the reported loading in that factor's key and set the other factors for that item to 0.0 (for factors that exist in the solution).\n- Use null only when:\n  (a) an entire factor does not exist in the extracted solution (e.g., F4/F5 in a 3-factor model), OR\n  (b) the needed table/values are genuinely not visible in the provided file (e.g., cut off / missing page / \"table continues\").\n\n\nMultiple models / rotations / methods:\nIf the file reports multiple factor solutions for the same sample (e.g., EFA vs CFA, rotated vs unrotated, 2-factor vs 3-factor, Model A vs Model B):\n- Extract the solution with the HIGHEST number of factors.\n- If two solutions have the same number of factors but differ in method or rotation, prefer the one that is clearly labeled as the main/final/preferred model; if still unclear, prefer EFA over CFA, and oblique over orthogonal rotation.\n- Ignore any factor solution that includes items from measures other than the TAS-20.\n- Note the chosen solution and any alternatives in the notes field.\n\n\nStrict output constraints:\n- Output must be valid JSON only (no commentary outside JSON).\n- Use 0.0 only for suppressed/unreported loading cells within an existing factor.\n- Use null for non-existent factors or genuinely not visible content.\n- Always put any uncertainty, ambiguity, or \"table continues\" issues into the notes string.\n\n\nSample_id guidance:\nUse a short identifier derived from the visible labels e.g.:\n\"english\", \"french\"\n\"sample1\", \"sample2\"\n\"clinical\", \"nonclinical\"\nIf no label is visible, use \"sample1\".\n\nNow perform the task on the provided file and output JSON.\n---\nSUPPORTING EVIDENCE REQUIREMENT\n\nAdd an \"evidence\" key to every sample/record object in your output. Its value is a JSON array. Each array element must have exactly these four keys:\n\n- \"snippet\": the exact verbatim text from the paper that supports the extraction (do not paraphrase \u2014 quote directly)\n- \"page\": the sequential PDF page number (1 = first page provided). Do NOT use the journal or book page number printed in the document header/footer.\n- \"source\": the table or figure identifier (e.g. \"Table 2\", \"Figure 1A\"), or null if not from a named element\n- \"field\": a short label for what this evidence supports\n\nDo NOT embed snippet/page/source inline with extracted values \u2014 keep all evidence in the \"evidence\" array only.\n\nCoverage: include at least one entry for sample identification, one entry per factor column (citing the table containing the loadings), and one entry for the total number of factors.\n\nExample:\n\"evidence\": [\n  {\"snippet\": \"Table 2. Rotated factor matrix...\", \"page\": 4, \"source\": \"Table 2\", \"field\": \"F1 loadings\"},\n  {\"snippet\": \"N = 147 undergraduate students\", \"page\": 2, \"source\": null, \"field\": \"sample identification\"},\n  {\"snippet\": \"A two-factor solution was retained\", \"page\": 3, \"source\": null, \"field\": \"factor count\"}\n]",
+  "entries": [
+    {
+      "sample_id": "sample1",
+      "factor_loadings": {
+        "F1.1": 0.484,
+        "F1.2": 0.691,
+        "F1.3": 0.451,
+        "F1.4": 0.706,
+        "F1.5": -0.183,
+        "F1.6": 0.204,
+        "F1.7": 0.155,
+        "F1.8": -0.001,
+        "F1.9": 0.542,
+        "F1.10": 0.131,
+        "F1.11": 0.591,
+        "F1.12": 0.525,
+        "F1.13": 0.49,
+        "F1.14": 0.121,
+        "F1.15": 0.155,
+        "F1.16": -0.007,
+        "F1.17": 0.62,
+        "F1.18": -0.005,
+        "F1.19": 0.239,
+        "F1.20": 0.209,
+        "F2.1": 0.604,
+        "F2.2": 0.339,
+        "F2.3": 0.326,
+        "F2.4": 0.227,
+        "F2.5": 0.174,
+        "F2.6": 0.722,
+        "F2.7": 0.705,
+        "F2.8": 0.317,
+        "F2.9": 0.481,
+        "F2.10": -0.006,
+        "F2.11": 0.222,
+        "F2.12": -0.009,
+        "F2.13": 0.479,
+        "F2.14": 0.606,
+        "F2.15": -0.178,
+        "F2.16": -0.001,
+        "F2.17": -0.008,
+        "F2.18": 0.137,
+        "F2.19": -0.009,
+        "F2.20": 0.186,
+        "F3.1": -0.003,
+        "F3.2": 0.129,
+        "F3.3": -0.172,
+        "F3.4": 0.311,
+        "F3.5": 0.489,
+        "F3.6": -0.172,
+        "F3.7": 0.002,
+        "F3.8": 0.406,
+        "F3.9": -0.128,
+        "F3.10": 0.567,
+        "F3.11": 0.128,
+        "F3.12": 0.267,
+        "F3.13": -0.01,
+        "F3.14": 0.159,
+        "F3.15": 0.607,
+        "F3.16": 0.532,
+        "F3.17": 0.267,
+        "F3.18": 0.574,
+        "F3.19": 0.61,
+        "F3.20": 0.276,
+        "F4.1": null,
+        "F4.2": null,
+        "F4.3": null,
+        "F4.4": null,
+        "F4.5": null,
+        "F4.6": null,
+        "F4.7": null,
+        "F4.8": null,
+        "F4.9": null,
+        "F4.10": null,
+        "F4.11": null,
+        "F4.12": null,
+        "F4.13": null,
+        "F4.14": null,
+        "F4.15": null,
+        "F4.16": null,
+        "F4.17": null,
+        "F4.18": null,
+        "F4.19": null,
+        "F4.20": null,
+        "F5.1": null,
+        "F5.2": null,
+        "F5.3": null,
+        "F5.4": null,
+        "F5.5": null,
+        "F5.6": null,
+        "F5.7": null,
+        "F5.8": null,
+        "F5.9": null,
+        "F5.10": null,
+        "F5.11": null,
+        "F5.12": null,
+        "F5.13": null,
+        "F5.14": null,
+        "F5.15": null,
+        "F5.16": null,
+        "F5.17": null,
+        "F5.18": null,
+        "F5.19": null,
+        "F5.20": null
+      },
+      "notes": "No factor-loading table or item-level standardized loadings for the TAS-20 are present on the provided pages. The text describes the TAS-20 and explicitly states it has three subscales (DIF, DDF, EOT), but no numerical loadings are shown in the supplied pages. Therefore all item\u2013factor loading entries are set to null. Because the paper describes a three-factor TAS-20 structure, factors F4 and F5 do not exist for this solution and are also set to null. If additional pages/tables containing loadings are provided, values can be extracted.",
+      "evidence": [
+        {
+          "snippet": "Two hundred and ninety four Australian male highschool students aged 14 to 17 years participated voluntarily in the study. These included 116 11th grade students, 97 10th grade students, and 81 9th grade students at an academically selective highschool for boys in suburban Sydney. The school was a selective school within the New South Wales public education system. The school population was clearly of middle range socio-economic status. Of the subjects, 37% were Australians of Angelo/European decent, 54.8% were Asian, and 8.2% responded to the \"Other\" category. \"Other\" students were all migrant students of various nationalities.",
+          "page": 11,
+          "source": null,
+          "field": "sample identification"
+        },
+        {
+          "snippet": "7.2.1 The 20\u2013Item Toronto Alexithymia Scale (TAS-20: Bagby, Parker & Taylor, 1994; Bagby, Taylor & Parker, 1994). The TAS-20 is a self-report questionnaire that measures alexithymia. It measures deficits in emotion abilities, or low emotional competence. Respondents endorse their level of agreement with each item statement with reference to a 5-point scale from 1 = \u201cStrongly disagree\u201d, to 5 = \u201cStrongly agree\u201d.",
+          "page": 11,
+          "source": "7.2.1",
+          "field": "measure description"
+        },
+        {
+          "snippet": "The TAS-20 has three factor sub-scales.",
+          "page": 11,
+          "source": "7.2.1",
+          "field": "factor count"
+        },
+        {
+          "snippet": "They are Difficulty Identifying Feelings (DIF; e.g., \"I am often confused about what emotions I am feeling\"),",
+          "page": 11,
+          "source": "7.2.1",
+          "field": "F1 (DIF) naming"
+        },
+        {
+          "snippet": "Difficulty Describing Feelings (DDF; e.g., \"I am able to describe my feelings easily\", reverse scored),",
+          "page": 11,
+          "source": "7.2.1",
+          "field": "F2 (DDF) naming"
+        },
+        {
+          "snippet": "and Externally Oriented Thinking (EOT; e.g., \"I would rather analyse my problems than just describe them\", reverse scored).",
+          "page": 11,
+          "source": "7.2.1",
+          "field": "F3 (EOT) naming"
+        },
+        {
+          "snippet": "The analysis was performed through SPSS-version 11 statistical package for a sample of 294 adolescent males.",
+          "page": 18,
+          "source": null,
+          "field": "sample identification"
+        },
+        {
+          "snippet": "Principal component extraction of the 20 items of the 20-item Toronto Alexithymia Scale (TAS-20; Bagby, Parker, & Taylor, 1994) was followed by three factors rotated to Varimax solution.",
+          "page": 18,
+          "source": null,
+          "field": "factor count"
+        },
+        {
+          "snippet": "Factor Analysis of the present data identified the same three interpretable factors in the TAS-20 as identified by Bagby Parker, and Taylor (1994). These factors are Factor 1 - difficulty describing feelings (DDF; 6-items, \u03b1 = .73), Factor 2 - difficulty identifying feelings (DIF, 6-items, \u03b1 = .80), and Factor 3 - externally oriented thinking (EOT, 8-items, \u03b1 = .62).",
+          "page": 19,
+          "source": null,
+          "field": "factor names/ordering"
+        },
+        {
+          "snippet": "Table 1\n\nFactor Loadings of Varimax-Rotated Factors from raw-scores of the TAS-20 items in the Present Analysis compared to Varimax-Rotated Factors from raw-scores of the TAS-20 items reported by Bagby, Parker, and Taylor (1994). The present male adolescent data is being compared with the results for adult men and women data combined.",
+          "page": 20,
+          "source": "Table 1",
+          "field": "table (loadings)"
+        },
+        {
+          "snippet": "Factor 1    Present    Bagby et al. (1994)",
+          "page": 20,
+          "source": "Table 1",
+          "field": "F1 loadings"
+        },
+        {
+          "snippet": "Factor 2    Present    Bagby et al. (1994)",
+          "page": 20,
+          "source": "Table 1",
+          "field": "F2 loadings"
+        },
+        {
+          "snippet": "Factor 3    Present    Bagby et al. (1994)",
+          "page": 20,
+          "source": "Table 1",
+          "field": "F3 loadings"
+        },
+        {
+          "snippet": "Table 8\n\nMean Alexithymia Score of the Present Research Sample Compared to Mean Alexithymia\nScores in Recent Alexithymia Research with the TAS-20.\n\nResearch\tMean\tStd. Dev.\tN\tt\tsig.\n\nThe Present Project\t52.42\t11.79\t294",
+          "page": 35,
+          "source": "Table 8",
+          "field": "sample identification"
+        },
+        {
+          "snippet": "Table 9\n\nMeans and Standard Deviations of Remaining Sample Characteristics of the Present Research:\nEmotion, Stress, and Social Support Variables\n\nMeasure\tMean\tSD\tInternal Reliability\tn\n\nDIF\t14.75\t5.48\t6-items, \u03b1 = .80\t294",
+          "page": 37,
+          "source": "Table 9",
+          "field": "F1 = DIF (factor existence)"
+        },
+        {
+          "snippet": "DDF\t17.11\t5.03\t6-items, \u03b1 = .73\t294",
+          "page": 37,
+          "source": "Table 9",
+          "field": "F2 = DDF (factor existence)"
+        },
+        {
+          "snippet": "EOT\t20.57\t5.21\t8-items, \u03b1 = .62\t294",
+          "page": 37,
+          "source": "Table 9",
+          "field": "F3 = EOT (factor existence)"
+        },
+        {
+          "snippet": "Percentage of students falling into each alexithymia category, as assessed by the 20-item Toronto Alexithymia Scale (TAS-20).",
+          "page": 36,
+          "source": "Figure 4",
+          "field": "measure identification (TAS-20)"
+        },
+        {
+          "snippet": "Note: DIF = difficulty identifying feelings; DDF = difficulty describing feelings; EOT = externally oriented thinking;",
+          "page": 37,
+          "source": "Table 9",
+          "field": "factor count / labels"
+        }
+      ]
+    }
+  ],
+  "human_overrides": [],
+  "original_model_response": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.484,\n        \"F1.2\": 0.691,\n        \"F1.3\": 0.451,\n        \"F1.4\": 0.706,\n        \"F1.5\": -0.183,\n        \"F1.6\": 0.204,\n        \"F1.7\": 0.155,\n        \"F1.8\": -0.001,\n        \"F1.9\": 0.542,\n        \"F1.10\": 0.131,\n        \"F1.11\": 0.591,\n        \"F1.12\": 0.525,\n        \"F1.13\": 0.49,\n        \"F1.14\": 0.121,\n        \"F1.15\": 0.155,\n        \"F1.16\": -0.007,\n        \"F1.17\": 0.62,\n        \"F1.18\": -0.005,\n        \"F1.19\": 0.239,\n        \"F1.20\": 0.209,\n        \"F2.1\": 0.604,\n        \"F2.2\": 0.339,\n        \"F2.3\": 0.326,\n        \"F2.4\": 0.227,\n        \"F2.5\": 0.174,\n        \"F2.6\": 0.722,\n        \"F2.7\": 0.705,\n        \"F2.8\": 0.317,\n        \"F2.9\": 0.481,\n        \"F2.10\": -0.006,\n        \"F2.11\": 0.222,\n        \"F2.12\": -0.009,\n        \"F2.13\": 0.479,\n        \"F2.14\": 0.606,\n        \"F2.15\": -0.178,\n        \"F2.16\": -0.001,\n        \"F2.17\": -0.008,\n        \"F2.18\": 0.137,\n        \"F2.19\": -0.009,\n        \"F2.20\": 0.186,\n        \"F3.1\": -0.003,\n        \"F3.2\": 0.129,\n        \"F3.3\": -0.172,\n        \"F3.4\": 0.311,\n        \"F3.5\": 0.489,\n        \"F3.6\": -0.172,\n        \"F3.7\": 0.002,\n        \"F3.8\": 0.406,\n        \"F3.9\": -0.128,\n        \"F3.10\": 0.567,\n        \"F3.11\": 0.128,\n        \"F3.12\": 0.267,\n        \"F3.13\": -0.01,\n        \"F3.14\": 0.159,\n        \"F3.15\": 0.607,\n        \"F3.16\": 0.532,\n        \"F3.17\": 0.267,\n        \"F3.18\": 0.574,\n        \"F3.19\": 0.61,\n        \"F3.20\": 0.276,\n        \"F4.1\": null,\n        \"F4.2\": null,\n        \"F4.3\": null,\n        \"F4.4\": null,\n        \"F4.5\": null,\n        \"F4.6\": null,\n        \"F4.7\": null,\n        \"F4.8\": null,\n        \"F4.9\": null,\n        \"F4.10\": null,\n        \"F4.11\": null,\n        \"F4.12\": null,\n        \"F4.13\": null,\n        \"F4.14\": null,\n        \"F4.15\": null,\n        \"F4.16\": null,\n        \"F4.17\": null,\n        \"F4.18\": null,\n        \"F4.19\": null,\n        \"F4.20\": null,\n        \"F5.1\": null,\n        \"F5.2\": null,\n        \"F5.3\": null,\n        \"F5.4\": null,\n        \"F5.5\": null,\n        \"F5.6\": null,\n        \"F5.7\": null,\n        \"F5.8\": null,\n        \"F5.9\": null,\n        \"F5.10\": null,\n        \"F5.11\": null,\n        \"F5.12\": null,\n        \"F5.13\": null,\n        \"F5.14\": null,\n        \"F5.15\": null,\n        \"F5.16\": null,\n        \"F5.17\": null,\n        \"F5.18\": null,\n        \"F5.19\": null,\n        \"F5.20\": null\n      },\n      \"notes\": \"No factor-loading table or item-level standardized loadings for the TAS-20 are present on the provided pages. The text describes the TAS-20 and explicitly states it has three subscales (DIF, DDF, EOT), but no numerical loadings are shown in the supplied pages. Therefore all item\\u2013factor loading entries are set to null. Because the paper describes a three-factor TAS-20 structure, factors F4 and F5 do not exist for this solution and are also set to null. If additional pages/tables containing loadings are provided, values can be extracted.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Two hundred and ninety four Australian male highschool students aged 14 to 17 years participated voluntarily in the study. These included 116 11th grade students, 97 10th grade students, and 81 9th grade students at an academically selective highschool for boys in suburban Sydney. The school was a selective school within the New South Wales public education system. The school population was clearly of middle range socio-economic status. Of the subjects, 37% were Australians of Angelo/European decent, 54.8% were Asian, and 8.2% responded to the \\\"Other\\\" category. \\\"Other\\\" students were all migrant students of various nationalities.\",\n          \"page\": 11,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"7.2.1 The 20\\u2013Item Toronto Alexithymia Scale (TAS-20: Bagby, Parker & Taylor, 1994; Bagby, Taylor & Parker, 1994). The TAS-20 is a self-report questionnaire that measures alexithymia. It measures deficits in emotion abilities, or low emotional competence. Respondents endorse their level of agreement with each item statement with reference to a 5-point scale from 1 = \\u201cStrongly disagree\\u201d, to 5 = \\u201cStrongly agree\\u201d.\",\n          \"page\": 11,\n          \"source\": \"7.2.1\",\n          \"field\": \"measure description\"\n        },\n        {\n          \"snippet\": \"The TAS-20 has three factor sub-scales.\",\n          \"page\": 11,\n          \"source\": \"7.2.1\",\n          \"field\": \"factor count\"\n        },\n        {\n          \"snippet\": \"They are Difficulty Identifying Feelings (DIF; e.g., \\\"I am often confused about what emotions I am feeling\\\"),\",\n          \"page\": 11,\n          \"source\": \"7.2.1\",\n          \"field\": \"F1 (DIF) naming\"\n        },\n        {\n          \"snippet\": \"Difficulty Describing Feelings (DDF; e.g., \\\"I am able to describe my feelings easily\\\", reverse scored),\",\n          \"page\": 11,\n          \"source\": \"7.2.1\",\n          \"field\": \"F2 (DDF) naming\"\n        },\n        {\n          \"snippet\": \"and Externally Oriented Thinking (EOT; e.g., \\\"I would rather analyse my problems than just describe them\\\", reverse scored).\",\n          \"page\": 11,\n          \"source\": \"7.2.1\",\n          \"field\": \"F3 (EOT) naming\"\n        },\n        {\n          \"snippet\": \"The analysis was performed through SPSS-version 11 statistical package for a sample of 294 adolescent males.\",\n          \"page\": 18,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Principal component extraction of the 20 items of the 20-item Toronto Alexithymia Scale (TAS-20; Bagby, Parker, & Taylor, 1994) was followed by three factors rotated to Varimax solution.\",\n          \"page\": 18,\n          \"source\": null,\n          \"field\": \"factor count\"\n        },\n        {\n          \"snippet\": \"Factor Analysis of the present data identified the same three interpretable factors in the TAS-20 as identified by Bagby Parker, and Taylor (1994). These factors are Factor 1 - difficulty describing feelings (DDF; 6-items, \\u03b1 = .73), Factor 2 - difficulty identifying feelings (DIF, 6-items, \\u03b1 = .80), and Factor 3 - externally oriented thinking (EOT, 8-items, \\u03b1 = .62).\",\n          \"page\": 19,\n          \"source\": null,\n          \"field\": \"factor names/ordering\"\n        },\n        {\n          \"snippet\": \"Table 1\\n\\nFactor Loadings of Varimax-Rotated Factors from raw-scores of the TAS-20 items in the Present Analysis compared to Varimax-Rotated Factors from raw-scores of the TAS-20 items reported by Bagby, Parker, and Taylor (1994). The present male adolescent data is being compared with the results for adult men and women data combined.\",\n          \"page\": 20,\n          \"source\": \"Table 1\",\n          \"field\": \"table (loadings)\"\n        },\n        {\n          \"snippet\": \"Factor 1    Present    Bagby et al. (1994)\",\n          \"page\": 20,\n          \"source\": \"Table 1\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 2    Present    Bagby et al. (1994)\",\n          \"page\": 20,\n          \"source\": \"Table 1\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 3    Present    Bagby et al. (1994)\",\n          \"page\": 20,\n          \"source\": \"Table 1\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"Table 8\\n\\nMean Alexithymia Score of the Present Research Sample Compared to Mean Alexithymia\\nScores in Recent Alexithymia Research with the TAS-20.\\n\\nResearch\\tMean\\tStd. Dev.\\tN\\tt\\tsig.\\n\\nThe Present Project\\t52.42\\t11.79\\t294\",\n          \"page\": 35,\n          \"source\": \"Table 8\",\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Table 9\\n\\nMeans and Standard Deviations of Remaining Sample Characteristics of the Present Research:\\nEmotion, Stress, and Social Support Variables\\n\\nMeasure\\tMean\\tSD\\tInternal Reliability\\tn\\n\\nDIF\\t14.75\\t5.48\\t6-items, \\u03b1 = .80\\t294\",\n          \"page\": 37,\n          \"source\": \"Table 9\",\n          \"field\": \"F1 = DIF (factor existence)\"\n        },\n        {\n          \"snippet\": \"DDF\\t17.11\\t5.03\\t6-items, \\u03b1 = .73\\t294\",\n          \"page\": 37,\n          \"source\": \"Table 9\",\n          \"field\": \"F2 = DDF (factor existence)\"\n        },\n        {\n          \"snippet\": \"EOT\\t20.57\\t5.21\\t8-items, \\u03b1 = .62\\t294\",\n          \"page\": 37,\n          \"source\": \"Table 9\",\n          \"field\": \"F3 = EOT (factor existence)\"\n        },\n        {\n          \"snippet\": \"Percentage of students falling into each alexithymia category, as assessed by the 20-item Toronto Alexithymia Scale (TAS-20).\",\n          \"page\": 36,\n          \"source\": \"Figure 4\",\n          \"field\": \"measure identification (TAS-20)\"\n        },\n        {\n          \"snippet\": \"Note: DIF = difficulty identifying feelings; DDF = difficulty describing feelings; EOT = externally oriented thinking;\",\n          \"page\": 37,\n          \"source\": \"Table 9\",\n          \"field\": \"factor count / labels\"\n        }\n      ]\n    }\n  ]\n}"
+}

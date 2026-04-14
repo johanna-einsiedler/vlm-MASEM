@@ -1,0 +1,82 @@
+```json
+{
+  "records": [
+    {
+      "pubyear": null,
+      "country": "South Korea",
+      "continent": "Asia",
+      "lang": "Korean",
+      "pubtype": 1,
+      "n": 408,
+      "sex": 33.33,
+      "age": 23.27,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": null,
+        "country": {
+          "snippet": "408 students from the Kyungpook National University College of Medicine participated in this study. Inferred country: South Korea.",
+          "page": 3,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: South Korea → Asia.",
+          "page": 3,
+          "source": null
+        },
+        "lang": {
+          "snippet": "Korean versions of the 20-item Toronto Alexithymia scale",
+          "page": 1,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Inferred from document structure (Abstract, Introduction, Methods, Results, Discussion).",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "408 students from the Kyungpook National University College of Medicine participated in this study.",
+          "page": 3,
+          "source": null
+        },
+        "sex": {
+          "snippet": "272 participants were men and 136 participants were women. Computed as 136/(272+136) = 33.33%.",
+          "page": 3,
+          "source": null
+        },
+        "age": {
+          "snippet": "The average age of men was 23.4 years (SD=2.3) and the average age of women was 23.0 (SD=3.4). Computed subsample-size weighted mean: 23.27.",
+          "page": 3,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "408 students from the Kyungpook National University College of Medicine participated in this study.",
+          "page": 3,
+          "source": null
+        },
+        "res": {
+          "snippet": "Each item is rated on a 5 point Likert scale.",
+          "page": 3,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "Both TAS-20K(2003) and S-TAS replicated three-factor structures",
+          "page": 1,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "We used confirmatory factor analysis to compare validity.",
+          "page": 1,
+          "source": null
+        },
+        "met": null,
+        "rot": null
+      }
+    }
+  ]
+}
+```

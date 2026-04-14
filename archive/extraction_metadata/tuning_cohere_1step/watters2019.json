@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "pubyear": 2015,
+      "country": "USA",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 312,
+      "sex": null,
+      "age": null,
+      "clinical": null,
+      "res": null,
+      "nfac": 3,
+      "cfa": null,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": {"snippet": "2015", "page": 1, "source": "APA"},
+        "country": {"snippet": "USA", "page": 1, "source": "APA"},
+        "continent": {"snippet": "North America", "page": 1, "source": "APA"},
+        "lang": {"snippet": "English", "page": 1, "source": "APA"},
+        "pubtype": {"snippet": "Journal Article", "page": 1, "source": "APA"},
+        "n": {"snippet": "312", "page": 1, "source": "APA"},
+        "sex": {"snippet": null, "page": null, "source": null},
+        "age": {"snippet": null, "page": null, "source": null},
+        "clinical": {"snippet": null, "page": null, "source": null},
+        "res": {"snippet": null, "page": null, "source": null},
+        "nfac": {"snippet": "3", "page": 1, "source": "APA"},
+        "cfa": {"snippet": null, "page": null, "source": null},
+        "met": {"snippet": null, "page": null, "source": null},
+        "rot": {"snippet": null, "page": null, "source": null}
+      }
+    }
+  ]
+}

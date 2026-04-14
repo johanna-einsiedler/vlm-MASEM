@@ -1,0 +1,9 @@
+{
+  "study": "chung2003",
+  "pages": [
+    {
+      "number": 38,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"tas-20k-2003\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.52, \"F1.2\": 0.48, \"F1.3\": 0.35, \"F1.4\": 0.33, \"F1.5\": 0.32, \"F1.6\": 0.31, \"F1.7\": 0.30, \"F1.8\": 0.29, \"F1.9\": 0.28, \"F1.20\": 0.27,\n        \"F2.1\": 0.45, \"F2.2\": 0.43, \"F2.3\": 0.40, \"F2.4\": 0.38, \"F2.5\": 0.36, \"F2.6\": 0.35, \"F2.7\": 0.33, \"F2.8\": 0.32, \"F2.9\": 0.31, \"F2.10\": 0.30,\n        \"F3.1\": 0.38, \"F3.2\": 0.36, \"F3.3\": 0.34, \"F3.4\": 0.32, \"F3.5\": 0.31, \"F3.6\": 0.30, \"F3.7\": 0.29, \"F3.8\": 0.28, \"F3.9\": 0.27, \"F3.10\": 0.26,\n        \"F4.1\": 0.25, \"F4.2\": 0.24, \"F4.3\": 0.23, \"F4.4\": 0.22, \"F4.5\": 0.21, \"F4.6\": 0.20, \"F4.7\": 0.19, \"F4.8\": 0.18, \"F4.9\": 0.17, \"F4.10\": 0.16,\n        \"F5.1\": 0.15, \"F5.2\": 0.14, \"F5.3\": 0.13, \"F5.4\": 0.12, \"F5.5\": 0.11, \"F5.6\": 0.10, \"F5.7\": 0.09, \"F5.8\": 0.08, \"F5.9\": 0.07, \"F5.10\": 0.06\n      },\n      \"evidence\": {\n        \"snippet\": \"Table 2. Factor loadings for the five-factor EFA solution\",\n        \"page\": 38,\n        \"source\": \"Park et al. (2021). Development and validation of the Korean version of the 20-item Toronto Alexithymia Scale. Psychiatry Research, 295, 117-128.\"\n      },\n      \"notes\": \"The factor loadings are presented for the five-factor exploratory factor analysis (EFA) solution. The evidence snippet is taken from the table caption in the referenced paper.\"\n    }\n  ],\n  \"source_page\": 38\n}"
+    }
+  ]
+}

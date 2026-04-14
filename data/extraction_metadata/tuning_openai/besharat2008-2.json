@@ -1,0 +1,113 @@
+{
+  "filename": "besharat2008-2.pdf",
+  "pages_processed": 12,
+  "model": "gpt-5-mini",
+  "prompt": "Goal\n\nExtract study- and sample-level metadata from the provided paper pages, using previously extracted factor-analytic results (factor loadings + factor correlations) provided as JSON input.\n\nYour task is to output one clean metadata record per sample/group reported in the paper.\n\n\nInputs\n\nYou will be given two inputs:\n\nA) EXTRACTED_RESULTS_JSON\n- A JSON object containing extracted factor loadings and/or factor correlations.\n- It includes one or more samples, each with a sample_id field.\n\nB) Paper pages (images)\n- The full paper as page images.\n\n\nWhat to output\n\nReturn exactly one valid JSON object (parsable by json.loads). No extra text.\n\nJSON schema\n{\n  \"records\": [\n    {\n      \"pubyear\": number,\n      \"country\": \"string|null\",\n      \"continent\": \"string|null\",\n      \"lang\": \"string|null\",\n      \"pubtype\": number|null,\n      \"n\": number|null,\n      \"sex\": number|null,\n      \"age\": number|null,\n      \"clinical\": number|null,\n      \"res\": number|null,\n      \"nfac\": number|null,\n      \"cfa\": number|null,\n      \"met\": number|null,\n      \"rot\": number|null,\n      \"notes\": \"string\"\n    }\n  ]\n}\n\n\nVariables (must follow exactly)\n\npubyear:\n- Publication year (<= 2020 per spec).\n- Extract from the paper (preferred) or from citation header. If not visible, null.\n\ncountry:\n- Country of origin of participants (open text).\n- Only fill if explicitly stated or clearly inferable from recruitment location (e.g., \"German university students in Berlin\" -> Germany).\n- If origin is unclear but author affiliation is mainly United States, use USA.\n- If unclear, null.\n\ncontinent:\n- Continent of origin of participants (open text).\n- If country is available, map the country to the continent.\n- If country is null and continent is explicitly stated, fill continent; otherwise null.\n\nlang:\n- Language of questionnaire (open text), e.g., \"German\", \"English\", \"French\".\n- Use explicit statements like \"German version\", \"translated into \u2026\", etc. If not stated, null.\n- If multiple versions are used, match language to the sample_id from EXTRACTED_RESULTS_JSON.\n- If no language is explicitly mentioned but the sample originates from an English-speaking country, use English.\n\npubtype:\n- Publication type:\n  1 = article in journal\n  2 = book\n  3 = thesis (master/phd)\n  4 = presentation/proceedings\n  5 = other\n- Determine from paper context; if uncertain, null and explain in notes.\n\nn:\n- Sample size (integer).\n- Usually given in the abstract or method section following statements like \"sample is comprised \u2026\", \"sample consists of\u2026\", \"administered to\u2026\"\n- If multiple groups, use the n corresponding to the record's sample_id.\n- If not clearly matched, set null and describe ambiguity in notes.\n\nsex:\n- Percentage of women in sample (%) in [0, 100].\n- Extract if reported. If only counts are reported, compute percentage if n is known: ratio = women/(women + men); mention computation in notes.\n- If not reported, null.\n\nage:\n- Mean age (years).\n- Usually given in the abstract or method section.\n- If mean age is reported separately for gender groups, compute subsample-size weighted mean.\n- Prefer mean; if only a range/median is given, set null and note.\n\nclinical:\n- 0 = no (non-clinical)\n- 1 = yes (clinical patients)\n- 2 = mixed\n- Determine from sample description; if unclear, null.\n\nres:\n- Number of response options (Likert points), integer >= 5.\n- Extract from TAS-20 response format description (e.g., \"5-point Likert scale\" -> 5).\n- If there is no mention of adaptation or translation, use 5.\n- Otherwise, null.\n\nnfac:\n- Number of extracted factors (1\u201310).\n- Determine from the factor-analytic model described in the paper AND/OR from EXTRACTED_RESULTS_JSON (e.g., if loadings include F1..F3 -> 3).\n- If inconsistent across models, prefer the main/final/preferred solution; explain in notes.\n\ncfa:\n- Factor-analytic type:\n  0 = EFA\n  1 = CFA\n- Search for expressions like \"exploratory factor analysis\" (EFA) or \"confirmatory factor analysis\" (CFA).\n- Determine based on the method corresponding to the extracted results.\n- If both EFA and CFA exist but extracted results correspond to one, code that one and note both in notes.\n\nmet:\n- Extraction/estimation method:\n  1 = principal component\n  2 = principal axis\n  3 = maximum likelihood\n  4 = other\n- Search for expressions like \"principal component\" (PCA), \"principal axis\" (PAF), or \"maximum likelihood\" (ML).\n- Use the method used for the extracted solution. If not stated, null.\n- If \"other\", briefly name it in notes (e.g., \"ULS\", \"WLSMV\", \"GLS\", \"Bayesian\", etc.).\n\nrot:\n- Rotation method:\n  1 = orthogonal (e.g., varimax)\n  2 = oblique (e.g., oblimin, promax)\n- Search for terms such as \"varimax,\" \"quartimax,\" \"equamax,\" \"orthomax,\" and \"parsimax\" \u2192 orthogonal.\n- Search for terms such as \"promax,\" \"oblimin,\" \"quartimin,\" \"biquartimin,\" and \"geomin\" \u2192 oblique.\n- If all factor correlations are zero, use 1.\n\n\nMatching rules: linking metadata to extracted samples\n- Use sample_id labels inside EXTRACTED_RESULTS_JSON (e.g., \"sample1\", \"clinical\", \"english\", \"french\") to find the corresponding group in the paper.\n- Match by explicit headings, group descriptors, or n values if uniquely identifiable.\n- Output one record per sample in the same order as EXTRACTED_RESULTS_JSON.\n\n\nStrict rules\n\n- Do not invent values.\n- If a value is not explicitly stated, cannot be reasonably inferred from the paper text, and no default is specified above, use null.\n- The output must be JSON only, no markdown, no commentary.\n\n\nNow perform the task:\n\n=== EXTRACTED FACTOR LOADINGS ===\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"substance_users\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.63,\n        \"F1.2\": 0.0,\n        \"F1.3\": 0.52,\n        \"F1.4\": 0.0,\n        \"F1.5\": 0.0,\n        \"F1.6\": 0.64,\n        \"F1.7\": 0.6,\n        \"F1.8\": 0.0,\n        \"F1.9\": 0.76,\n        \"F1.10\": 0.0,\n        \"F1.11\": 0.0,\n        \"F1.12\": 0.0,\n        \"F1.13\": 0.71,\n        \"F1.14\": 0.62,\n        \"F1.15\": 0.0,\n        \"F1.16\": 0.0,\n        \"F1.17\": 0.0,\n        \"F1.18\": 0.0,\n        \"F1.19\": 0.0,\n        \"F1.20\": 0.0,\n        \"F2.1\": 0.0,\n        \"F2.2\": 0.75,\n        \"F2.3\": 0.0,\n        \"F2.4\": 0.62,\n        \"F2.5\": 0.0,\n        \"F2.6\": 0.0,\n        \"F2.7\": 0.0,\n        \"F2.8\": 0.0,\n        \"F2.9\": 0.0,\n        \"F2.10\": 0.0,\n        \"F2.11\": 0.59,\n        \"F2.12\": 0.48,\n        \"F2.13\": 0.0,\n        \"F2.14\": 0.0,\n        \"F2.15\": 0.0,\n        \"F2.16\": 0.0,\n        \"F2.17\": 0.64,\n        \"F2.18\": 0.0,\n        \"F2.19\": 0.0,\n        \"F2.20\": 0.0,\n        \"F3.1\": 0.0,\n        \"F3.2\": 0.0,\n        \"F3.3\": 0.0,\n        \"F3.4\": 0.0,\n        \"F3.5\": 0.38,\n        \"F3.6\": 0.0,\n        \"F3.7\": 0.0,\n        \"F3.8\": 0.64,\n        \"F3.9\": 0.0,\n        \"F3.10\": 0.68,\n        \"F3.11\": 0.0,\n        \"F3.12\": 0.0,\n        \"F3.13\": 0.0,\n        \"F3.14\": 0.0,\n        \"F3.15\": 0.72,\n        \"F3.16\": 0.35,\n        \"F3.17\": 0.0,\n        \"F3.18\": 0.57,\n        \"F3.19\": 0.65,\n        \"F3.20\": 0.32,\n        \"F4.1\": null,\n        \"F4.2\": null,\n        \"F4.3\": null,\n        \"F4.4\": null,\n        \"F4.5\": null,\n        \"F4.6\": null,\n        \"F4.7\": null,\n        \"F4.8\": null,\n        \"F4.9\": null,\n        \"F4.10\": null,\n        \"F4.11\": null,\n        \"F4.12\": null,\n        \"F4.13\": null,\n        \"F4.14\": null,\n        \"F4.15\": null,\n        \"F4.16\": null,\n        \"F4.17\": null,\n        \"F4.18\": null,\n        \"F4.19\": null,\n        \"F4.20\": null,\n        \"F5.1\": null,\n        \"F5.2\": null,\n        \"F5.3\": null,\n        \"F5.4\": null,\n        \"F5.5\": null,\n        \"F5.6\": null,\n        \"F5.7\": null,\n        \"F5.8\": null,\n        \"F5.9\": null,\n        \"F5.10\": null,\n        \"F5.11\": null,\n        \"F5.12\": null,\n        \"F5.13\": null,\n        \"F5.14\": null,\n        \"F5.15\": null,\n        \"F5.16\": null,\n        \"F5.17\": null,\n        \"F5.18\": null,\n        \"F5.19\": null,\n        \"F5.20\": null\n      },\n      \"notes\": \"Table 1 reports a confirmatory factor analysis (CFA) three-factor solution (Difficulty Identifying Feelings = F1; Difficulty Describing Feelings = F2; Externally Oriented Thinking = F3) for the Farsi TAS-20 (N = 321). The table displays only the primary (reported) standardized loadings for each item on its factor; following the instructions, these primary loadings were entered in the corresponding F1\u2013F3 cells and all other existing factor cells (within F1\u2013F3) for that item were set to 0.0. Because the reported solution is a three-factor CFA, F4.* and F5.* do not exist and are set to null.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Using confirmatory factor analysis, the three-factor structure of the Farsi TAS-20 was tested for the entire sample.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"factor count\"\n        },\n        {\n          \"snippet\": \"TABLE 1\\nPARAMETER ESTIMATES (PE) FROM CONFIRMATORY FACTOR ANALYSIS (N = 321)\",\n          \"page\": 5,\n          \"source\": \"Table 1\",\n          \"field\": \"table title\"\n        },\n        {\n          \"snippet\": \"Difficulty Identifying\\nFeelings\\n\\nItem    PE*\\n1      .63\\n3      .52\\n6      .64\\n7      .60\\n9      .76\\n13     .71\\n14     .62\",\n          \"page\": 5,\n          \"source\": \"Table 1\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Difficulty Describing\\nFeelings\\n\\nItem   PE*\\n2     .75\\n4     .62\\n11    .59\\n12    .48\\n17    .64\",\n          \"page\": 5,\n          \"source\": \"Table 1\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Externally Oriented\\nThinking\\n\\nItem   PE*\\n5     .38\\n8     .64\\n10    .68\\n15    .72\\n16    .35\\n18    .57\\n19    .65\\n20    .32\",\n          \"page\": 5,\n          \"source\": \"Table 1\",\n          \"field\": \"F3 loadings\"\n        }\n      ]\n    }\n  ]\n}\n\n=== EXTRACTED CORRELATIONS ===\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.74,\n        \"R1.3\": 0.47,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.59,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"The paper reports a three-factor solution (Factors 1-3). Correlations are reported for Factors 1\u20133 only: 1\u20132 = .74, 1\u20133 = .47, 2\u20133 = .59 (all p < .05). Because fewer than five factors are reported, correlations involving Factors 4 and 5 are set to null per schema. Factor name mapping is provided in Table 3. Sample is 321 outpatients (substance-using patients).\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated. The patients had to meet DSM\u2013IV\u2013TR (American Psychiatric Association, 2000) criteria for substance-use disorders.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"The parameter estimates between Factors 1 and 2 was .74 (p < .05), between Factors 1 and 3 was .47 (p < .05), and between Factors 2 and 3 was .59 (p < .05).\",\n          \"page\": 5,\n          \"source\": null,\n          \"field\": \"factor correlations\"\n        },\n        {\n          \"snippet\": \"Note.\u2014Factor 1 = Difficulty Identifying Feelings; Factor 2 = Difficulty Describing Feelings; Factor 3 = Externally Oriented Thinking.\",\n          \"page\": 7,\n          \"source\": \"Table 3\",\n          \"field\": \"factor mapping\"\n        }\n      ]\n    }\n  ]\n}\n\nNow look at the paper pages below and extract the metadata.\n---\nSUPPORTING EVIDENCE REQUIREMENT\n\nAdd an \"evidence\" key to every sample/record object in your output. Its value is a JSON array. Each array element must have exactly these four keys:\n\n- \"snippet\": the exact verbatim text from the paper that supports the extraction (do not paraphrase \u2014 quote directly)\n- \"page\": the sequential PDF page number (1 = first page provided). Do NOT use the journal or book page number printed in the document header/footer.\n- \"source\": the table or figure identifier (e.g. \"Table 2\", \"Figure 1A\"), or null if not from a named element\n- \"field\": a short label for what this evidence supports\n\nDo NOT embed snippet/page/source inline with extracted values \u2014 keep all evidence in the \"evidence\" array only.\n\nCoverage: include one evidence entry per extracted field (e.g. n, age, country, rot). Use the field name as the \"field\" value. If a field is null because the information is absent, include the entry with snippet/source/page all set to null.\n\nExample:\n\"evidence\": [\n  {\"snippet\": \"The sample consisted of 312 undergraduate students\", \"page\": 2, \"source\": null, \"field\": \"n\"},\n  {\"snippet\": \"mean age was 21.3 years\", \"page\": 2, \"source\": null, \"field\": \"age\"},\n  {\"snippet\": \"promax rotation\", \"page\": 3, \"source\": null, \"field\": \"rot\"}\n]",
+  "entries": [
+    {
+      "pubyear": 2008,
+      "country": "Iran",
+      "continent": "Asia",
+      "lang": "Farsi",
+      "pubtype": 1,
+      "n": 321,
+      "sex": 41.7,
+      "age": 35.3,
+      "clinical": 1,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "notes": "Sample = 321 outpatient substance-use patients in Tehran who completed the Farsi TAS-20. Percent women computed from counts (134/321 = 41.7%). Confirmatory factor analysis (three-factor) reported. Estimation method not specified in text; rotation not applicable/not reported.",
+      "evidence": [
+        {
+          "snippet": "Psychological Reports, 2008, 102, 259-270. \u00a9 Psychological Reports 2008",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "The sample was recruited to participate from three outpatient clinics in Tehran.",
+          "page": 4,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "The sample was recruited to participate from three outpatient clinics in Tehran.",
+          "page": 4,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "All were asked to complete the Farsi version of the Toronto Alexithymia Scale-20, the Emotional Intelligence Scale, and The Mental Health Inventory.",
+          "page": 1,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "Psychological Reports, 2008, 102, 259-270.",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": "Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated.",
+          "page": 2,
+          "source": null,
+          "field": "n"
+        },
+        {
+          "snippet": "Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated.",
+          "page": 2,
+          "source": null,
+          "field": "sex"
+        },
+        {
+          "snippet": "The mean age of the patients was 35.3 yr. (SD = 9.2) with a range of 18 to 60 years.",
+          "page": 3,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated. The patients had to meet DSM--IV--TR (American Psychiatric Association, 2000) criteria for substance-use disorders.",
+          "page": 2,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": "Each item is rated on a 5-point Likert scale with anchors of 1: Strongly disagree and 5: Strongly agree, and five items are negatively keyed.",
+          "page": 3,
+          "source": null,
+          "field": "res"
+        },
+        {
+          "snippet": "Using confirmatory factor analysis, the three-factor structure of the Farsi TAS--20 was tested for the entire sample.",
+          "page": 5,
+          "source": null,
+          "field": "nfac"
+        },
+        {
+          "snippet": "Using confirmatory factor analysis, the three-factor structure of the Farsi TAS--20 was tested for the entire sample.",
+          "page": 5,
+          "source": null,
+          "field": "cfa"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "rot"
+        }
+      ]
+    }
+  ],
+  "human_overrides": [],
+  "original_model_response": "{\n  \"records\": [\n    {\n      \"pubyear\": 2008,\n      \"country\": \"Iran\",\n      \"continent\": \"Asia\",\n      \"lang\": \"Farsi\",\n      \"pubtype\": 1,\n      \"n\": 321,\n      \"sex\": 41.7,\n      \"age\": 35.3,\n      \"clinical\": 1,\n      \"res\": 5,\n      \"nfac\": 3,\n      \"cfa\": 1,\n      \"met\": null,\n      \"rot\": null,\n      \"notes\": \"Sample = 321 outpatient substance-use patients in Tehran who completed the Farsi TAS-20. Percent women computed from counts (134/321 = 41.7%). Confirmatory factor analysis (three-factor) reported. Estimation method not specified in text; rotation not applicable/not reported.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Psychological Reports, 2008, 102, 259-270. \\u00a9 Psychological Reports 2008\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"The sample was recruited to participate from three outpatient clinics in Tehran.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"The sample was recruited to participate from three outpatient clinics in Tehran.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"All were asked to complete the Farsi version of the Toronto Alexithymia Scale-20, the Emotional Intelligence Scale, and The Mental Health Inventory.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"Psychological Reports, 2008, 102, 259-270.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": \"Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": \"Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": \"The mean age of the patients was 35.3 yr. (SD = 9.2) with a range of 18 to 60 years.\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated. The patients had to meet DSM--IV--TR (American Psychiatric Association, 2000) criteria for substance-use disorders.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": \"Each item is rated on a 5-point Likert scale with anchors of 1: Strongly disagree and 5: Strongly agree, and five items are negatively keyed.\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"Using confirmatory factor analysis, the three-factor structure of the Farsi TAS--20 was tested for the entire sample.\",\n          \"page\": 5,\n          \"source\": null,\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Using confirmatory factor analysis, the three-factor structure of the Farsi TAS--20 was tested for the entire sample.\",\n          \"page\": 5,\n          \"source\": null,\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"rot\"\n        }\n      ]\n    }\n  ]\n}"
+}

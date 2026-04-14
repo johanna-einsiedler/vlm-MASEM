@@ -1,0 +1,20 @@
+{
+  "records": [
+    {
+      "pubyear": 2000,
+      "country": "USA",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 257,
+      "sex": 52.9,
+      "age": 42.8,
+      "clinical": 1,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 0,
+      "met": 2,
+      "rot": 2
+    }
+  ]
+}

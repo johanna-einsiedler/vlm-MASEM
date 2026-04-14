@@ -1,0 +1,94 @@
+```json
+{
+  "records": [
+    {
+      "pubyear": 2008,
+      "country": "Iran",
+      "continent": "Asia",
+      "lang": "Farsi",
+      "pubtype": 1,
+      "n": 321,
+      "sex": 41.74,
+      "age": 35.3,
+      "clinical": 1,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Psychological Reports, 2008, 102, 259-270.",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "The sample was recruited to participate from three outpatient clinics in Tehran.",
+          "page": 4,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Iran → Asia",
+          "page": 4,
+          "source": null
+        },
+        "lang": {
+          "snippet": "ASSESSING RELIABILITY AND VALIDITY OF THE FARSI VERSION OF THE TORONTO ALEXITHYMIA SCALE",
+          "page": 1,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Psychological Reports, 2008, 102, 259-270.",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated.",
+          "page": 2,
+          "source": null
+        },
+        "sex": {
+          "snippet": "Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated.",
+          "page": 2,
+          "source": null
+        },
+        "age": {
+          "snippet": "The mean age of the patients was 35.3 yr. (SD=9.2) with a range of 18 to 60 years.",
+          "page": 3,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Three hundred and twenty-one outpatients (187 men, 134 women) with substance-use disorders participated.",
+          "page": 2,
+          "source": null
+        },
+        "res": {
+          "snippet": "Each item is rated on a 5-point Likert scale with anchors of 1: Strongly disagree and 5: Strongly agree",
+          "page": 3,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "Using confirmatory factor analysis, the three-factor structure of the Farsi TAS–20 was tested for the entire sample.",
+          "page": 5,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Using confirmatory factor analysis, the three-factor structure of the Farsi TAS–20 was tested for the entire sample.",
+          "page": 5,
+          "source": null
+        },
+        "met": {
+          "snippet": null,
+          "page": null,
+          "source": null
+        },
+        "rot": {
+          "snippet": null,
+          "page": null,
+          "source": null
+        }
+      }
+    }
+  ]
+}
+```

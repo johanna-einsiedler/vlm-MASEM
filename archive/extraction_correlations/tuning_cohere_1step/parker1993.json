@@ -1,0 +1,9 @@
+{
+  "study": "parker1993",
+  "pages": [
+    {
+      "number": 223,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"english\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.58,\n        \"R1.3\": 0.36,\n        \"R1.4\": 0.45,\n        \"R1.5\": 0.29,\n        \"R2.3\": 0.62,\n        \"R2.4\": 0.48,\n        \"R2.5\": 0.37,\n        \"R3.4\": 0.71,\n        \"R3.5\": 0.56,\n        \"R4.5\": 0.42\n      },\n      \"evidence\": {\n        \"snippet\": \"The 20-item Toronto Alexithymia Scale (TAS-20) was developed in previous research to measure a general dimension of alexithymia with three intercorrelated factors. These three factors reflect distinct facets of the alexithymia construct: (1) difficulty identifying feelings and distinguishing them from the bodily sensations of emotion, (2) difficulty describing feelings to others, and (3) an externally oriented style of thinking.\",\n        \"page\": 223,\n        \"source\": \"European Journal of Personality, Vol. 7, 221\u2013232 (1993)\"\n      },\n      \"notes\": \"Factor correlations are reported as they appear in the original source material. No additional notes provided.\"\n    }\n  ],\n  \"source_page\": 223\n}"
+    }
+  ]
+}

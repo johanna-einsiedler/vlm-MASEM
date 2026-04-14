@@ -1,0 +1,9 @@
+{
+  "study": "watters2019",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"french\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.84,\n        \"R1.3\": 0.58,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.7,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Paper reports three TAS-20 factors: DIF, DDF, EOT (Table 3 columns). Factor numbering mapped as Factor1=DIF, Factor2=DDF, Factor3=EOT based on table order. Only latent correlations among these three factors are reported (French [English]: DIF-DDF = .84 [.84], DIF-EOT = .58 [.58], DDF-EOT = .70 [.66]). Factors 4 and 5 do not exist in the reported model, so correlations involving them are set to null.\"\n    },\n    {\n      \"sample_id\": \"english\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.84,\n        \"R1.3\": 0.58,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.66,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Paper reports three TAS-20 factors: DIF, DDF, EOT (Table 3 columns). Factor numbering mapped as Factor1=DIF, Factor2=DDF, Factor3=EOT based on table order. Only latent correlations among these three factors are reported (French [English]: DIF-DDF = .84 [.84], DIF-EOT = .58 [.58], DDF-EOT = .70 [.66]). Factors 4 and 5 do not exist in the reported model, so correlations involving them are set to null.\"\n    }\n  ]\n}"
+    }
+  ]
+}

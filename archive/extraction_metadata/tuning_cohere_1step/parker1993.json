@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "pubyear": 1993,
+      "country": "USA",
+      "continent": "North America",
+      "lang": "en",
+      "pubtype": 1,
+      "n": 306,
+      "sex": 0,
+      "age": 28,
+      "clinical": 0,
+      "res": 0,
+      "nfac": 3,
+      "cfa": 0,
+      "met": 1,
+      "rot": 1,
+      "evidence": {
+        "pubyear": {"snippet": "1993", "page": 223, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "country": {"snippet": "USA", "page": 223, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "continent": {"snippet": "North America", "page": 223, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "lang": {"snippet": "en", "page": 223, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "pubtype": {"snippet": "article in journal", "page": 223, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "n": {"snippet": "306", "page": 224, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "sex": {"snippet": "unknown", "page": 224, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "age": {"snippet": "28.0 years", "page": 224, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "clinical": {"snippet": "non-clinical", "page": 224, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "res": {"snippet": "0", "page": 224, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "nfac": {"snippet": "3", "page": 225, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "cfa": {"snippet": "0", "page": 225, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "met": {"snippet": "principal component", "page": 225, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"},
+        "rot": {"snippet": "varimax", "page": 225, "source": "European Journal of Personality, Vol. 7, 221–232 (1993)"}
+      }
+    }
+  ]
+}

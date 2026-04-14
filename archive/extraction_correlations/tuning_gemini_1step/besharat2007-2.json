@@ -1,0 +1,9 @@
+{
+  "study": "besharat2007-2",
+  "pages": [
+    {
+      "number": 6,
+      "result": "```json\n{\n  \"source_page\": 6,\n  \"samples\": [\n    {\n      \"sample_id\": \"iranian_students\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.76,\n        \"R1.3\": 0.44,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.55,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"evidence\": {\n        \"snippet\": \"The correlation between Factors 1 and 2 was .76 (p < .05), between Factors 1 and 3 .44 (p < .05), and between Factors 2 and 3 .55 (p < .05).\",\n        \"page\": 6,\n        \"source\": null\n      },\n      \"notes\": \"The TAS-20 model evaluated has 3 factors. Correlations involving non-existent factors 4 and 5 are set to null.\"\n    }\n  ]\n}\n```"
+    }
+  ]
+}

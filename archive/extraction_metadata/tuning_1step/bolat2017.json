@@ -1,0 +1,52 @@
+{
+  "records": [
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": 948,
+      "sex": 54,
+      "age": 14.54,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null
+    },
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null
+    },
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null
+    }
+  ]
+}

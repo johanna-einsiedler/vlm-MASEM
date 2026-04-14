@@ -1,0 +1,52 @@
+{
+  "filename": "erni1997.pdf",
+  "pages_processed": 6,
+  "model": "gpt-5-mini",
+  "prompt": "Goal\n\nExtract TAS-20 (2003) (Toronto Alexithymia Scale, 20-items) factor correlation information from the provided paper pages.\n\nSpecifically:\nExtract factor correlations between latent factors (e.g., Factor 1\u2013Factor 5) as reported in the file (correlation matrix / \"Phi\" matrix / latent factor correlations).\n\n\nWhat to output\n\nReturn exactly one valid JSON object (parsable by json.loads). No extra text.\n\nJSON schema\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"string\",\n      \"factor_correlations\": {\n        \"R1.2\": number,\n        \"R1.3\": number,\n        \"R1.4\": number,\n        \"R1.5\": number,\n        \"R2.3\": number,\n        \"R2.4\": number,\n        \"R2.5\": number,\n        \"R3.4\": number,\n        \"R3.5\": number,\n        \"R4.5\": number\n      },\n      \"notes\": \"string\"\n    }\n  ]\n}\n\n\nKey rules\n\nPlace to find the information:\n- In the results section, usually the words \u201ecorrel*\" (correlated/correlation) and \u201efactors\" are close together, in combination with number values [-1; 1]. There may be an \u201er\" to indicate the correlation.\n- Factor correlations may appear as either (a) the lower/upper triangle with nfac*(nfac-1)/2 unique correlations or (b) the full symmetric correlation matrix with nfac\u00b2 entries (nfac\u00b2 - nfac off-diagonal, often shown as 2*nfac\u00b7(nfac-1)/2), where nfac is the number of factors.\n\nMultiple samples:\nIf the file reports multiple groups/samples (e.g., language groups, clinical vs nonclinical, Sample 1 vs Sample 2), output one separate object in the \"samples\" list per sample.\nDo not combine samples.\nIf unclear which values belong to which sample, create separate samples only if the file visibly separates them; otherwise use one sample and explain ambiguity in \"notes\".\n\nCorrelation key normalization:\nRepresent each unique factor-pair correlation using the key format:\n- R<i>.<j> where i < j\nExample: correlation(Factor 1, Factor 2) -> R1.2\nAssume correlations are symmetric; do not output both R1.2 and R2.1. Only output the i<j form.\n\nFactor numbering:\nUse the factor numbering as shown in the file (Factor 1, Factor 2, \u2026).\nIf the file uses names (e.g., DIF, DDF, EOT), map them to factor numbers only if the file explicitly defines the mapping; otherwise keep the factor indices implied by the table headings and explain any ambiguity in \"notes\".\n\nRequired keys:\nFor each sample, always include all keys listed in the schema:\nR1.2, R1.3, R1.4, R1.5, R2.3, R2.4, R2.5, R3.4, R3.5, R4.5\n\nIf the file has fewer than 5 factors, set correlations involving non-existent factors to null and explain in \"notes\".\nIf the file has more than 5 factors, extract at least the correlations among Factors 1\u20135 as above, and note that additional factor correlations exist but were not extracted due to schema constraints.\n\nFilling values:\n- If the file has fewer than 5 factors, set correlations involving non-existent factors to null.\n- If the correlation is not reported / suppressed / not visible / table cut off, set it to null.\n- Search for terms such as \"varimax,\" \"quartimax,\" \"equamax,\" \"orthomax,\" and \"parsimax\" for the rotation method used, set ALL correlation values to 0 instead of null.\n  (Important: only use 0 when correlations are confirmed to not exist; otherwise use null for missing/unreported values.)\n\nMultiple models / methods:\nIf the file shows multiple correlation solutions (e.g., EFA vs CFA, Model A vs Model B):\n- Extract only the solution clearly labeled as the main/final/preferred model.\n- If unclear, extract the first complete correlation matrix shown and explain uncertainty in \"notes\".\n\nStrict output constraints:\n- Output must be valid JSON only (no commentary outside JSON).\n- Use null for missing/unreported correlations.\n- Put any uncertainty, ambiguity, or \"table continues / not fully visible\" issues into the \"notes\" string.\n\nsample_id guidance:\nUse a short identifier derived from visible labels e.g.:\n\"english\", \"french\"\n\"sample1\", \"sample2\"\n\"clinical\", \"nonclinical\"\nIf no label is visible, use \"sample1\".\n\nNow perform the task on the provided file and output JSON.\n---\nSUPPORTING EVIDENCE REQUIREMENT\n\nAdd an \"evidence\" key to every sample/record object in your output. Its value is a JSON array. Each array element must have exactly these four keys:\n\n- \"snippet\": the exact verbatim text from the paper that supports the extraction (do not paraphrase \u2014 quote directly)\n- \"page\": the sequential PDF page number (1 = first page provided). Do NOT use the journal or book page number printed in the document header/footer.\n- \"source\": the table or figure identifier (e.g. \"Table 2\", \"Figure 1A\"), or null if not from a named element\n- \"field\": a short label for what this evidence supports\n\nDo NOT embed snippet/page/source inline with extracted values \u2014 keep all evidence in the \"evidence\" array only.\n\nCoverage: include at least one entry for sample identification and one entry citing where the factor correlations were found.\n\nExample:\n\"evidence\": [\n  {\"snippet\": \"Table 3. Factor correlation matrix (Phi)\", \"page\": 5, \"source\": \"Table 3\", \"field\": \"factor correlations\"},\n  {\"snippet\": \"N = 147 undergraduate students\", \"page\": 2, \"source\": null, \"field\": \"sample identification\"}\n]",
+  "entries": [
+    {
+      "sample_id": "sample1",
+      "factor_correlations": {
+        "R1.2": 0,
+        "R1.3": null,
+        "R1.4": null,
+        "R1.5": null,
+        "R2.3": null,
+        "R2.4": null,
+        "R2.5": null,
+        "R3.4": null,
+        "R3.5": null,
+        "R4.5": null
+      },
+      "notes": "The paper reports a two-factor solution for the TAS-20 and states the factors were rotated using an orthogonal varimax rotation; therefore the correlation between Factor 1 and Factor 2 is treated as 0. No additional factors (3\u20135) were extracted in this study, so correlations involving non-existent factors are set to null. No explicit factor (Phi) correlation matrix or numeric inter-factor correlations are printed in the paper.",
+      "evidence": [
+        {
+          "snippet": "The sample consisted of 277 students of the University of Zurich, Faculty of Medicine.",
+          "page": 2,
+          "source": null,
+          "field": "sample identification"
+        },
+        {
+          "snippet": "After their extraction the factors were rotated using the varimax procedure.",
+          "page": 2,
+          "source": null,
+          "field": "rotation method"
+        },
+        {
+          "snippet": "All items of the TAS-20 were then factor-analyzed for the whole sample and the two factors were rotated using the varimax rotation method. The two-factor solution accounted for 35.2% of the total variance; factor 1 for 22% and factor 2 for 13.2%.",
+          "page": 5,
+          "source": null,
+          "field": "factor correlations"
+        },
+        {
+          "snippet": "Table 2. Factor structure of the German version of the TAS-20",
+          "page": 4,
+          "source": "Table 2",
+          "field": "factor loadings"
+        }
+      ]
+    }
+  ],
+  "human_overrides": [],
+  "original_model_response": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0,\n        \"R1.3\": null,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": null,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"The paper reports a two-factor solution for the TAS-20 and states the factors were rotated using an orthogonal varimax rotation; therefore the correlation between Factor 1 and Factor 2 is treated as 0. No additional factors (3\u20135) were extracted in this study, so correlations involving non-existent factors are set to null. No explicit factor (Phi) correlation matrix or numeric inter-factor correlations are printed in the paper.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"The sample consisted of 277 students of the University of Zurich, Faculty of Medicine.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"After their extraction the factors were rotated using the varimax procedure.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"rotation method\"\n        },\n        {\n          \"snippet\": \"All items of the TAS-20 were then factor-analyzed for the whole sample and the two factors were rotated using the varimax rotation method. The two-factor solution accounted for 35.2% of the total variance; factor 1 for 22% and factor 2 for 13.2%.\",\n          \"page\": 5,\n          \"source\": null,\n          \"field\": \"factor correlations\"\n        },\n        {\n          \"snippet\": \"Table 2. Factor structure of the German version of the TAS-20\",\n          \"page\": 4,\n          \"source\": \"Table 2\",\n          \"field\": \"factor loadings\"\n        }\n      ]\n    }\n  ]\n}"
+}

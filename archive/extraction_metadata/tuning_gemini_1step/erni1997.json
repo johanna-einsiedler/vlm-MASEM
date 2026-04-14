@@ -1,0 +1,94 @@
+```json
+{
+  "records": [
+    {
+      "pubyear": 1997,
+      "country": "Switzerland",
+      "continent": "Europe",
+      "lang": "German",
+      "pubtype": 1,
+      "n": 277,
+      "sex": 49.6,
+      "age": 24.3,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 2,
+      "cfa": 0,
+      "met": 1,
+      "rot": 1,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Psychopathology 1997;30:335–340",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "The sample consisted of 277 students of the University of Zurich, Faculty of Medicine.",
+          "page": 2,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Switzerland → Europe",
+          "page": 2,
+          "source": null
+        },
+        "lang": {
+          "snippet": "The translation of the TAS-20 into German was accomplished by the two authors",
+          "page": 2,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Psychopathology 1997;30:335–340",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "The sample consisted of 277 students of the University of Zurich, Faculty of Medicine.",
+          "page": 2,
+          "source": null
+        },
+        "sex": {
+          "snippet": "129 (49.6)",
+          "page": 3,
+          "source": "Table 1"
+        },
+        "age": {
+          "snippet": "24.3 ± 3.0",
+          "page": 3,
+          "source": "Table 1"
+        },
+        "clinical": {
+          "snippet": "The sample consisted of 277 students of the University of Zurich, Faculty of Medicine.",
+          "page": 2,
+          "source": null
+        },
+        "res": {
+          "snippet": "Each item is rated on a five-point Likert scale",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "The factor analysis yielded a two-factor solution",
+          "page": 1,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "A principal components analysis of the 20 items of the TAS-20 was carried out.",
+          "page": 2,
+          "source": null
+        },
+        "met": {
+          "snippet": "A principal components analysis of the 20 items of the TAS-20 was carried out.",
+          "page": 2,
+          "source": null
+        },
+        "rot": {
+          "snippet": "After their extraction the factors were rotated using the varimax procedure.",
+          "page": 2,
+          "source": null
+        }
+      }
+    }
+  ]
+}
+```

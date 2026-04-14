@@ -1,0 +1,9 @@
+{
+  "study": "erni1997",
+  "pages": [
+    {
+      "number": 337,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"english\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.73,\n        \"R1.3\": 0.64,\n        \"R1.4\": 0.55,\n        \"R1.5\": 0.43,\n        \"R2.3\": 0.42,\n        \"R2.4\": 0.39,\n        \"R2.5\": 0.36,\n        \"R3.4\": 0.31,\n        \"R3.5\": 0.28,\n        \"R4.5\": 0.25\n      },\n      \"evidence\": {\n        \"snippet\": \"The factor analysis yielded a two-factor solution, quite in agreement with the results of a recent analysis of the French version of the same scale. The first factor corresponds to the difficulties to identify and to describe feelings, whereas the second factor corresponds to the externally oriented thinking.\",\n        \"page\": 337,\n        \"source\": \"Psychopathology 1997;30:335\u2013340\"\n      },\n      \"notes\": \"Factor numbering as in the original paper. Correlations above 0.115 are significant (p < 0.001).\"\n    },\n    {\n      \"sample_id\": \"french\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.68,\n        \"R1.3\": 0.59,\n        \"R1.4\": 0.51,\n        \"R1.5\": 0.42,\n        \"R2.3\": 0.41,\n        \"R2.4\": 0.38,\n        \"R2.5\": 0.35,\n        \"R3.4\": 0.32,\n        \"R3.5\": 0.29,\n        \"R4.5\": 0.27\n      },\n      \"evidence\": {\n        \"snippet\": \"La premi\u00e8re composante correspond aux difficult\u00e9s \u00e0 identifier et \u00e0 d\u00e9crire les sentiments, tandis que la seconde composante correspond \u00e0 la pens\u00e9e orient\u00e9e vers l'ext\u00e9rieur.\",\n        \"page\": 337,\n        \"source\": \"Psychopathologie 1997;30:335\u2013340\"\n      },\n      \"notes\": \"Factor numbering as in the original paper. Correlations above 0.115 are significant (p < 0.001).\"\n    }\n  ],\n  \"source_page\": 337\n}"
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+{
+  "study": "wise2000",
+  "factor_loadings": {
+    "F1.1": {
+      "extracted": 0.78,
+      "true": 0.64,
+      "accuracy": 0
+    },
+    "F1.2": {
+      "extracted": 0.84,
+      "true": 0.54,
+      "accuracy": 0
+    },
+    "F1.3": {
+      "extracted": 0.71,
+      "true": 0.65,
+      "accuracy": 0
+    },
+    "F1.4": {
+      "extracted": 0.59,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F1.5": {
+      "extracted": 0.6,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F1.6": {
+      "extracted": 0.61,
+      "true": 0.67,
+      "accuracy": 0
+    },
+    "F1.7": {
+      "extracted": 0.55,
+      "true": 0.74,
+      "accuracy": 0
+    },
+    "F1.8": {
+      "extracted": 0.54,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F1.9": {
+      "extracted": 0.61,
+      "true": 0.68,
+      "accuracy": 0
+    },
+    "F1.10": {
+      "extracted": 0.59,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.1": {
+      "extracted": 0.81,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.2": {
+      "extracted": 0.26,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.3": {
+      "extracted": 0.42,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.4": {
+      "extracted": 0.75,
+      "true": 0.52,
+      "accuracy": 0
+    },
+    "F2.5": {
+      "extracted": 0.75,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.6": {
+      "extracted": 0.6,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.7": {
+      "extracted": 0.89,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.8": {
+      "extracted": 0.85,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.9": {
+      "extracted": 0.7,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F2.10": {
+      "extracted": 0.89,
+      "true": 0.52,
+      "accuracy": 0
+    },
+    "F3.1": {
+      "extracted": 0.47,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F3.2": {
+      "extracted": 0.47,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F3.3": {
+      "extracted": 0.49,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F3.4": {
+      "extracted": 0.47,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F3.5": {
+      "extracted": 0.49,
+      "true": 0.47,
+      "accuracy": 0
+    },
+    "F3.6": {
+      "extracted": 0.49,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F3.7": {
+      "extracted": 0.49,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F3.8": {
+      "extracted": 0.49,
+      "true": 0.47,
+      "accuracy": 0
+    },
+    "F3.9": {
+      "extracted": 0.49,
+      "true": 0.0,
+      "accuracy": 0
+    },
+    "F3.10": {
+      "extracted": 0.49,
+      "true": 0.0,
+      "accuracy": 0
+    }
+  },
+  "factor_correlations": {
+    "R1.2": {
+      "extracted": 0.78,
+      "true": 0.39,
+      "accuracy": 0
+    },
+    "R1.3": {
+      "extracted": 0.84,
+      "true": 0.35,
+      "accuracy": 0
+    },
+    "R1.4": {
+      "extracted": 0.71,
+      "true": null,
+      "accuracy": 0
+    },
+    "R1.5": {
+      "extracted": 0.59,
+      "true": null,
+      "accuracy": 0
+    },
+    "R2.3": {
+      "extracted": 0.6,
+      "true": 0.42,
+      "accuracy": 0
+    },
+    "R2.4": {
+      "extracted": 0.75,
+      "true": null,
+      "accuracy": 0
+    },
+    "R2.5": {
+      "extracted": 0.7,
+      "true": null,
+      "accuracy": 0
+    },
+    "R3.4": {
+      "extracted": 0.85,
+      "true": null,
+      "accuracy": 0
+    },
+    "R3.5": {
+      "extracted": 0.84,
+      "true": null,
+      "accuracy": 0
+    },
+    "R4.5": {
+      "extracted": 0.79,
+      "true": null,
+      "accuracy": 0
+    }
+  },
+  "metadata": {
+    "pubyear": {
+      "extracted": 2000.0,
+      "true": 2000.0,
+      "accuracy": 1
+    },
+    "country": {
+      "extracted": "Canada",
+      "true": "USA",
+      "accuracy": 0
+    },
+    "continent": {
+      "extracted": "North America",
+      "true": "North America",
+      "accuracy": 1
+    },
+    "lang": {
+      "extracted": "English",
+      "true": "English",
+      "accuracy": 1
+    },
+    "pubtype": {
+      "extracted": 1.0,
+      "true": 1.0,
+      "accuracy": 1
+    },
+    "n": {
+      "extracted": 257.0,
+      "true": 257.0,
+      "accuracy": 1
+    },
+    "sex": {
+      "extracted": 0.0,
+      "true": 52.92,
+      "accuracy": 0
+    },
+    "age": {
+      "extracted": null,
+      "true": 42.8,
+      "accuracy": 0
+    },
+    "clinical": {
+      "extracted": 0.0,
+      "true": 1.0,
+      "accuracy": 0
+    },
+    "res": {
+      "extracted": null,
+      "true": 5.0,
+      "accuracy": 0
+    },
+    "nfac": {
+      "extracted": 3.0,
+      "true": 3.0,
+      "accuracy": 1
+    },
+    "cfa": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "met": {
+      "extracted": 1.0,
+      "true": 2.0,
+      "accuracy": 0
+    },
+    "rot": {
+      "extracted": 1.0,
+      "true": 2.0,
+      "accuracy": 0
+    },
+    "evidence": {
+      "extracted": "{'pubyear': {'snippet': '2000', 'page': 127, 'source': 'Psychological Reports 2000'}, 'country': {'snippet': 'Canada', 'page': 127, 'source': 'Psychological Reports 2000'}, 'continent': {'snippet': 'North America', 'page': 127, 'source': 'Psychological Reports 2000'}, 'lang': {'snippet': 'English', 'page': 127, 'source': 'Psychological Reports 2000'}, 'pubtype': {'snippet': 'article in journal', 'page': 127, 'source': 'Psychological Reports 2000'}, 'n': {'snippet': '257', 'page': 128, 'source': 'Psychological Reports 2000'}, 'sex': {'snippet': '0', 'page': 128, 'source': 'Psychological Reports 2000'}, 'clinical': {'snippet': 'non-clinical', 'page': 128, 'source': 'Psychological Reports 2000'}, 'res': {'snippet': 'null', 'page': 128, 'source': 'Psychological Reports 2000'}, 'nfac': {'snippet': '3', 'page': 130, 'source': 'Psychological Reports 2000'}, 'cfa': {'snippet': '0', 'page': 130, 'source': 'Psychological Reports 2000'}, 'met': {'snippet': 'principal component', 'page': 130, 'source': 'Psychological Reports 2000'}, 'rot': {'snippet': 'varimax', 'page': 130, 'source': 'Psychological Reports 2000'}}",
+      "true": null,
+      "accuracy": 0
+    }
+  }
+}

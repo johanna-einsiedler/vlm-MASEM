@@ -1,0 +1,94 @@
+```json
+{
+  "records": [
+    {
+      "pubyear": 2000,
+      "country": "USA",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 257,
+      "sex": 52.92,
+      "age": 42.8,
+      "clinical": 1,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 0,
+      "met": 2,
+      "rot": 2,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Psychological Reports, 2000, 87, 127-132.",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "Inova Fairfax Hospital, 3300 Gallows Road, Falls Church, VA 22042-3300.",
+          "page": 1,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: USA → North America",
+          "page": 1,
+          "source": null
+        },
+        "lang": {
+          "snippet": "Inferred from country: USA → English",
+          "page": 1,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Psychological Reports, 2000, 87, 127-132.",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "The study sample comprised 257 psychiatric outpatients",
+          "page": 1,
+          "source": null
+        },
+        "sex": {
+          "snippet": "There were 121 men and 136 women.",
+          "page": 1,
+          "source": null
+        },
+        "age": {
+          "snippet": "The average age of the total sample was 42.8 yr",
+          "page": 2,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "The study sample comprised 257 psychiatric outpatients",
+          "page": 1,
+          "source": null
+        },
+        "res": {
+          "snippet": "Inferred default: 5",
+          "page": null,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "Factor analysis indicated a three-factor solution for both scales",
+          "page": 3,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Principal axis factoring with a varimax prerotation, followed by a final promax rotation was employed",
+          "page": 2,
+          "source": null
+        },
+        "met": {
+          "snippet": "Principal axis factoring with a varimax prerotation, followed by a final promax rotation was employed",
+          "page": 2,
+          "source": null
+        },
+        "rot": {
+          "snippet": "Principal axis factoring with a varimax prerotation, followed by a final promax rotation was employed",
+          "page": 2,
+          "source": null
+        }
+      }
+    }
+  ]
+}
+```

@@ -5,3 +5,9 @@ data/parsed_data/
 /data/data_raw
 _archive/
 **/_archive*/
+
+# Together API results — excluded from tracking
+data/extraction_factors/*_together*/
+data/extraction_correlations/*_together*/
+data/extraction_metadata/*_together*/
+data/evaluation/*_together*/

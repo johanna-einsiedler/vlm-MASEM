@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "pubyear": 2019,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": "French",
+      "pubtype": 1,
+      "n": 5160,
+      "sex": 14,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 4,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2
+    },
+    {
+      "pubyear": 2019,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 12706,
+      "sex": 16,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 4,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "study": "bolat2017",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"total_sample\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.68,\n        \"R1.3\": 0.19,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.24,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Values extracted from Results text for the total sample. Factor mapping in the paper: Factor 1 = DIF, Factor 2 = DDF, Factor 3 = EOT. Reported inter-correlations: DIF\u2013DDF r=0.68; DIF\u2013EOT r=0.19; DDF\u2013EOT r=0.24 (all p<0.001). Only a 3-factor solution reported, so correlations involving Factors 4 and 5 are set to null.\"\n    }\n  ]\n}"
+    }
+  ]
+}

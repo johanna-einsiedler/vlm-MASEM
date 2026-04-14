@@ -1,0 +1,216 @@
+{
+  "filename": "besharat2008-1.pdf",
+  "pages_processed": 6,
+  "model": "gpt-5-mini",
+  "prompt": "Goal\n\nExtract study- and sample-level metadata from the provided paper pages, using previously extracted factor-analytic results (factor loadings + factor correlations) provided as JSON input.\n\nYour task is to output one clean metadata record per sample/group reported in the paper.\n\n\nInputs\n\nYou will be given two inputs:\n\nA) EXTRACTED_RESULTS_JSON\n- A JSON object containing extracted factor loadings and/or factor correlations.\n- It includes one or more samples, each with a sample_id field.\n\nB) Paper pages (images)\n- The full paper as page images.\n\n\nWhat to output\n\nReturn exactly one valid JSON object (parsable by json.loads). No extra text.\n\nJSON schema\n{\n  \"records\": [\n    {\n      \"pubyear\": number,\n      \"country\": \"string|null\",\n      \"continent\": \"string|null\",\n      \"lang\": \"string|null\",\n      \"pubtype\": number|null,\n      \"n\": number|null,\n      \"sex\": number|null,\n      \"age\": number|null,\n      \"clinical\": number|null,\n      \"res\": number|null,\n      \"nfac\": number|null,\n      \"cfa\": number|null,\n      \"met\": number|null,\n      \"rot\": number|null,\n      \"notes\": \"string\"\n    }\n  ]\n}\n\n\nVariables (must follow exactly)\n\npubyear:\n- Publication year (<= 2020 per spec).\n- Extract from the paper (preferred) or from citation header. If not visible, null.\n\ncountry:\n- Country of origin of participants (open text).\n- Only fill if explicitly stated or clearly inferable from recruitment location (e.g., \"German university students in Berlin\" -> Germany).\n- If origin is unclear but author affiliation is mainly United States, use USA.\n- If unclear, null.\n\ncontinent:\n- Continent of origin of participants (open text).\n- If country is available, map the country to the continent.\n- If country is null and continent is explicitly stated, fill continent; otherwise null.\n\nlang:\n- Language of questionnaire (open text), e.g., \"German\", \"English\", \"French\".\n- Use explicit statements like \"German version\", \"translated into \u2026\", etc. If not stated, null.\n- If multiple versions are used, match language to the sample_id from EXTRACTED_RESULTS_JSON.\n- If no language is explicitly mentioned but the sample originates from an English-speaking country, use English.\n\npubtype:\n- Publication type:\n  1 = article in journal\n  2 = book\n  3 = thesis (master/phd)\n  4 = presentation/proceedings\n  5 = other\n- Determine from paper context; if uncertain, null and explain in notes.\n\nn:\n- Sample size (integer).\n- Usually given in the abstract or method section following statements like \"sample is comprised \u2026\", \"sample consists of\u2026\", \"administered to\u2026\"\n- If multiple groups, use the n corresponding to the record's sample_id.\n- If not clearly matched, set null and describe ambiguity in notes.\n\nsex:\n- Percentage of women in sample (%) in [0, 100].\n- Extract if reported. If only counts are reported, compute percentage if n is known: ratio = women/(women + men); mention computation in notes.\n- If not reported, null.\n\nage:\n- Mean age (years).\n- Usually given in the abstract or method section.\n- If mean age is reported separately for gender groups, compute subsample-size weighted mean.\n- Prefer mean; if only a range/median is given, set null and note.\n\nclinical:\n- 0 = no (non-clinical)\n- 1 = yes (clinical patients)\n- 2 = mixed\n- Determine from sample description; if unclear, null.\n\nres:\n- Number of response options (Likert points), integer >= 5.\n- Extract from TAS-20 response format description (e.g., \"5-point Likert scale\" -> 5).\n- If there is no mention of adaptation or translation, use 5.\n- Otherwise, null.\n\nnfac:\n- Number of extracted factors (1\u201310).\n- Determine from the factor-analytic model described in the paper AND/OR from EXTRACTED_RESULTS_JSON (e.g., if loadings include F1..F3 -> 3).\n- If inconsistent across models, prefer the main/final/preferred solution; explain in notes.\n\ncfa:\n- Factor-analytic type:\n  0 = EFA\n  1 = CFA\n- Search for expressions like \"exploratory factor analysis\" (EFA) or \"confirmatory factor analysis\" (CFA).\n- Determine based on the method corresponding to the extracted results.\n- If both EFA and CFA exist but extracted results correspond to one, code that one and note both in notes.\n\nmet:\n- Extraction/estimation method:\n  1 = principal component\n  2 = principal axis\n  3 = maximum likelihood\n  4 = other\n- Search for expressions like \"principal component\" (PCA), \"principal axis\" (PAF), or \"maximum likelihood\" (ML).\n- Use the method used for the extracted solution. If not stated, null.\n- If \"other\", briefly name it in notes (e.g., \"ULS\", \"WLSMV\", \"GLS\", \"Bayesian\", etc.).\n\nrot:\n- Rotation method:\n  1 = orthogonal (e.g., varimax)\n  2 = oblique (e.g., oblimin, promax)\n- Search for terms such as \"varimax,\" \"quartimax,\" \"equamax,\" \"orthomax,\" and \"parsimax\" \u2192 orthogonal.\n- Search for terms such as \"promax,\" \"oblimin,\" \"quartimin,\" \"biquartimin,\" and \"geomin\" \u2192 oblique.\n- If all factor correlations are zero, use 1.\n\n\nMatching rules: linking metadata to extracted samples\n- Use sample_id labels inside EXTRACTED_RESULTS_JSON (e.g., \"sample1\", \"clinical\", \"english\", \"french\") to find the corresponding group in the paper.\n- Match by explicit headings, group descriptors, or n values if uniquely identifiable.\n- Output one record per sample in the same order as EXTRACTED_RESULTS_JSON.\n\n\nStrict rules\n\n- Do not invent values.\n- If a value is not explicitly stated, cannot be reasonably inferred from the paper text, and no default is specified above, use null.\n- The output must be JSON only, no markdown, no commentary.\n\n\nNow perform the task:\n\n=== EXTRACTED FACTOR LOADINGS ===\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"non-clinical\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.63,\n        \"F1.2\": 0.0,\n        \"F1.3\": 0.44,\n        \"F1.4\": 0.0,\n        \"F1.5\": 0.0,\n        \"F1.6\": 0.67,\n        \"F1.7\": 0.69,\n        \"F1.8\": 0.0,\n        \"F1.9\": 0.77,\n        \"F1.10\": 0.0,\n        \"F1.11\": 0.0,\n        \"F1.12\": 0.0,\n        \"F1.13\": 0.71,\n        \"F1.14\": 0.66,\n        \"F1.15\": 0.0,\n        \"F1.16\": 0.0,\n        \"F1.17\": 0.0,\n        \"F1.18\": 0.0,\n        \"F1.19\": 0.0,\n        \"F1.20\": 0.0,\n        \"F2.1\": 0.0,\n        \"F2.2\": 0.77,\n        \"F2.3\": 0.0,\n        \"F2.4\": 0.63,\n        \"F2.5\": 0.0,\n        \"F2.6\": 0.0,\n        \"F2.7\": 0.0,\n        \"F2.8\": 0.0,\n        \"F2.9\": 0.0,\n        \"F2.10\": 0.0,\n        \"F2.11\": 0.61,\n        \"F2.12\": 0.47,\n        \"F2.13\": 0.0,\n        \"F2.14\": 0.0,\n        \"F2.15\": 0.0,\n        \"F2.16\": 0.0,\n        \"F2.17\": 0.62,\n        \"F2.18\": 0.0,\n        \"F2.19\": 0.0,\n        \"F2.20\": 0.0,\n        \"F3.1\": 0.0,\n        \"F3.2\": 0.0,\n        \"F3.3\": 0.0,\n        \"F3.4\": 0.0,\n        \"F3.5\": 0.31,\n        \"F3.6\": 0.0,\n        \"F3.7\": 0.0,\n        \"F3.8\": 0.43,\n        \"F3.9\": 0.0,\n        \"F3.10\": 0.66,\n        \"F3.11\": 0.0,\n        \"F3.12\": 0.0,\n        \"F3.13\": 0.0,\n        \"F3.14\": 0.0,\n        \"F3.15\": 0.79,\n        \"F3.16\": 0.49,\n        \"F3.17\": 0.0,\n        \"F3.18\": 0.30,\n        \"F3.19\": 0.42,\n        \"F3.20\": 0.44,\n        \"F4.1\": null,\n        \"F4.2\": null,\n        \"F4.3\": null,\n        \"F4.4\": null,\n        \"F4.5\": null,\n        \"F4.6\": null,\n        \"F4.7\": null,\n        \"F4.8\": null,\n        \"F4.9\": null,\n        \"F4.10\": null,\n        \"F4.11\": null,\n        \"F4.12\": null,\n        \"F4.13\": null,\n        \"F4.14\": null,\n        \"F4.15\": null,\n        \"F4.16\": null,\n        \"F4.17\": null,\n        \"F4.18\": null,\n        \"F4.19\": null,\n        \"F4.20\": null,\n        \"F5.1\": null,\n        \"F5.2\": null,\n        \"F5.3\": null,\n        \"F5.4\": null,\n        \"F5.5\": null,\n        \"F5.6\": null,\n        \"F5.7\": null,\n        \"F5.8\": null,\n        \"F5.9\": null,\n        \"F5.10\": null,\n        \"F5.11\": null,\n        \"F5.12\": null,\n        \"F5.13\": null,\n        \"F5.14\": null,\n        \"F5.15\": null,\n        \"F5.16\": null,\n        \"F5.17\": null,\n        \"F5.18\": null,\n        \"F5.19\": null,\n        \"F5.20\": null\n      },\n      \"notes\": \"Confirmatory factor analysis (CFA) three-factor solution reported in Table 1. Factors map to standard TAS-20 subscales per table footnote: F1 = DIF, F2 = DDF, F3 = EOT. Only primary loadings are reported in the table; other cells for existing factors are set to 0.0. Factors 4 and 5 do not exist in this solution and all their loadings are null.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Table 1: Parameter estimates from the confirmatory factor analysis in the non-clinical (n= 169) and clinical (n= 169) samples.\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"factor count\"\n        },\n        {\n          \"snippet\": \"Factor 1\\n1    0.63    0.65\\n3    0.44    0.57\\n6    0.67    0.66\\n7    0.69    0.67\\n9    0.77    0.78\\n13   0.71    0.73\\n14   0.66    0.60\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 2\\n2    0.77    0.78\\n4    0.63    0.43\\n11   0.61    0.55\\n12   0.47    0.41\\n17   0.62    0.65\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 3\\n5    0.31    0.29\\n8    0.43    0.61\\n10   0.66    0.44\\n15   0.79    0.42\\n16   0.49    0.28\\n18   0.30    0.47\\n19   0.42    0.50\\n20   0.44    0.27\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"All parameter estimates are significant (P<0.05). Factor 1= Difficulty identifying feelings; Factor 2= Difficulty describing feelings; Factor 3= Externally-oriented thinking.\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"factor naming\"\n        }\n      ]\n    },\n    {\n      \"sample_id\": \"clinical\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.65,\n        \"F1.2\": 0.0,\n        \"F1.3\": 0.57,\n        \"F1.4\": 0.0,\n        \"F1.5\": 0.0,\n        \"F1.6\": 0.66,\n        \"F1.7\": 0.67,\n        \"F1.8\": 0.0,\n        \"F1.9\": 0.78,\n        \"F1.10\": 0.0,\n        \"F1.11\": 0.0,\n        \"F1.12\": 0.0,\n        \"F1.13\": 0.73,\n        \"F1.14\": 0.60,\n        \"F1.15\": 0.0,\n        \"F1.16\": 0.0,\n        \"F1.17\": 0.0,\n        \"F1.18\": 0.0,\n        \"F1.19\": 0.0,\n        \"F1.20\": 0.0,\n        \"F2.1\": 0.0,\n        \"F2.2\": 0.78,\n        \"F2.3\": 0.0,\n        \"F2.4\": 0.43,\n        \"F2.5\": 0.0,\n        \"F2.6\": 0.0,\n        \"F2.7\": 0.0,\n        \"F2.8\": 0.0,\n        \"F2.9\": 0.0,\n        \"F2.10\": 0.0,\n        \"F2.11\": 0.55,\n        \"F2.12\": 0.41,\n        \"F2.13\": 0.0,\n        \"F2.14\": 0.0,\n        \"F2.15\": 0.0,\n        \"F2.16\": 0.0,\n        \"F2.17\": 0.65,\n        \"F2.18\": 0.0,\n        \"F2.19\": 0.0,\n        \"F2.20\": 0.0,\n        \"F3.1\": 0.0,\n        \"F3.2\": 0.0,\n        \"F3.3\": 0.0,\n        \"F3.4\": 0.0,\n        \"F3.5\": 0.29,\n        \"F3.6\": 0.0,\n        \"F3.7\": 0.0,\n        \"F3.8\": 0.61,\n        \"F3.9\": 0.0,\n        \"F3.10\": 0.44,\n        \"F3.11\": 0.0,\n        \"F3.12\": 0.0,\n        \"F3.13\": 0.0,\n        \"F3.14\": 0.0,\n        \"F3.15\": 0.42,\n        \"F3.16\": 0.28,\n        \"F3.17\": 0.0,\n        \"F3.18\": 0.47,\n        \"F3.19\": 0.50,\n        \"F3.20\": 0.27,\n        \"F4.1\": null,\n        \"F4.2\": null,\n        \"F4.3\": null,\n        \"F4.4\": null,\n        \"F4.5\": null,\n        \"F4.6\": null,\n        \"F4.7\": null,\n        \"F4.8\": null,\n        \"F4.9\": null,\n        \"F4.10\": null,\n        \"F4.11\": null,\n        \"F4.12\": null,\n        \"F4.13\": null,\n        \"F4.14\": null,\n        \"F4.15\": null,\n        \"F4.16\": null,\n        \"F4.17\": null,\n        \"F4.18\": null,\n        \"F4.19\": null,\n        \"F4.20\": null,\n        \"F5.1\": null,\n        \"F5.2\": null,\n        \"F5.3\": null,\n        \"F5.4\": null,\n        \"F5.5\": null,\n        \"F5.6\": null,\n        \"F5.7\": null,\n        \"F5.8\": null,\n        \"F5.9\": null,\n        \"F5.10\": null,\n        \"F5.11\": null,\n        \"F5.12\": null,\n        \"F5.13\": null,\n        \"F5.14\": null,\n        \"F5.15\": null,\n        \"F5.16\": null,\n        \"F5.17\": null,\n        \"F5.18\": null,\n        \"F5.19\": null,\n        \"F5.20\": null\n      },\n      \"notes\": \"Confirmatory factor analysis (CFA) three-factor solution reported in Table 1. Factors map to standard TAS-20 subscales per table footnote: F1 = DIF, F2 = DDF, F3 = EOT. Only primary loadings are reported in the table; other cells for existing factors are set to 0.0. Factors 4 and 5 do not exist in this solution and all their loadings are null.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Table 1: Parameter estimates from the confirmatory factor analysis in the non-clinical (n= 169) and clinical (n= 169) samples.\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"factor count\"\n        },\n        {\n          \"snippet\": \"Factor 1\\n1    0.63    0.65\\n3    0.44    0.57\\n6    0.67    0.66\\n7    0.69    0.67\\n9    0.77    0.78\\n13   0.71    0.73\\n14   0.66    0.60\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 2\\n2    0.77    0.78\\n4    0.63    0.43\\n11   0.61    0.55\\n12   0.47    0.41\\n17   0.62    0.65\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 3\\n5    0.31    0.29\\n8    0.43    0.61\\n10   0.66    0.44\\n15   0.79    0.42\\n16   0.49    0.28\\n18   0.30    0.47\\n19   0.42    0.50\\n20   0.44    0.27\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"All parameter estimates are significant (P<0.05). Factor 1= Difficulty identifying feelings; Factor 2= Difficulty describing feelings; Factor 3= Externally-oriented thinking.\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"factor naming\"\n        }\n      ]\n    }\n  ]\n}\n\n=== EXTRACTED CORRELATIONS ===\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"non-clinical\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.77,\n        \"R1.3\": 0.45,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.58,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"The study reports a three-factor solution (Factors 1-3). Correlations are provided for the three factors only; correlations involving Factors 4\u20135 are set to null because only three factors were reported.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Table 1: Parameter estimates from the confirmatory factor analysis in the non-clinical (n=169) and clinical (n=169) samples.\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"The parameter estimates between factor 1 and 2 was 0.77 (P<0.05) for non-clinical sample and 0.72 (P<0.05) for clinical group; between factor 1 and 3, it was 0.45 (P<0.05) for non-clinical and 0.47 (P<0.05) for clinical group; and between factor 2 and 3, the parameter was 0.58 (P<0.05) for non-clinical and 0.62 (P<0.05) for clinical sample.\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"factor correlations\"\n        }\n      ]\n    },\n    {\n      \"sample_id\": \"clinical\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.72,\n        \"R1.3\": 0.47,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.62,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"The study reports a three-factor solution (Factors 1-3). Correlations are provided for the three factors only; correlations involving Factors 4\u20135 are set to null because only three factors were reported.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Table 1: Parameter estimates from the confirmatory factor analysis in the non-clinical (n=169) and clinical (n=169) samples.\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"The parameter estimates between factor 1 and 2 was 0.77 (P<0.05) for non-clinical sample and 0.72 (P<0.05) for clinical group; between factor 1 and 3, it was 0.45 (P<0.05) for non-clinical and 0.47 (P<0.05) for clinical group; and between factor 2 and 3, the parameter was 0.58 (P<0.05) for non-clinical and 0.62 (P<0.05) for clinical sample.\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"factor correlations\"\n        }\n      ]\n    }\n  ]\n}\n\nNow look at the paper pages below and extract the metadata.\n---\nSUPPORTING EVIDENCE REQUIREMENT\n\nAdd an \"evidence\" key to every sample/record object in your output. Its value is a JSON array. Each array element must have exactly these four keys:\n\n- \"snippet\": the exact verbatim text from the paper that supports the extraction (do not paraphrase \u2014 quote directly)\n- \"page\": the sequential PDF page number (1 = first page provided). Do NOT use the journal or book page number printed in the document header/footer.\n- \"source\": the table or figure identifier (e.g. \"Table 2\", \"Figure 1A\"), or null if not from a named element\n- \"field\": a short label for what this evidence supports\n\nDo NOT embed snippet/page/source inline with extracted values \u2014 keep all evidence in the \"evidence\" array only.\n\nCoverage: include one evidence entry per extracted field (e.g. n, age, country, rot). Use the field name as the \"field\" value. If a field is null because the information is absent, include the entry with snippet/source/page all set to null.\n\nExample:\n\"evidence\": [\n  {\"snippet\": \"The sample consisted of 312 undergraduate students\", \"page\": 2, \"source\": null, \"field\": \"n\"},\n  {\"snippet\": \"mean age was 21.3 years\", \"page\": 2, \"source\": null, \"field\": \"age\"},\n  {\"snippet\": \"promax rotation\", \"page\": 3, \"source\": null, \"field\": \"rot\"}\n]",
+  "entries": [
+    {
+      "pubyear": 2008,
+      "country": "Iran",
+      "continent": "Asia",
+      "lang": "Persian",
+      "pubtype": 1,
+      "n": 169,
+      "sex": 57.2,
+      "age": 34.3,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "notes": "Non-clinical (normal) sample: Table 1 reports n=169 for the non-clinical sample (after removal of 4 controls). Gender counts were reported for the initial non-clinical sample as 99 women and 74 men (n=173); the percent female (57.2%) was computed from those reported counts (99/173). The CFA three-factor solution (DIF, DDF, EOT) was tested; estimation method and rotation are not reported.",
+      "evidence": [
+        {
+          "snippet": "Iran J Med Sci March 2008; Vol 33 No 1.",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "Department of Psychology, University of Tehran, Tehran, Iran.",
+          "page": 1,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "Department of Psychology, University of Tehran, Tehran, Iran.",
+          "page": 1,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "The Persian version of the TAS-20 has recently been validated and used for a population of Iranian undergraduate students,17",
+          "page": 2,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "Original Article",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": "Table 1: Parameter estimates from the confirmatory factor analysis in the non-clinical (n= 169) and clinical (n= 169) samples.",
+          "page": 3,
+          "source": "Table 1",
+          "field": "n"
+        },
+        {
+          "snippet": "The clinical sample consisted of 175 patients (102 women, 73 men) who met the DSM-IV-TR criteria for depressive, anxiety or obsessive-compulsive disorders, and 173 normal adults (99 women, 74 men) completed the FTAS-20.",
+          "page": 2,
+          "source": null,
+          "field": "sex"
+        },
+        {
+          "snippet": "The mean\u00b1SD age of normal subjects (non-clinical) was 34.3\u00b19.1 (range: 18\u201360) years.",
+          "page": 2,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "The non-clinical sample consisted of 173 normal adults (99 women, 74 men). They were recruited from the general population. The age of non-clinical participants ranged from 18 to 60 years. None of them had a history of psychiatric or psychosomatic disorders in need of hospitalization.",
+          "page": 2,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": "Each item is rated on a five-point Likert scale ranging from 1 (strongly disagree) to 5 (strongly agree); five items are negatively keyed; it provides a total alexithymia score.",
+          "page": 2,
+          "source": "Measures",
+          "field": "res"
+        },
+        {
+          "snippet": "Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).",
+          "page": 2,
+          "source": null,
+          "field": "nfac"
+        },
+        {
+          "snippet": "Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).",
+          "page": 2,
+          "source": null,
+          "field": "cfa"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "rot"
+        }
+      ]
+    },
+    {
+      "pubyear": 2008,
+      "country": "Iran",
+      "continent": "Asia",
+      "lang": "Persian",
+      "pubtype": 1,
+      "n": 169,
+      "sex": 58.3,
+      "age": 33.4,
+      "clinical": 1,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "notes": "Clinical sample: Table 1 reports n=169 for the clinical sample (after removal of 6 patients). Gender counts were reported for the initial clinical sample as 102 women and 73 men (n=175); the percent female (58.3%) was computed from those reported counts (102/175). The CFA three-factor solution (DIF, DDF, EOT) was tested; estimation method and rotation are not reported.",
+      "evidence": [
+        {
+          "snippet": "Iran J Med Sci March 2008; Vol 33 No 1.",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "Department of Psychology, University of Tehran, Tehran, Iran.",
+          "page": 1,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "Department of Psychology, University of Tehran, Tehran, Iran.",
+          "page": 1,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "The Persian version of the TAS-20 has recently been validated and used for a population of Iranian undergraduate students,17",
+          "page": 2,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "Original Article",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": "Table 1: Parameter estimates from the confirmatory factor analysis in the non-clinical (n= 169) and clinical (n= 169) samples.",
+          "page": 3,
+          "source": "Table 1",
+          "field": "n"
+        },
+        {
+          "snippet": "The clinical sample consisted of 175 patients (102 women, 73 men) who met the DSM-IV-TR criteria for depressive, anxiety or obsessive-compulsive disorders, and 173 normal adults (99 women, 74 men) completed the FTAS-20.",
+          "page": 2,
+          "source": null,
+          "field": "sex"
+        },
+        {
+          "snippet": "The mean\u00b1SD age of patients was 33.4\u00b18.3 (range: 18\u201360) years.",
+          "page": 2,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "The clinical sample consisted of 175 patients (102 women, 73 men) who met the DSM-IV-TR criteria for depressive, anxiety or obsessive-compulsive disorders, and 173 normal adults (99 women, 74 men) completed the FTAS-20.",
+          "page": 2,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": "Each item is rated on a five-point Likert scale ranging from 1 (strongly disagree) to 5 (strongly agree); five items are negatively keyed; it provides a total alexithymia score.",
+          "page": 2,
+          "source": "Measures",
+          "field": "res"
+        },
+        {
+          "snippet": "Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).",
+          "page": 2,
+          "source": null,
+          "field": "nfac"
+        },
+        {
+          "snippet": "Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).",
+          "page": 2,
+          "source": null,
+          "field": "cfa"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "rot"
+        }
+      ]
+    }
+  ],
+  "human_overrides": [],
+  "original_model_response": "{\n  \"records\": [\n    {\n      \"pubyear\": 2008,\n      \"country\": \"Iran\",\n      \"continent\": \"Asia\",\n      \"lang\": \"Persian\",\n      \"pubtype\": 1,\n      \"n\": 169,\n      \"sex\": 57.2,\n      \"age\": 34.3,\n      \"clinical\": 0,\n      \"res\": 5,\n      \"nfac\": 3,\n      \"cfa\": 1,\n      \"met\": null,\n      \"rot\": null,\n      \"notes\": \"Non-clinical (normal) sample: Table 1 reports n=169 for the non-clinical sample (after removal of 4 controls). Gender counts were reported for the initial non-clinical sample as 99 women and 74 men (n=173); the percent female (57.2%) was computed from those reported counts (99/173). The CFA three-factor solution (DIF, DDF, EOT) was tested; estimation method and rotation are not reported.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Iran J Med Sci March 2008; Vol 33 No 1.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"Department of Psychology, University of Tehran, Tehran, Iran.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"Department of Psychology, University of Tehran, Tehran, Iran.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"The Persian version of the TAS-20 has recently been validated and used for a population of Iranian undergraduate students,17\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"Original Article\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": \"Table 1: Parameter estimates from the confirmatory factor analysis in the non-clinical (n= 169) and clinical (n= 169) samples.\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": \"The clinical sample consisted of 175 patients (102 women, 73 men) who met the DSM-IV-TR criteria for depressive, anxiety or obsessive-compulsive disorders, and 173 normal adults (99 women, 74 men) completed the FTAS-20.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": \"The mean\u00b1SD age of normal subjects (non-clinical) was 34.3\u00b19.1 (range: 18\u201360) years.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"The non-clinical sample consisted of 173 normal adults (99 women, 74 men). They were recruited from the general population. The age of non-clinical participants ranged from 18 to 60 years. None of them had a history of psychiatric or psychosomatic disorders in need of hospitalization.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": \"Each item is rated on a five-point Likert scale ranging from 1 (strongly disagree) to 5 (strongly agree); five items are negatively keyed; it provides a total alexithymia score.\",\n          \"page\": 2,\n          \"source\": \"Measures\",\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"rot\"\n        }\n      ]\n    },\n    {\n      \"pubyear\": 2008,\n      \"country\": \"Iran\",\n      \"continent\": \"Asia\",\n      \"lang\": \"Persian\",\n      \"pubtype\": 1,\n      \"n\": 169,\n      \"sex\": 58.3,\n      \"age\": 33.4,\n      \"clinical\": 1,\n      \"res\": 5,\n      \"nfac\": 3,\n      \"cfa\": 1,\n      \"met\": null,\n      \"rot\": null,\n      \"notes\": \"Clinical sample: Table 1 reports n=169 for the clinical sample (after removal of 6 patients). Gender counts were reported for the initial clinical sample as 102 women and 73 men (n=175); the percent female (58.3%) was computed from those reported counts (102/175). The CFA three-factor solution (DIF, DDF, EOT) was tested; estimation method and rotation are not reported.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Iran J Med Sci March 2008; Vol 33 No 1.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"Department of Psychology, University of Tehran, Tehran, Iran.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"Department of Psychology, University of Tehran, Tehran, Iran.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"The Persian version of the TAS-20 has recently been validated and used for a population of Iranian undergraduate students,17\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"Original Article\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": \"Table 1: Parameter estimates from the confirmatory factor analysis in the non-clinical (n= 169) and clinical (n= 169) samples.\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": \"The clinical sample consisted of 175 patients (102 women, 73 men) who met the DSM-IV-TR criteria for depressive, anxiety or obsessive-compulsive disorders, and 173 normal adults (99 women, 74 men) completed the FTAS-20.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": \"The mean\u00b1SD age of patients was 33.4\u00b18.3 (range: 18\u201360) years.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"The clinical sample consisted of 175 patients (102 women, 73 men) who met the DSM-IV-TR criteria for depressive, anxiety or obsessive-compulsive disorders, and 173 normal adults (99 women, 74 men) completed the FTAS-20.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": \"Each item is rated on a five-point Likert scale ranging from 1 (strongly disagree) to 5 (strongly agree); five items are negatively keyed; it provides a total alexithymia score.\",\n          \"page\": 2,\n          \"source\": \"Measures\",\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Using CFA, the three-factor structure of FTAS-20 was tested for both clinical and non-clinical samples (table 1).\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"rot\"\n        }\n      ]\n    }\n  ]\n}"
+}

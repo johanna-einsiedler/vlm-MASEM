@@ -1,0 +1,9 @@
+{
+  "study": "praceres2000",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"amostra1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.839,\n        \"R1.3\": 0.228,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.476,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Values from Quadro 2 (Amostra 1). Three-factor model only (F1\u2013F3 reported); correlations involving Factors 4\u20135 set to null because those factors do not exist in the reported model.\"\n    },\n    {\n      \"sample_id\": \"amostra2\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.801,\n        \"R1.3\": 0.025,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.232,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Values from Quadro 2 (Amostra 2). Three-factor model only (F1\u2013F3 reported); correlations involving Factors 4\u20135 set to null. Note: R1.3 (0.025) is marked as non-significant (*) in the table.\"\n    }\n  ]\n}"
+    }
+  ]
+}

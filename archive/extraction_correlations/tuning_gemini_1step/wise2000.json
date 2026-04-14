@@ -1,0 +1,9 @@
+{
+  "study": "wise2000",
+  "pages": [
+    {
+      "number": 5,
+      "result": "```json\n{\n  \"source_page\": 5,\n  \"samples\": [\n    {\n      \"sample_id\": \"psychiatric_outpatients\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.39,\n        \"R1.3\": 0.35,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.42,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"evidence\": {\n        \"snippet\": \"TORONTO ALEXITHYMIA SCALE INTERFACTOR CORRELATIONS: PROMAX ROTATION METHOD\",\n        \"page\": 5,\n        \"source\": \"Table 4\"\n      },\n      \"notes\": \"Extracted from Table 4 for the Toronto Alexithymia Scale-20. Values in the table were presented as whole numbers (multiplied by 100, as indicated by the diagonal of 100), so they were divided by 100 to represent standard correlation coefficients. The scale has 3 factors, so correlations involving factors 4 and 5 are set to null.\"\n    }\n  ]\n}\n```"
+    }
+  ]
+}

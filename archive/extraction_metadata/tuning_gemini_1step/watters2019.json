@@ -1,0 +1,182 @@
+```json
+{
+  "records": [
+    {
+      "pubyear": 2016,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": "French",
+      "pubtype": 1,
+      "n": 5160,
+      "sex": 14,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 4,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Published online November 7, 2016",
+          "page": 8,
+          "source": null
+        },
+        "country": {
+          "snippet": "The data for this study were provided by the Canadian Government Department of National Defence (DND)",
+          "page": 2,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Canada → North America",
+          "page": 2,
+          "source": null
+        },
+        "lang": {
+          "snippet": "the remaining 29% (n = 5,160) spoke French as their first language.",
+          "page": 2,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "European Journal of Psychological Assessment",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "the remaining 29% (n = 5,160) spoke French as their first language.",
+          "page": 2,
+          "source": null
+        },
+        "sex": {
+          "snippet": "% male 86",
+          "page": 3,
+          "source": "Table 1"
+        },
+        "age": {
+          "snippet": null,
+          "page": null,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits",
+          "page": 2,
+          "source": null
+        },
+        "res": {
+          "snippet": "The TAS-20 items are rated on a 5-point Likert scale ranging from 1 (= strongly disagree) to 5 (= strongly agree)",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.",
+          "page": 4,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "All CFA and MG-CFA models were tested with EQS 6.1 statistical software",
+          "page": 3,
+          "source": null
+        },
+        "met": {
+          "snippet": "All CFA and MG-CFA models were tested with EQS 6.1 statistical software using maximum likelihood estimation",
+          "page": 3,
+          "source": null
+        },
+        "rot": {
+          "snippet": "The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor",
+          "page": 4,
+          "source": null
+        }
+      }
+    },
+    {
+      "pubyear": 2016,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 12706,
+      "sex": 16,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 4,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Published online November 7, 2016",
+          "page": 8,
+          "source": null
+        },
+        "country": {
+          "snippet": "The data for this study were provided by the Canadian Government Department of National Defence (DND)",
+          "page": 2,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Canada → North America",
+          "page": 2,
+          "source": null
+        },
+        "lang": {
+          "snippet": "71% (n = 12,706) spoke English as their first language",
+          "page": 2,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "European Journal of Psychological Assessment",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "71% (n = 12,706) spoke English as their first language",
+          "page": 2,
+          "source": null
+        },
+        "sex": {
+          "snippet": "% male 84",
+          "page": 3,
+          "source": "Table 1"
+        },
+        "age": {
+          "snippet": null,
+          "page": null,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits",
+          "page": 2,
+          "source": null
+        },
+        "res": {
+          "snippet": "The TAS-20 items are rated on a 5-point Likert scale ranging from 1 (= strongly disagree) to 5 (= strongly agree)",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.",
+          "page": 4,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "All CFA and MG-CFA models were tested with EQS 6.1 statistical software",
+          "page": 3,
+          "source": null
+        },
+        "met": {
+          "snippet": "All CFA and MG-CFA models were tested with EQS 6.1 statistical software using maximum likelihood estimation",
+          "page": 3,
+          "source": null
+        },
+        "rot": {
+          "snippet": "The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor",
+          "page": 4,
+          "source": null
+        }
+      }
+    }
+  ]
+}
+```

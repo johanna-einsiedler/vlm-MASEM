@@ -1,0 +1,9 @@
+{
+  "study": "praceres2000",
+  "pages": [
+    {
+      "number": 8,
+      "result": "```json\n{\n  \"source_page\": 8,\n  \"samples\": [\n    {\n      \"sample_id\": \"amostra1_adultos_sem_queixa\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.839,\n        \"R1.3\": 0.228,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.476,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"evidence\": {\n        \"snippet\": \"Quadro 2.\u2014Par\u00e2metros estimativos da rela\u00e7\u00e3o entre factores\",\n        \"page\": 8,\n        \"source\": \"Quadro 2\"\n      },\n      \"notes\": \"The TAS-20 model evaluated has 3 factors. Correlations involving factors 4 and 5 are set to null.\"\n    },\n    {\n      \"sample_id\": \"amostra2_estudantes_universitarios\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.801,\n        \"R1.3\": 0.025,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.232,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"evidence\": {\n        \"snippet\": \"Quadro 2.\u2014Par\u00e2metros estimativos da rela\u00e7\u00e3o entre factores\",\n        \"page\": 8,\n        \"source\": \"Quadro 2\"\n      },\n      \"notes\": \"The TAS-20 model evaluated has 3 factors. Correlations involving factors 4 and 5 are set to null. The correlation between F1 and F3 (0.025) is marked as non-significant (p>.05).\"\n    }\n  ]\n}\n```"
+    }
+  ]
+}

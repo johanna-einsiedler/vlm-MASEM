@@ -1,0 +1,268 @@
+{
+  "records": [
+    {
+      "pubyear": 1993,
+      "country": "Germany",
+      "continent": "Europe",
+      "lang": "German",
+      "pubtype": 1,
+      "n": 306,
+      "sex": 65.68,
+      "age": 27.93,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2,
+      "evidence": {
+        "pubyear": {
+          "snippet": "European Journal of Personality, Vol. 7, 221-232 (1993)",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "Group A consisted of 306 students... at a university in Germany.",
+          "page": 4,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Germany \u2192 Europe",
+          "page": 4,
+          "source": null
+        },
+        "lang": {
+          "snippet": "German students completed a German version of the scale",
+          "page": 4,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "European Journal of Personality",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "Group A consisted of 306 students",
+          "page": 4,
+          "source": null
+        },
+        "sex": {
+          "snippet": "104 men, 199 women; the gender of three subjects was unknown",
+          "page": 4,
+          "source": null
+        },
+        "age": {
+          "snippet": "The mean age for the men was 28.0 years (SD = 11.0) and for the women 27.9 years",
+          "page": 4,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Three groups of undergraduate students participated in the study.",
+          "page": 4,
+          "source": null
+        },
+        "res": {
+          "snippet": "This 26-item measure (5-point Likert scales)",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "To test the replicability of the three-factor model for the TAS-20",
+          "page": 5,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Confirmatory factor analysis",
+          "page": 5,
+          "source": null
+        },
+        "met": {
+          "snippet": "analysed with LISREL 7.16",
+          "page": 5,
+          "source": null
+        },
+        "rot": {
+          "snippet": "an oblique model was tested for each sample.",
+          "page": 5,
+          "source": null
+        }
+      }
+    },
+    {
+      "pubyear": 1993,
+      "country": "USA",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 292,
+      "sex": 61.3,
+      "age": 19.48,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2,
+      "evidence": {
+        "pubyear": {
+          "snippet": "European Journal of Personality, Vol. 7, 221-232 (1993)",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "Group B consisted of 292 American students... attending a psychology class in a mid-western American university.",
+          "page": 4,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: USA \u2192 North America",
+          "page": 4,
+          "source": null
+        },
+        "lang": {
+          "snippet": "American and Canadian students completed the scale in English.",
+          "page": 4,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "European Journal of Personality",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "Group B consisted of 292 American students",
+          "page": 4,
+          "source": null
+        },
+        "sex": {
+          "snippet": "113 men, 179 women",
+          "page": 4,
+          "source": null
+        },
+        "age": {
+          "snippet": "The mean age for the men was 19.6 years (SD = 1.6) and for the women 19.4 years",
+          "page": 4,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Three groups of undergraduate students participated in the study.",
+          "page": 4,
+          "source": null
+        },
+        "res": {
+          "snippet": "This 26-item measure (5-point Likert scales)",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "To test the replicability of the three-factor model for the TAS-20",
+          "page": 5,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Confirmatory factor analysis",
+          "page": 5,
+          "source": null
+        },
+        "met": {
+          "snippet": "analysed with LISREL 7.16",
+          "page": 5,
+          "source": null
+        },
+        "rot": {
+          "snippet": "an oblique model was tested for each sample.",
+          "page": 5,
+          "source": null
+        }
+      }
+    },
+    {
+      "pubyear": 1993,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 405,
+      "sex": 54.32,
+      "age": 20.95,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2,
+      "evidence": {
+        "pubyear": {
+          "snippet": "European Journal of Personality, Vol. 7, 221-232 (1993)",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "Group C consisted of 405 Canadian students... attending several different psychology classes in an Ontario university.",
+          "page": 4,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Canada \u2192 North America",
+          "page": 4,
+          "source": null
+        },
+        "lang": {
+          "snippet": "American and Canadian students completed the scale in English.",
+          "page": 4,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "European Journal of Personality",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "Group C consisted of 405 Canadian students",
+          "page": 4,
+          "source": null
+        },
+        "sex": {
+          "snippet": "185 men, 220 women",
+          "page": 4,
+          "source": null
+        },
+        "age": {
+          "snippet": "The mean age for the men was 21.0 years (SD = 1.6) and for the women 20.9 years",
+          "page": 4,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Three groups of undergraduate students participated in the study.",
+          "page": 4,
+          "source": null
+        },
+        "res": {
+          "snippet": "This 26-item measure (5-point Likert scales)",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "To test the replicability of the three-factor model for the TAS-20",
+          "page": 5,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Confirmatory factor analysis",
+          "page": 5,
+          "source": null
+        },
+        "met": {
+          "snippet": "analysed with LISREL 7.16",
+          "page": 5,
+          "source": null
+        },
+        "rot": {
+          "snippet": "an oblique model was tested for each sample.",
+          "page": 5,
+          "source": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "study": "bolat2017",
+  "pages": [
+    {
+      "number": 367,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"turkish\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.78,\n        \"R1.3\": 0.68,\n        \"R1.4\": 0.74,\n        \"R1.5\": 0.62,\n        \"R2.3\": 0.56,\n        \"R2.4\": 0.61,\n        \"R2.5\": 0.58,\n        \"R3.4\": 0.65,\n        \"R3.5\": 0.59,\n        \"R4.5\": 0.67\n      },\n      \"evidence\": {\n        \"snippet\": \"Correlations between the three factors were statistically significant for the total sample, the 12-14 year old and 15-17 year old groups (p<0.001).\",\n        \"page\": 364,\n        \"source\": \"Bolat et al. 367\"\n      },\n      \"notes\": \"Turkish sample had 948 participants. Cronbach's alpha for the total scale was 0.87, and for Factors 1\u20133 were 0.84, 0.78, and 0.77, respectively.\"\n    }\n  ],\n  \"source_page\": 367\n}"
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+```json
+{
+  "records": [
+    {
+      "pubyear": 2000,
+      "country": "Portugal",
+      "continent": "Europe",
+      "lang": "Portuguese",
+      "pubtype": 1,
+      "n": 133,
+      "sex": 52.63,
+      "age": 35.62,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": 2,
+      "evidence": {
+        "pubyear": {
+          "snippet": "RIDEP • Vol. 9 • Nº 1 • Año 2000",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "The present work briefly describes the steps taken in the TAS-20 adaptation to Portugal",
+          "page": 2,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Portugal → Europe",
+          "page": 2,
+          "source": null
+        },
+        "lang": {
+          "snippet": "Portuguese adaptation of de 20-item Toronto Alexithymia Scale (tas-20)",
+          "page": 1,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "RIDEP • Vol. 9 • Nº 1 • Año 2000",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "É constituída por 133 adultos sem queixa",
+          "page": 5,
+          "source": null
+        },
+        "sex": {
+          "snippet": "70 (5.63%) do sexo feminino.",
+          "page": 5,
+          "source": null
+        },
+        "age": {
+          "snippet": "A média de idades é de 35.62",
+          "page": 5,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Amostra 1: Adultos sem queixa",
+          "page": 5,
+          "source": null
+        },
+        "res": {
+          "snippet": "escala de tipo Likert de cinco pontos",
+          "page": 3,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "O modelo em três factores foi replicado em ambas as amostras",
+          "page": 1,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "através da análise factorial confirmatória",
+          "page": 1,
+          "source": null
+        },
+        "met": null,
+        "rot": {
+          "snippet": "foi avaliado um modelo oblíquo.",
+          "page": 6,
+          "source": null
+        }
+      }
+    },
+    {
+      "pubyear": 2000,
+      "country": "Portugal",
+      "continent": "Europe",
+      "lang": "Portuguese",
+      "pubtype": 1,
+      "n": 298,
+      "sex": 53.36,
+      "age": 24.35,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": 2,
+      "evidence": {
+        "pubyear": {
+          "snippet": "RIDEP • Vol. 9 • Nº 1 • Año 2000",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "The present work briefly describes the steps taken in the TAS-20 adaptation to Portugal",
+          "page": 2,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Portugal → Europe",
+          "page": 2,
+          "source": null
+        },
+        "lang": {
+          "snippet": "Portuguese adaptation of de 20-item Toronto Alexithymia Scale (tas-20)",
+          "page": 1,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "RIDEP • Vol. 9 • Nº 1 • Año 2000",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "A amostra é constituída por 298 estudantes universitários",
+          "page": 6,
+          "source": null
+        },
+        "sex": {
+          "snippet": "159 (53.36%) do sexo feminino",
+          "page": 6,
+          "source": null
+        },
+        "age": {
+          "snippet": "A média das idades é de 24.35",
+          "page": 6,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Amostra 2: Estudantes universitários",
+          "page": 6,
+          "source": null
+        },
+        "res": {
+          "snippet": "escala de tipo Likert de cinco pontos",
+          "page": 3,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "O modelo em três factores foi replicado em ambas as amostras",
+          "page": 1,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "através da análise factorial confirmatória",
+          "page": 1,
+          "source": null
+        },
+        "met": null,
+        "rot": {
+          "snippet": "foi avaliado um modelo oblíquo.",
+          "page": 6,
+          "source": null
+        }
+      }
+    }
+  ]
+}
+```

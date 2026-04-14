@@ -1,0 +1,225 @@
+```json
+{
+  "records": [
+    {
+      "sample_id": "12-17_total_sample",
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": 948,
+      "sex": 54,
+      "age": 14.54,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "Psychometric properties of the 20-Item Toronto Alexithymia Scale in a Turkish adolescent sample",
+          "page": 1,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Turkey -> Asia",
+          "page": 1,
+          "source": null
+        },
+        "lang": {
+          "snippet": "Turkish TAS-20 was administered to 948 adolescents",
+          "page": 1,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years",
+          "page": 1,
+          "source": null
+        },
+        "sex": {
+          "snippet": "Of these participitants, 46% were male, 54% were female.",
+          "page": 2,
+          "source": null
+        },
+        "age": {
+          "snippet": "The mean age of the sample was 14.54±1.54 years.",
+          "page": 3,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.",
+          "page": 2,
+          "source": null
+        },
+        "res": {
+          "snippet": "consists of 20 items scored on a five-point Likert scale",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "TAS-20 is a three dimensional scale",
+          "page": 2,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Confirmatory factor analysis was performed via LISREL 8.7.",
+          "page": 3,
+          "source": null
+        },
+        "met": null,
+        "rot": null
+      }
+    },
+    {
+      "sample_id": "12-14_years",
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "Psychometric properties of the 20-Item Toronto Alexithymia Scale in a Turkish adolescent sample",
+          "page": 1,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Turkey -> Asia",
+          "page": 1,
+          "source": null
+        },
+        "lang": {
+          "snippet": "Turkish TAS-20 was administered to 948 adolescents",
+          "page": 1,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null
+        },
+        "n": null,
+        "sex": null,
+        "age": null,
+        "clinical": {
+          "snippet": "Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.",
+          "page": 2,
+          "source": null
+        },
+        "res": {
+          "snippet": "consists of 20 items scored on a five-point Likert scale",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "TAS-20 is a three dimensional scale",
+          "page": 2,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Confirmatory factor analysis was performed via LISREL 8.7.",
+          "page": 3,
+          "source": null
+        },
+        "met": null,
+        "rot": null
+      }
+    },
+    {
+      "sample_id": "15-17_years",
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "Psychometric properties of the 20-Item Toronto Alexithymia Scale in a Turkish adolescent sample",
+          "page": 1,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Turkey -> Asia",
+          "page": 1,
+          "source": null
+        },
+        "lang": {
+          "snippet": "Turkish TAS-20 was administered to 948 adolescents",
+          "page": 1,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null
+        },
+        "n": null,
+        "sex": null,
+        "age": null,
+        "clinical": {
+          "snippet": "Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.",
+          "page": 2,
+          "source": null
+        },
+        "res": {
+          "snippet": "consists of 20 items scored on a five-point Likert scale",
+          "page": 2,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "TAS-20 is a three dimensional scale",
+          "page": 2,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Confirmatory factor analysis was performed via LISREL 8.7.",
+          "page": 3,
+          "source": null
+        },
+        "met": null,
+        "rot": null
+      }
+    }
+  ]
+}
+```

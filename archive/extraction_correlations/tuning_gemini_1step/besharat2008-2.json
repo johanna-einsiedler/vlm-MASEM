@@ -1,0 +1,9 @@
+{
+  "study": "besharat2008-2",
+  "pages": [
+    {
+      "number": 5,
+      "result": "```json\n{\n  \"source_page\": 5,\n  \"samples\": [\n    {\n      \"sample_id\": \"entire_sample\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.74,\n        \"R1.3\": 0.47,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.59,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"evidence\": {\n        \"snippet\": \"The parameter estimates between Factors 1 and 2 was .74 (p < .05), between Factors 1 and 3 was .47 (p < .05), and between Factors 2 and 3 was .59 (p < .05).\",\n        \"page\": 5,\n        \"source\": null\n      },\n      \"notes\": \"The paper reports a 3-factor model. Correlations involving factors 4 and 5 are set to null.\"\n    }\n  ]\n}\n```"
+    }
+  ]
+}

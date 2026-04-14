@@ -1,0 +1,9 @@
+{
+  "study": "erni1997",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0,\n        \"R1.3\": 0,\n        \"R1.4\": 0,\n        \"R1.5\": 0,\n        \"R2.3\": 0,\n        \"R2.4\": 0,\n        \"R2.5\": 0,\n        \"R3.4\": 0,\n        \"R3.5\": 0,\n        \"R4.5\": 0\n      },\n      \"notes\": \"The paper reports a two-factor solution (Factors 1 and 2) and states that factors were rotated using the varimax (orthogonal) procedure. Per instructions, varimax/orthogonal rotation implies factor correlations = 0. Factors 3\u20135 were not present in the reported solution.\"\n    }\n  ]\n}"
+    }
+  ]
+}

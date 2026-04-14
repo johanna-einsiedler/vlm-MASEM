@@ -1,0 +1,113 @@
+{
+  "filename": "anderson2003.pdf",
+  "pages_processed": 304,
+  "model": "gpt-5-mini",
+  "prompt": "Goal\n\nExtract study- and sample-level metadata from the provided paper pages, using previously extracted factor-analytic results (factor loadings + factor correlations) provided as JSON input.\n\nYour task is to output one clean metadata record per sample/group reported in the paper.\n\n\nInputs\n\nYou will be given two inputs:\n\nA) EXTRACTED_RESULTS_JSON\n- A JSON object containing extracted factor loadings and/or factor correlations.\n- It includes one or more samples, each with a sample_id field.\n\nB) Paper pages (images)\n- The full paper as page images.\n\n\nWhat to output\n\nReturn exactly one valid JSON object (parsable by json.loads). No extra text.\n\nJSON schema\n{\n  \"records\": [\n    {\n      \"pubyear\": number,\n      \"country\": \"string|null\",\n      \"continent\": \"string|null\",\n      \"lang\": \"string|null\",\n      \"pubtype\": number|null,\n      \"n\": number|null,\n      \"sex\": number|null,\n      \"age\": number|null,\n      \"clinical\": number|null,\n      \"res\": number|null,\n      \"nfac\": number|null,\n      \"cfa\": number|null,\n      \"met\": number|null,\n      \"rot\": number|null,\n      \"notes\": \"string\"\n    }\n  ]\n}\n\n\nVariables (must follow exactly)\n\npubyear:\n- Publication year (<= 2020 per spec).\n- Extract from the paper (preferred) or from citation header. If not visible, null.\n\ncountry:\n- Country of origin of participants (open text).\n- Only fill if explicitly stated or clearly inferable from recruitment location (e.g., \"German university students in Berlin\" -> Germany).\n- If origin is unclear but author affiliation is mainly United States, use USA.\n- If unclear, null.\n\ncontinent:\n- Continent of origin of participants (open text).\n- If country is available, map the country to the continent.\n- If country is null and continent is explicitly stated, fill continent; otherwise null.\n\nlang:\n- Language of questionnaire (open text), e.g., \"German\", \"English\", \"French\".\n- Use explicit statements like \"German version\", \"translated into \u2026\", etc. If not stated, null.\n- If multiple versions are used, match language to the sample_id from EXTRACTED_RESULTS_JSON.\n- If no language is explicitly mentioned but the sample originates from an English-speaking country, use English.\n\npubtype:\n- Publication type:\n  1 = article in journal\n  2 = book\n  3 = thesis (master/phd)\n  4 = presentation/proceedings\n  5 = other\n- Determine from paper context; if uncertain, null and explain in notes.\n\nn:\n- Sample size (integer).\n- Usually given in the abstract or method section following statements like \"sample is comprised \u2026\", \"sample consists of\u2026\", \"administered to\u2026\"\n- If multiple groups, use the n corresponding to the record's sample_id.\n- If not clearly matched, set null and describe ambiguity in notes.\n\nsex:\n- Percentage of women in sample (%) in [0, 100].\n- Extract if reported. If only counts are reported, compute percentage if n is known: ratio = women/(women + men); mention computation in notes.\n- If not reported, null.\n\nage:\n- Mean age (years).\n- Usually given in the abstract or method section.\n- If mean age is reported separately for gender groups, compute subsample-size weighted mean.\n- Prefer mean; if only a range/median is given, set null and note.\n\nclinical:\n- 0 = no (non-clinical)\n- 1 = yes (clinical patients)\n- 2 = mixed\n- Determine from sample description; if unclear, null.\n\nres:\n- Number of response options (Likert points), integer >= 5.\n- Extract from TAS-20 response format description (e.g., \"5-point Likert scale\" -> 5).\n- If there is no mention of adaptation or translation, use 5.\n- Otherwise, null.\n\nnfac:\n- Number of extracted factors (1\u201310).\n- Determine from the factor-analytic model described in the paper AND/OR from EXTRACTED_RESULTS_JSON (e.g., if loadings include F1..F3 -> 3).\n- If inconsistent across models, prefer the main/final/preferred solution; explain in notes.\n\ncfa:\n- Factor-analytic type:\n  0 = EFA\n  1 = CFA\n- Search for expressions like \"exploratory factor analysis\" (EFA) or \"confirmatory factor analysis\" (CFA).\n- Determine based on the method corresponding to the extracted results.\n- If both EFA and CFA exist but extracted results correspond to one, code that one and note both in notes.\n\nmet:\n- Extraction/estimation method:\n  1 = principal component\n  2 = principal axis\n  3 = maximum likelihood\n  4 = other\n- Search for expressions like \"principal component\" (PCA), \"principal axis\" (PAF), or \"maximum likelihood\" (ML).\n- Use the method used for the extracted solution. If not stated, null.\n- If \"other\", briefly name it in notes (e.g., \"ULS\", \"WLSMV\", \"GLS\", \"Bayesian\", etc.).\n\nrot:\n- Rotation method:\n  1 = orthogonal (e.g., varimax)\n  2 = oblique (e.g., oblimin, promax)\n- Search for terms such as \"varimax,\" \"quartimax,\" \"equamax,\" \"orthomax,\" and \"parsimax\" \u2192 orthogonal.\n- Search for terms such as \"promax,\" \"oblimin,\" \"quartimin,\" \"biquartimin,\" and \"geomin\" \u2192 oblique.\n- If all factor correlations are zero, use 1.\n\n\nMatching rules: linking metadata to extracted samples\n- Use sample_id labels inside EXTRACTED_RESULTS_JSON (e.g., \"sample1\", \"clinical\", \"english\", \"french\") to find the corresponding group in the paper.\n- Match by explicit headings, group descriptors, or n values if uniquely identifiable.\n- Output one record per sample in the same order as EXTRACTED_RESULTS_JSON.\n\n\nStrict rules\n\n- Do not invent values.\n- If a value is not explicitly stated, cannot be reasonably inferred from the paper text, and no default is specified above, use null.\n- The output must be JSON only, no markdown, no commentary.\n\n\nNow perform the task:\n\n=== EXTRACTED FACTOR LOADINGS ===\n{\"samples\": [{\"sample_id\": \"present_male_adolescents\", \"factor_loadings\": {\"F1.1\": 0.604, \"F1.2\": 0.339, \"F1.3\": 0.326, \"F1.4\": 0.227, \"F1.5\": 0.174, \"F1.6\": 0.722, \"F1.7\": 0.705, \"F1.8\": 0.317, \"F1.9\": 0.481, \"F1.10\": -0.006, \"F1.11\": 0.222, \"F1.12\": -0.009, \"F1.13\": 0.479, \"F1.14\": 0.606, \"F1.15\": -0.178, \"F1.16\": -0.001, \"F1.17\": -0.008, \"F1.18\": 0.137, \"F1.19\": -0.009, \"F1.20\": 0.186, \"F2.1\": 0.484, \"F2.2\": 0.691, \"F2.3\": 0.451, \"F2.4\": 0.706, \"F2.5\": -0.183, \"F2.6\": 0.204, \"F2.7\": 0.155, \"F2.8\": -0.001, \"F2.9\": 0.542, \"F2.10\": 0.131, \"F2.11\": 0.591, \"F2.12\": 0.525, \"F2.13\": 0.49, \"F2.14\": 0.121, \"F2.15\": 0.155, \"F2.16\": -0.007, \"F2.17\": 0.62, \"F2.18\": -0.005, \"F2.19\": 0.239, \"F2.20\": 0.209, \"F3.1\": -0.003, \"F3.2\": 0.129, \"F3.3\": -0.172, \"F3.4\": 0.311, \"F3.5\": 0.489, \"F3.6\": -0.172, \"F3.7\": 0.002, \"F3.8\": 0.406, \"F3.9\": -0.128, \"F3.10\": 0.567, \"F3.11\": 0.128, \"F3.12\": 0.267, \"F3.13\": -0.01, \"F3.14\": 0.159, \"F3.15\": 0.607, \"F3.16\": 0.532, \"F3.17\": 0.267, \"F3.18\": 0.574, \"F3.19\": 0.61, \"F3.20\": 0.276, \"F4.1\": null, \"F4.2\": null, \"F4.3\": null, \"F4.4\": null, \"F4.5\": null, \"F4.6\": null, \"F4.7\": null, \"F4.8\": null, \"F4.9\": null, \"F4.10\": null, \"F4.11\": null, \"F4.12\": null, \"F4.13\": null, \"F4.14\": null, \"F4.15\": null, \"F4.16\": null, \"F4.17\": null, \"F4.18\": null, \"F4.19\": null, \"F4.20\": null, \"F5.1\": null, \"F5.2\": null, \"F5.3\": null, \"F5.4\": null, \"F5.5\": null, \"F5.6\": null, \"F5.7\": null, \"F5.8\": null, \"F5.9\": null, \"F5.10\": null, \"F5.11\": null, \"F5.12\": null, \"F5.13\": null, \"F5.14\": null, \"F5.15\": null, \"F5.16\": null, \"F5.17\": null, \"F5.18\": null, \"F5.19\": null, \"F5.20\": null}, \"notes\": \"Loadings extracted from Table 1 (present analysis). The paper reports a three-factor TAS-20 solution; per the extraction instructions I normalized factor names so F1 = DIF (Difficulty Identifying Feelings), F2 = DDF (Difficulty Describing Feelings), F3 = EOT (Externally Oriented Thinking). In the original table the column order was Factor 1 = DDF and Factor 2 = DIF, so loadings were remapped (present Factor2 -> F1, present Factor1 -> F2, present Factor3 -> F3). Values are the observed loadings from the table (including small/negative values). Items marked with # or * in the table were transcribed as their numeric loadings (notes in table: # = loads highly in both analyses; * = reverse scored). The solution has only three factors so all F4.* and F5.* keys are null.\", \"evidence\": [{\"snippet\": \"Factor Analysis of the present data identified the same three interpretable factors in the TAS-20 as identified by Bagby Parker, and Taylor (1994). These factors are Factor 1 - difficulty describing feelings (DDF; 6-items, \\\\u03b1 = .73), Factor 2 - difficulty identifying feelings (DIF, 6-items, \\\\u03b1 = .80), and Factor 3 - externally oriented thinking (EOT, 8-items, \\\\u03b1 = .62).\", \"page\": 136, \"source\": null, \"field\": \"factor count\"}, {\"snippet\": \"The present male adolescent data is being compared with the results for adult men and women data combined.\", \"page\": 137, \"source\": \"Table 1\", \"field\": \"sample identification\"}, {\"snippet\": \"Factor 1\", \"page\": 137, \"source\": \"Table 1\", \"field\": \"F2 (DDF) column header in original table\"}, {\"snippet\": \"Factor 2\", \"page\": 137, \"source\": \"Table 1\", \"field\": \"F1 (DIF) column header in original table\"}, {\"snippet\": \"Factor 3\", \"page\": 137, \"source\": \"Table 1\", \"field\": \"F3 (EOT) column header in original table\"}, {\"snippet\": \"6   .204   .187   .722   .592   -.172   .051\", \"page\": 137, \"source\": \"Table 1\", \"field\": \"example row showing loadings layout (item 6)\"}]}]}\n\n=== EXTRACTED CORRELATIONS ===\n{\"samples\": [{\"sample_id\": \"present_male_adolescents\", \"factor_correlations\": {\"R1.2\": 0, \"R1.3\": 0, \"R1.4\": 0, \"R1.5\": 0, \"R2.3\": 0, \"R2.4\": 0, \"R2.5\": 0, \"R3.4\": 0, \"R3.5\": 0, \"R4.5\": 0}, \"notes\": \"The paper reports Varimax-rotated factors for the TAS-20 (orthogonal rotation). Per the extraction instructions, because Varimax (an orthogonal rotation) is used, all latent factor correlations are set to 0. The original TAS-20 solution reported in the paper has three factors (DDF, DIF, EOT); the schema requires five-factor keys, but the Varimax rule was applied so all correlations are 0.\", \"evidence\": [{\"snippet\": \"Factor Loadings of Varimax-Rotated Factors from raw-scores of the TAS-20 items in the Present Analysis compared to Varimax-Rotated Factors from raw-scores of the TAS-20 items reported by Bagby, Parker, and Taylor (1994). The present male adolescent data is being compared with the results for adult men and women data combined.\", \"page\": 137, \"source\": \"Table 1\", \"field\": \"factor correlations\"}, {\"snippet\": \"Again the analysis was performed through SPSS-version 11 statistical package for a sample of 294 adolescent males.\", \"page\": 138, \"source\": null, \"field\": \"sample identification\"}, {\"snippet\": \"Factor Analysis of the present data identified the same three interpretable factors in the TAS-20 as identified by Bagby Parker, and Taylor (1994). These factors are Factor 1 - difficulty describing feelings (DDF; 6-items, \\u03b1 = .73), Factor 2 - difficulty identifying feelings (DIF, 6-items, \\u03b1 = .80), and Factor 3 - externally oriented thinking (EOT, 8-items, \\u03b1 = .62).\", \"page\": 136, \"source\": null, \"field\": \"factor structure\"}]}]}\n\nNow look at the paper pages below and extract the metadata.\n---\nSUPPORTING EVIDENCE REQUIREMENT\n\nAdd an \"evidence\" key to every sample/record object in your output. Its value is a JSON array. Each array element must have exactly these four keys:\n\n- \"snippet\": the exact verbatim text from the paper that supports the extraction (do not paraphrase \u2014 quote directly)\n- \"page\": the sequential PDF page number (1 = first page provided). Do NOT use the journal or book page number printed in the document header/footer.\n- \"source\": the table or figure identifier (e.g. \"Table 2\", \"Figure 1A\"), or null if not from a named element\n- \"field\": a short label for what this evidence supports\n\nDo NOT embed snippet/page/source inline with extracted values \u2014 keep all evidence in the \"evidence\" array only.\n\nCoverage: include one evidence entry per extracted field (e.g. n, age, country, rot). Use the field name as the \"field\" value. If a field is null because the information is absent, include the entry with snippet/source/page all set to null.\n\nExample:\n\"evidence\": [\n  {\"snippet\": \"The sample consisted of 312 undergraduate students\", \"page\": 2, \"source\": null, \"field\": \"n\"},\n  {\"snippet\": \"mean age was 21.3 years\", \"page\": 2, \"source\": null, \"field\": \"age\"},\n  {\"snippet\": \"promax rotation\", \"page\": 3, \"source\": null, \"field\": \"rot\"}\n]",
+  "entries": [
+    {
+      "pubyear": 2003,
+      "country": "Australia",
+      "continent": "Oceania",
+      "lang": "English",
+      "pubtype": 3,
+      "n": 294,
+      "sex": 0,
+      "age": 15.56,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 0,
+      "met": 1,
+      "rot": 1,
+      "notes": "Doctoral thesis (University of Wollongong, 2003) reporting an exploratory factor analysis (EFA) of the TAS-20 in a sample of Australian adolescent male high-school students (n=294). The paper reports a three-factor TAS-20 solution (DDF, DIF, EOT) with Varimax (orthogonal) rotation. Response scale set to 5 (default for TAS-20 when not otherwise specified).",
+      "evidence": [
+        {
+          "snippet": "2003",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "in Australian adolescent male highschool students",
+          "page": 1,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "in Australian adolescent male highschool students",
+          "page": 1,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "in Australian adolescent male highschool students",
+          "page": 1,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "A thesis submitted in (partial) fulfilment of the requirements for the award of the degree",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": "Again the analysis was performed through SPSS-version 11 statistical package for a sample of 294 adolescent males.",
+          "page": 138,
+          "source": null,
+          "field": "n"
+        },
+        {
+          "snippet": "in Australian adolescent male highschool students",
+          "page": 1,
+          "source": null,
+          "field": "sex"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "in Australian adolescent male highschool students",
+          "page": 1,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "res"
+        },
+        {
+          "snippet": "Factor Analysis of the present data identified the same three interpretable factors in the TAS-20 as identified by Bagby Parker, and Taylor (1994). These factors are Factor 1 - difficulty describing feelings (DDF; 6-items, \\u03b1 = .73), Factor 2 - difficulty identifying feelings (DIF, 6-items, \\u03b1 = .80), and Factor 3 - externally oriented thinking (EOT, 8-items, \\u03b1 = .62).",
+          "page": 136,
+          "source": null,
+          "field": "nfac"
+        },
+        {
+          "snippet": "Table 1. Factor Loadings from the Present Exploratory Factor Analysis of the TAS-20..",
+          "page": 9,
+          "source": "List of Tables",
+          "field": "cfa"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": "Factor Loadings of Varimax-Rotated Factors from raw-scores of the TAS-20 items in the Present Analysis compared to Varimax-Rotated Factors from raw-scores of the TAS-20 items reported by Bagby, Parker, and Taylor (1994).",
+          "page": 137,
+          "source": "Table 1",
+          "field": "rot"
+        }
+      ]
+    }
+  ],
+  "human_overrides": [],
+  "original_model_response": "{\n  \"records\": [\n    {\n      \"pubyear\": 2003,\n      \"country\": \"Australia\",\n      \"continent\": \"Oceania\",\n      \"lang\": \"English\",\n      \"pubtype\": 3,\n      \"n\": 294,\n      \"sex\": 0,\n      \"age\": 15.56,\n      \"clinical\": 0,\n      \"res\": 5,\n      \"nfac\": 3,\n      \"cfa\": 0,\n      \"met\": 1,\n      \"rot\": 1,\n      \"notes\": \"Doctoral thesis (University of Wollongong, 2003) reporting an exploratory factor analysis (EFA) of the TAS-20 in a sample of Australian adolescent male high-school students (n=294). The paper reports a three-factor TAS-20 solution (DDF, DIF, EOT) with Varimax (orthogonal) rotation. Response scale set to 5 (default for TAS-20 when not otherwise specified).\",\n      \"evidence\": [\n        {\n          \"snippet\": \"2003\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"in Australian adolescent male highschool students\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"in Australian adolescent male highschool students\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"in Australian adolescent male highschool students\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"A thesis submitted in (partial) fulfilment of the requirements for the award of the degree\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": \"Again the analysis was performed through SPSS-version 11 statistical package for a sample of 294 adolescent males.\",\n          \"page\": 138,\n          \"source\": null,\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": \"in Australian adolescent male highschool students\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"in Australian adolescent male highschool students\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"Factor Analysis of the present data identified the same three interpretable factors in the TAS-20 as identified by Bagby Parker, and Taylor (1994). These factors are Factor 1 - difficulty describing feelings (DDF; 6-items, \\\\u03b1 = .73), Factor 2 - difficulty identifying feelings (DIF, 6-items, \\\\u03b1 = .80), and Factor 3 - externally oriented thinking (EOT, 8-items, \\\\u03b1 = .62).\",\n          \"page\": 136,\n          \"source\": null,\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Table 1. Factor Loadings from the Present Exploratory Factor Analysis of the TAS-20..\",\n          \"page\": 9,\n          \"source\": \"List of Tables\",\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": \"Factor Loadings of Varimax-Rotated Factors from raw-scores of the TAS-20 items in the Present Analysis compared to Varimax-Rotated Factors from raw-scores of the TAS-20 items reported by Bagby, Parker, and Taylor (1994).\",\n          \"page\": 137,\n          \"source\": \"Table 1\",\n          \"field\": \"rot\"\n        }\n      ]\n    }\n  ]\n}"
+}

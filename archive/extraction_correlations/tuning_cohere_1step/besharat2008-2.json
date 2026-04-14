@@ -1,0 +1,9 @@
+{
+  "study": "besharat2008-2",
+  "pages": [
+    {
+      "number": 263,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"english\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.63,\n        \"R1.3\": 0.52,\n        \"R1.4\": 0.64,\n        \"R1.5\": 0.51,\n        \"R2.3\": 0.75,\n        \"R2.4\": 0.62,\n        \"R2.5\": 0.71,\n        \"R3.4\": 0.80,\n        \"R3.5\": 0.78,\n        \"R4.5\": 0.67\n      },\n      \"evidence\": {\n        \"snippet\": \"Correlations between the Toronto Alexithymia Scale-20 (TAS-20) factors in a sample of substance-abusing patients are reported in Table 3.\",\n        \"page\": 263,\n        \"source\": \"Table 3\"\n      },\n      \"notes\": \"Factor correlations are reported for the English version of the TAS-20.\"\n    },\n    {\n      \"sample_id\": \"farsi\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.71,\n        \"R1.3\": 0.65,\n        \"R1.4\": 0.72,\n        \"R1.5\": 0.68,\n        \"R2.3\": 0.82,\n        \"R2.4\": 0.70,\n        \"R2.5\": 0.79,\n        \"R3.4\": 0.85,\n        \"R3.5\": 0.82,\n        \"R4.5\": 0.74\n      },\n      \"evidence\": {\n        \"snippet\": \"The correlations between the Farsi TAS-20 factors are reported in Table 4.\",\n        \"page\": 264,\n        \"source\": \"Table 4\"\n      },\n      \"notes\": \"Factor correlations are reported for the Farsi version of the TAS-20.\"\n    }\n  ],\n  \"source_page\": 263\n}"
+    }
+  ]
+}

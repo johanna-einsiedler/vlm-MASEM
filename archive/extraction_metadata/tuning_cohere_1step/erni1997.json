@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "pubyear": 1997,
+      "country": "Switzerland",
+      "continent": "Europe",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 277,
+      "sex": null,
+      "age": null,
+      "clinical": null,
+      "res": null,
+      "nfac": 2,
+      "cfa": 0,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": {"snippet": "1997", "page": 336, "source": "Psychopathology 1997;30:335–340"},
+        "country": {"snippet": "Switzerland", "page": 336, "source": "Psychopathology 1997;30:335–340"},
+        "continent": {"snippet": "Europe", "page": 336, "source": "Psychopathology 1997;30:335–340"},
+        "lang": {"snippet": "English", "page": 336, "source": "Psychopathology 1997;30:335–340"},
+        "pubtype": {"snippet": "article in journal", "page": 336, "source": "Psychopathology 1997;30:335–340"},
+        "n": {"snippet": "277", "page": 337, "source": "Psychopathology 1997;30:335–340"},
+        "sex": {"snippet": null, "page": null, "source": null},
+        "age": {"snippet": null, "page": null, "source": null},
+        "clinical": {"snippet": null, "page": null, "source": null},
+        "res": {"snippet": null, "page": null, "source": null},
+        "nfac": {"snippet": "2", "page": 338, "source": "Psychopathology 1997;30:335–340"},
+        "cfa": {"snippet": "0", "page": 338, "source": "Psychopathology 1997;30:335–340"},
+        "met": {"snippet": null, "page": null, "source": null},
+        "rot": {"snippet": null, "page": null, "source": null}
+      }
+    }
+  ]
+}

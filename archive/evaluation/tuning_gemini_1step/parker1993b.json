@@ -1,0 +1,133 @@
+{
+  "study": "parker1993b",
+  "factor_loadings": {},
+  "factor_correlations": {
+    "R1.2": {
+      "extracted": 0.71,
+      "true": 0.71,
+      "accuracy": 1
+    },
+    "R1.3": {
+      "extracted": 0.28,
+      "true": 0.28,
+      "accuracy": 1
+    },
+    "R1.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R1.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R2.3": {
+      "extracted": 0.39,
+      "true": 0.39,
+      "accuracy": 1
+    },
+    "R2.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R2.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R3.4": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R3.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    },
+    "R4.5": {
+      "extracted": null,
+      "true": null,
+      "accuracy": 1
+    }
+  },
+  "metadata": {
+    "pubyear": {
+      "extracted": 1993.0,
+      "true": 1993.0,
+      "accuracy": 1
+    },
+    "country": {
+      "extracted": "USA",
+      "true": "USA",
+      "accuracy": 1
+    },
+    "continent": {
+      "extracted": "North America",
+      "true": "North America",
+      "accuracy": 1
+    },
+    "lang": {
+      "extracted": "English",
+      "true": "English",
+      "accuracy": 1
+    },
+    "pubtype": {
+      "extracted": 1.0,
+      "true": 1.0,
+      "accuracy": 1
+    },
+    "n": {
+      "extracted": 292.0,
+      "true": 292.0,
+      "accuracy": 1
+    },
+    "sex": {
+      "extracted": 61.3,
+      "true": 61.3,
+      "accuracy": 1
+    },
+    "age": {
+      "extracted": 19.48,
+      "true": 19.48,
+      "accuracy": 1
+    },
+    "clinical": {
+      "extracted": 0.0,
+      "true": 0.0,
+      "accuracy": 1
+    },
+    "res": {
+      "extracted": 5.0,
+      "true": 5.0,
+      "accuracy": 1
+    },
+    "nfac": {
+      "extracted": 3.0,
+      "true": 3.0,
+      "accuracy": 1
+    },
+    "cfa": {
+      "extracted": 1.0,
+      "true": 1.0,
+      "accuracy": 1
+    },
+    "met": {
+      "extracted": 3.0,
+      "true": 3.0,
+      "accuracy": 1
+    },
+    "rot": {
+      "extracted": 2.0,
+      "true": 2.0,
+      "accuracy": 1
+    },
+    "evidence": {
+      "extracted": "{'pubyear': {'snippet': 'European Journal of Personality, Vol. 7, 221-232 (1993)', 'page': 1, 'source': None}, 'country': {'snippet': 'Group B consisted of 292 American students... attending a psychology class in a mid-western American university.', 'page': 4, 'source': None}, 'continent': {'snippet': 'Inferred from country: USA \u2192 North America', 'page': 4, 'source': None}, 'lang': {'snippet': 'American and Canadian students completed the scale in English.', 'page': 4, 'source': None}, 'pubtype': {'snippet': 'European Journal of Personality', 'page': 1, 'source': None}, 'n': {'snippet': 'Group B consisted of 292 American students', 'page': 4, 'source': None}, 'sex': {'snippet': '113 men, 179 women', 'page': 4, 'source': None}, 'age': {'snippet': 'The mean age for the men was 19.6 years (SD = 1.6) and for the women 19.4 years', 'page': 4, 'source': None}, 'clinical': {'snippet': 'Three groups of undergraduate students participated in the study.', 'page': 4, 'source': None}, 'res': {'snippet': 'This 26-item measure (5-point Likert scales)', 'page': 2, 'source': None}, 'nfac': {'snippet': 'To test the replicability of the three-factor model for the TAS-20', 'page': 5, 'source': None}, 'cfa': {'snippet': 'Confirmatory factor analysis', 'page': 5, 'source': None}, 'met': {'snippet': 'analysed with LISREL 7.16', 'page': 5, 'source': None}, 'rot': {'snippet': 'an oblique model was tested for each sample.', 'page': 5, 'source': None}}",
+      "true": null,
+      "accuracy": 0
+    }
+  }
+}

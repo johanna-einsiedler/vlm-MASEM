@@ -1,0 +1,92 @@
+{
+  "records": [
+    {
+      "pubyear": 2007,
+      "country": "Iran",
+      "continent": "Asia",
+      "lang": "Farsi",
+      "pubtype": 1,
+      "n": 587,
+      "sex": 59.44,
+      "age": 20.2,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Psychological Reports, 2007, 101, 209-220. © Psychological Reports 2007",
+          "page": 209,
+          "source": null
+        },
+        "country": {
+          "snippet": "University of Tehran, Iran",
+          "page": 209,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Iran → Asia",
+          "page": 209,
+          "source": null
+        },
+        "lang": {
+          "snippet": "The 20-item Toronto Alexithymia Scale (Bagby, Parker, & Taylor, 1994) was translated into Farsi and back-translated by a research team with one psychologist and two Ph.D. students of the English language, all of whom are fluent in both English and Farsi.",
+          "page": 212,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Psychological Reports, 2007, 101, 209-220. © Psychological Reports 2007",
+          "page": 209,
+          "source": null
+        },
+        "n": {
+          "snippet": "This study investigated the psychometric properties of the Farsi version of the 20-item Toronto Alexithymia Scale for 587 undergraduate students (349 women and 238 men) at the University of Tehran.",
+          "page": 209,
+          "source": null
+        },
+        "sex": {
+          "snippet": "Participants were 587 undergraduate students (349 women and 238 men) from the University of Tehran.",
+          "page": 212,
+          "source": null
+        },
+        "age": {
+          "snippet": "The mean age of the sample was 20.2 yr. (SD = 1.9; range = 18 to 27).",
+          "page": 212,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Participants were 587 undergraduate students (349 women and 238 men) from the University of Tehran. All students participated as volunteers.",
+          "page": 212,
+          "source": null
+        },
+        "res": {
+          "snippet": "Each item is rated on a 5-point Likert-type scale anchored by 1: Strongly disagree and 5: Strongly agree.",
+          "page": 212,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "Using confirmatory factor analysis, the three-factor structure of the FTAS-20 was tested for the entire sample.",
+          "page": 214,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Using confirmatory factor analysis, the three-factor structure of the FTAS-20 was tested for the entire sample.",
+          "page": 214,
+          "source": null
+        },
+        "met": {
+          "snippet": null,
+          "page": null,
+          "source": null
+        },
+        "rot": {
+          "snippet": null,
+          "page": null,
+          "source": null
+        }
+      }
+    }
+  ]
+}

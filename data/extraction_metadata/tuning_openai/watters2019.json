@@ -1,0 +1,216 @@
+{
+  "filename": "watters2019.pdf",
+  "pages_processed": 8,
+  "model": "gpt-5-mini",
+  "prompt": "Goal\n\nExtract study- and sample-level metadata from the provided paper pages, using previously extracted factor-analytic results (factor loadings + factor correlations) provided as JSON input.\n\nYour task is to output one clean metadata record per sample/group reported in the paper.\n\n\nInputs\n\nYou will be given two inputs:\n\nA) EXTRACTED_RESULTS_JSON\n- A JSON object containing extracted factor loadings and/or factor correlations.\n- It includes one or more samples, each with a sample_id field.\n\nB) Paper pages (images)\n- The full paper as page images.\n\n\nWhat to output\n\nReturn exactly one valid JSON object (parsable by json.loads). No extra text.\n\nJSON schema\n{\n  \"records\": [\n    {\n      \"pubyear\": number,\n      \"country\": \"string|null\",\n      \"continent\": \"string|null\",\n      \"lang\": \"string|null\",\n      \"pubtype\": number|null,\n      \"n\": number|null,\n      \"sex\": number|null,\n      \"age\": number|null,\n      \"clinical\": number|null,\n      \"res\": number|null,\n      \"nfac\": number|null,\n      \"cfa\": number|null,\n      \"met\": number|null,\n      \"rot\": number|null,\n      \"notes\": \"string\"\n    }\n  ]\n}\n\n\nVariables (must follow exactly)\n\npubyear:\n- Publication year (<= 2020 per spec).\n- Extract from the paper (preferred) or from citation header. If not visible, null.\n\ncountry:\n- Country of origin of participants (open text).\n- Only fill if explicitly stated or clearly inferable from recruitment location (e.g., \"German university students in Berlin\" -> Germany).\n- If origin is unclear but author affiliation is mainly United States, use USA.\n- If unclear, null.\n\ncontinent:\n- Continent of origin of participants (open text).\n- If country is available, map the country to the continent.\n- If country is null and continent is explicitly stated, fill continent; otherwise null.\n\nlang:\n- Language of questionnaire (open text), e.g., \"German\", \"English\", \"French\".\n- Use explicit statements like \"German version\", \"translated into \u2026\", etc. If not stated, null.\n- If multiple versions are used, match language to the sample_id from EXTRACTED_RESULTS_JSON.\n- If no language is explicitly mentioned but the sample originates from an English-speaking country, use English.\n\npubtype:\n- Publication type:\n  1 = article in journal\n  2 = book\n  3 = thesis (master/phd)\n  4 = presentation/proceedings\n  5 = other\n- Determine from paper context; if uncertain, null and explain in notes.\n\nn:\n- Sample size (integer).\n- Usually given in the abstract or method section following statements like \"sample is comprised \u2026\", \"sample consists of\u2026\", \"administered to\u2026\"\n- If multiple groups, use the n corresponding to the record's sample_id.\n- If not clearly matched, set null and describe ambiguity in notes.\n\nsex:\n- Percentage of women in sample (%) in [0, 100].\n- Extract if reported. If only counts are reported, compute percentage if n is known: ratio = women/(women + men); mention computation in notes.\n- If not reported, null.\n\nage:\n- Mean age (years).\n- Usually given in the abstract or method section.\n- If mean age is reported separately for gender groups, compute subsample-size weighted mean.\n- Prefer mean; if only a range/median is given, set null and note.\n\nclinical:\n- 0 = no (non-clinical)\n- 1 = yes (clinical patients)\n- 2 = mixed\n- Determine from sample description; if unclear, null.\n\nres:\n- Number of response options (Likert points), integer >= 5.\n- Extract from TAS-20 response format description (e.g., \"5-point Likert scale\" -> 5).\n- If there is no mention of adaptation or translation, use 5.\n- Otherwise, null.\n\nnfac:\n- Number of extracted factors (1\u201310).\n- Determine from the factor-analytic model described in the paper AND/OR from EXTRACTED_RESULTS_JSON (e.g., if loadings include F1..F3 -> 3).\n- If inconsistent across models, prefer the main/final/preferred solution; explain in notes.\n\ncfa:\n- Factor-analytic type:\n  0 = EFA\n  1 = CFA\n- Search for expressions like \"exploratory factor analysis\" (EFA) or \"confirmatory factor analysis\" (CFA).\n- Determine based on the method corresponding to the extracted results.\n- If both EFA and CFA exist but extracted results correspond to one, code that one and note both in notes.\n\nmet:\n- Extraction/estimation method:\n  1 = principal component\n  2 = principal axis\n  3 = maximum likelihood\n  4 = other\n- Search for expressions like \"principal component\" (PCA), \"principal axis\" (PAF), or \"maximum likelihood\" (ML).\n- Use the method used for the extracted solution. If not stated, null.\n- If \"other\", briefly name it in notes (e.g., \"ULS\", \"WLSMV\", \"GLS\", \"Bayesian\", etc.).\n\nrot:\n- Rotation method:\n  1 = orthogonal (e.g., varimax)\n  2 = oblique (e.g., oblimin, promax)\n- Search for terms such as \"varimax,\" \"quartimax,\" \"equamax,\" \"orthomax,\" and \"parsimax\" \u2192 orthogonal.\n- Search for terms such as \"promax,\" \"oblimin,\" \"quartimin,\" \"biquartimin,\" and \"geomin\" \u2192 oblique.\n- If all factor correlations are zero, use 1.\n\n\nMatching rules: linking metadata to extracted samples\n- Use sample_id labels inside EXTRACTED_RESULTS_JSON (e.g., \"sample1\", \"clinical\", \"english\", \"french\") to find the corresponding group in the paper.\n- Match by explicit headings, group descriptors, or n values if uniquely identifiable.\n- Output one record per sample in the same order as EXTRACTED_RESULTS_JSON.\n\n\nStrict rules\n\n- Do not invent values.\n- If a value is not explicitly stated, cannot be reasonably inferred from the paper text, and no default is specified above, use null.\n- The output must be JSON only, no markdown, no commentary.\n\n\nNow perform the task:\n\n=== EXTRACTED FACTOR LOADINGS ===\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"french\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.72, \"F1.2\": 0.0, \"F1.3\": 0.51, \"F1.4\": 0.0, \"F1.5\": 0.0, \"F1.6\": 0.68, \"F1.7\": 0.48, \"F1.8\": 0.0, \"F1.9\": 0.77, \"F1.10\": 0.0, \"F1.11\": 0.0, \"F1.12\": 0.0, \"F1.13\": 0.79, \"F1.14\": 0.65, \"F1.15\": 0.0, \"F1.16\": 0.0, \"F1.17\": 0.0, \"F1.18\": 0.0, \"F1.19\": 0.0, \"F1.20\": 0.0,\n        \"F2.1\": 0.0, \"F2.2\": 0.78, \"F2.3\": 0.0, \"F2.4\": 0.48, \"F2.5\": 0.0, \"F2.6\": 0.0, \"F2.7\": 0.0, \"F2.8\": 0.0, \"F2.9\": 0.0, \"F2.10\": 0.0, \"F2.11\": 0.74, \"F2.12\": 0.63, \"F2.13\": 0.0, \"F2.14\": 0.0, \"F2.15\": 0.0, \"F2.16\": 0.0, \"F2.17\": 0.63, \"F2.18\": 0.0, \"F2.19\": 0.0, \"F2.20\": 0.0,\n        \"F3.1\": 0.0, \"F3.2\": 0.0, \"F3.3\": 0.0, \"F3.4\": 0.0, \"F3.5\": -0.02, \"F3.6\": 0.0, \"F3.7\": 0.0, \"F3.8\": 0.40, \"F3.9\": 0.0, \"F3.10\": 0.22, \"F3.11\": 0.0, \"F3.12\": 0.0, \"F3.13\": 0.0, \"F3.14\": 0.0, \"F3.15\": 0.64, \"F3.16\": 0.43, \"F3.17\": 0.0, \"F3.18\": 0.05, \"F3.19\": 0.15, \"F3.20\": 0.33,\n        \"F4.1\": 0.0, \"F4.2\": 0.0, \"F4.3\": 0.0, \"F4.4\": 0.38, \"F4.5\": 0.49, \"F4.6\": 0.0, \"F4.7\": 0.0, \"F4.8\": 0.0, \"F4.9\": 0.0, \"F4.10\": 0.61, \"F4.11\": 0.0, \"F4.12\": 0.0, \"F4.13\": 0.0, \"F4.14\": 0.0, \"F4.15\": 0.0, \"F4.16\": 0.0, \"F4.17\": 0.0, \"F4.18\": 0.46, \"F4.19\": 0.57, \"F4.20\": 0.0,\n        \"F5.1\": null, \"F5.2\": null, \"F5.3\": null, \"F5.4\": null, \"F5.5\": null, \"F5.6\": null, \"F5.7\": null, \"F5.8\": null, \"F5.9\": null, \"F5.10\": null, \"F5.11\": null, \"F5.12\": null, \"F5.13\": null, \"F5.14\": null, \"F5.15\": null, \"F5.16\": null, \"F5.17\": null, \"F5.18\": null, \"F5.19\": null, \"F5.20\": null\n      },\n      \"notes\": \"Table 3 reports standardized CFA loadings for the optimal TAS-20 model: a standard 3-factor structure (F1=DIF, F2=DDF, F3=EOT) plus an orthogonal method factor for reverse-scored items (F4). Therefore a 4-factor solution is extracted here and all F5.* loadings are null. Blank/suppressed cells in the table were recorded as 0.0. Values shown are the French sample estimates (the table presents French [English]).\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Table 3. Standardized parameter estimates for CFA of the optimal TAS-20 Model: French [English]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"1. I am often confused about...  .72 [.74]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"2. It is difficult for me to find...  .78 [.76]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"8. I prefer just to let things...  .40 [.44]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"4-R. I am able to describe...  .48 [.40]    .38 [.36]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F4 loadings\"\n        },\n        {\n          \"snippet\": \"The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"factor count\"\n        }\n      ]\n    },\n    {\n      \"sample_id\": \"english\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.74, \"F1.2\": 0.0, \"F1.3\": 0.60, \"F1.4\": 0.0, \"F1.5\": 0.0, \"F1.6\": 0.73, \"F1.7\": 0.71, \"F1.8\": 0.0, \"F1.9\": 0.80, \"F1.10\": 0.0, \"F1.11\": 0.0, \"F1.12\": 0.0, \"F1.13\": 0.80, \"F1.14\": 0.70, \"F1.15\": 0.0, \"F1.16\": 0.0, \"F1.17\": 0.0, \"F1.18\": 0.0, \"F1.19\": 0.0, \"F1.20\": 0.0,\n        \"F2.1\": 0.0, \"F2.2\": 0.76, \"F2.3\": 0.0, \"F2.4\": 0.40, \"F2.5\": 0.0, \"F2.6\": 0.0, \"F2.7\": 0.0, \"F2.8\": 0.0, \"F2.9\": 0.0, \"F2.10\": 0.0, \"F2.11\": 0.72, \"F2.12\": 0.62, \"F2.13\": 0.0, \"F2.14\": 0.0, \"F2.15\": 0.0, \"F2.16\": 0.0, \"F2.17\": 0.62, \"F2.18\": 0.0, \"F2.19\": 0.0, \"F2.20\": 0.0,\n        \"F3.1\": 0.0, \"F3.2\": 0.0, \"F3.3\": 0.0, \"F3.4\": 0.0, \"F3.5\": 0.02, \"F3.6\": 0.0, \"F3.7\": 0.0, \"F3.8\": 0.44, \"F3.9\": 0.0, \"F3.10\": 0.26, \"F3.11\": 0.0, \"F3.12\": 0.0, \"F3.13\": 0.0, \"F3.14\": 0.0, \"F3.15\": 0.60, \"F3.16\": 0.43, \"F3.17\": 0.0, \"F3.18\": 0.06, \"F3.19\": 0.23, \"F3.20\": 0.38,\n        \"F4.1\": 0.0, \"F4.2\": 0.0, \"F4.3\": 0.0, \"F4.4\": 0.36, \"F4.5\": 0.37, \"F4.6\": 0.0, \"F4.7\": 0.0, \"F4.8\": 0.0, \"F4.9\": 0.0, \"F4.10\": 0.50, \"F4.11\": 0.0, \"F4.12\": 0.0, \"F4.13\": 0.0, \"F4.14\": 0.0, \"F4.15\": 0.0, \"F4.16\": 0.0, \"F4.17\": 0.0, \"F4.18\": 0.51, \"F4.19\": 0.70, \"F4.20\": 0.0,\n        \"F5.1\": null, \"F5.2\": null, \"F5.3\": null, \"F5.4\": null, \"F5.5\": null, \"F5.6\": null, \"F5.7\": null, \"F5.8\": null, \"F5.9\": null, \"F5.10\": null, \"F5.11\": null, \"F5.12\": null, \"F5.13\": null, \"F5.14\": null, \"F5.15\": null, \"F5.16\": null, \"F5.17\": null, \"F5.18\": null, \"F5.19\": null, \"F5.20\": null\n      },\n      \"notes\": \"Values are the English-sample estimates taken from the bracketed values in Table 3 (French [English]). The extracted model is the same 3 substantive factors (F1=DIF, F2=DDF, F3=EOT) plus an orthogonal method factor for reverse-scored items (F4). F5 is not present in the reported solution and all F5.* are null. Suppressed/blank cells in the table were recorded as 0.0.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Table 3. Standardized parameter estimates for CFA of the optimal TAS-20 Model: French [English]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"2. It is difficult for me to find...  .78 [.76]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"8. I prefer just to let things...  .40 [.44]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"5-R. I prefer to analyze problems rather...  \u2014.02a [.02a]    .49 [.37]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"F4 loadings\"\n        },\n        {\n          \"snippet\": \"The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"factor count\"\n        }\n      ]\n    }\n  ]\n}\n\n=== EXTRACTED CORRELATIONS ===\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"french\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.84,\n        \"R1.3\": 0.58,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.70,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Factor numbering assigned from Table 3 column order (Factor1 = DIF, Factor2 = DDF, Factor3 = EOT, Factor4 = Method factor). A fifth factor is not present. The paper reports latent (phi) correlations among the three substantive factors (DIF, DDF, EOT) separately for French and English; only those three correlations are reported. Correlations involving the method factor were not reported and are set to null.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language. These two groups are hereafter referred to as English-speaking and French-speaking samples.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Comparison of factor covariances across languages also showed invariance across languages, with inter-factor latent correlations ranging from .58 to .84 (French [English]: DIF-DDF = .84 [.84], DIF-EOT = .58 [.58], DDF-EOT = .70 [.66]).\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"factor correlations\"\n        },\n        {\n          \"snippet\": \"Table 3. Standardized parameter estimates for CFA of the optimal TAS-20 Model: French [English]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"factor mapping\"\n        }\n      ]\n    },\n    {\n      \"sample_id\": \"english\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.84,\n        \"R1.3\": 0.58,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.66,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Factor numbering assigned from Table 3 column order (Factor1 = DIF, Factor2 = DDF, Factor3 = EOT, Factor4 = Method factor). A fifth factor is not present. The paper reports latent (phi) correlations among the three substantive factors (DIF, DDF, EOT) separately for French and English; only those three correlations are reported. Correlations involving the method factor were not reported and are set to null.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language. These two groups are hereafter referred to as English-speaking and French-speaking samples.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Comparison of factor covariances across languages also showed invariance across languages, with inter-factor latent correlations ranging from .58 to .84 (French [English]: DIF-DDF = .84 [.84], DIF-EOT = .58 [.58], DDF-EOT = .70 [.66]).\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"factor correlations\"\n        },\n        {\n          \"snippet\": \"Table 3. Standardized parameter estimates for CFA of the optimal TAS-20 Model: French [English]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"factor mapping\"\n        }\n      ]\n    }\n  ]\n}\n\nNow look at the paper pages below and extract the metadata.\n---\nSUPPORTING EVIDENCE REQUIREMENT\n\nAdd an \"evidence\" key to every sample/record object in your output. Its value is a JSON array. Each array element must have exactly these four keys:\n\n- \"snippet\": the exact verbatim text from the paper that supports the extraction (do not paraphrase \u2014 quote directly)\n- \"page\": the sequential PDF page number (1 = first page provided). Do NOT use the journal or book page number printed in the document header/footer.\n- \"source\": the table or figure identifier (e.g. \"Table 2\", \"Figure 1A\"), or null if not from a named element\n- \"field\": a short label for what this evidence supports\n\nDo NOT embed snippet/page/source inline with extracted values \u2014 keep all evidence in the \"evidence\" array only.\n\nCoverage: include one evidence entry per extracted field (e.g. n, age, country, rot). Use the field name as the \"field\" value. If a field is null because the information is absent, include the entry with snippet/source/page all set to null.\n\nExample:\n\"evidence\": [\n  {\"snippet\": \"The sample consisted of 312 undergraduate students\", \"page\": 2, \"source\": null, \"field\": \"n\"},\n  {\"snippet\": \"mean age was 21.3 years\", \"page\": 2, \"source\": null, \"field\": \"age\"},\n  {\"snippet\": \"promax rotation\", \"page\": 3, \"source\": null, \"field\": \"rot\"}\n]",
+  "entries": [
+    {
+      "pubyear": 2019,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": "French",
+      "pubtype": 1,
+      "n": 5160,
+      "sex": 14,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 4,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2,
+      "notes": "French-speaking subsample of Canadian Armed Forces recruits (n=5,160). Model = 3 substantive factors (DIF, DDF, EOT) plus an orthogonal method factor for reverse-scored items (total 4 factors). Confirmatory factor analysis (CFA) using maximum likelihood estimation in EQS. Rotation: substantive factors modeled obliquely (oblique solution) while method factor orthogonal; coded as oblique (2). Response format = 5-point Likert. Sex (% women) computed as 100 - %male from Table 1 (100 - 86 = 14). Mean age not reported (only % \u226424).",
+      "evidence": [
+        {
+          "snippet": "European Journal of Psychological Assessment (2019), 35(1), 29\u201336",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.",
+          "page": 2,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.",
+          "page": 2,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.",
+          "page": 2,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "Original Article",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": "Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.",
+          "page": 2,
+          "source": null,
+          "field": "n"
+        },
+        {
+          "snippet": "Table 1. Demographics for French-speaking and English-speaking samples\n% male    86    84    6.23 (1)    .013",
+          "page": 3,
+          "source": "Table 1",
+          "field": "sex"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.",
+          "page": 2,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": "The TAS-20 items are rated on a 5-point Likert scale ranging from 1 (= strongly disagree) to 5 (= strongly agree); five items are reverse scored (Bagby, Parker, et al., 1994).",
+          "page": 2,
+          "source": null,
+          "field": "res"
+        },
+        {
+          "snippet": "The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.",
+          "page": 4,
+          "source": null,
+          "field": "nfac"
+        },
+        {
+          "snippet": "Table 3. Standardized parameter estimates for CFA of the optimal TAS-20 Model: French [English]",
+          "page": 5,
+          "source": "Table 3",
+          "field": "cfa"
+        },
+        {
+          "snippet": "All CFA and MG-CFA models were tested with EQS 6.1 statistical software using maximum likelihood estimation (Bentler, 2005); all other analyses were conducted using SPSS 16.0 (SPSS Inc., 2008).",
+          "page": 3,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": "The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.",
+          "page": 4,
+          "source": null,
+          "field": "rot"
+        }
+      ]
+    },
+    {
+      "pubyear": 2019,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 12706,
+      "sex": 16,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 4,
+      "cfa": 1,
+      "met": 3,
+      "rot": 2,
+      "notes": "English-speaking subsample of Canadian Armed Forces recruits (n=12,706). Model = 3 substantive factors (DIF, DDF, EOT) plus an orthogonal method factor for reverse-scored items (total 4 factors). Confirmatory factor analysis (CFA) using maximum likelihood estimation in EQS. Rotation: substantive factors modeled obliquely; coded as oblique (2). Response format = 5-point Likert. Sex (% women) computed as 100 - %male from Table 1 (100 - 84 = 16). Mean age not reported (only % \u226424).",
+      "evidence": [
+        {
+          "snippet": "European Journal of Psychological Assessment (2019), 35(1), 29\u201336",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.",
+          "page": 2,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.",
+          "page": 2,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.",
+          "page": 2,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "Original Article",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": "Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.",
+          "page": 2,
+          "source": null,
+          "field": "n"
+        },
+        {
+          "snippet": "Table 1. Demographics for French-speaking and English-speaking samples\n% male    86    84    6.23 (1)    .013",
+          "page": 3,
+          "source": "Table 1",
+          "field": "sex"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.",
+          "page": 2,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": "The TAS-20 items are rated on a 5-point Likert scale ranging from 1 (= strongly disagree) to 5 (= strongly agree); five items are reverse scored (Bagby, Parker, et al., 1994).",
+          "page": 2,
+          "source": null,
+          "field": "res"
+        },
+        {
+          "snippet": "The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.",
+          "page": 4,
+          "source": null,
+          "field": "nfac"
+        },
+        {
+          "snippet": "Table 3. Standardized parameter estimates for CFA of the optimal TAS-20 Model: French [English]",
+          "page": 5,
+          "source": "Table 3",
+          "field": "cfa"
+        },
+        {
+          "snippet": "All CFA and MG-CFA models were tested with EQS 6.1 statistical software using maximum likelihood estimation (Bentler, 2005); all other analyses were conducted using SPSS 16.0 (SPSS Inc., 2008).",
+          "page": 3,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": "The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.",
+          "page": 4,
+          "source": null,
+          "field": "rot"
+        }
+      ]
+    }
+  ],
+  "human_overrides": [],
+  "original_model_response": "{\n  \"records\": [\n    {\n      \"pubyear\": 2019,\n      \"country\": \"Canada\",\n      \"continent\": \"North America\",\n      \"lang\": \"French\",\n      \"pubtype\": 1,\n      \"n\": 5160,\n      \"sex\": 14,\n      \"age\": null,\n      \"clinical\": 0,\n      \"res\": 5,\n      \"nfac\": 4,\n      \"cfa\": 1,\n      \"met\": 3,\n      \"rot\": 2,\n      \"notes\": \"French-speaking subsample of Canadian Armed Forces recruits (n=5,160). Model = 3 substantive factors (DIF, DDF, EOT) plus an orthogonal method factor for reverse-scored items (total 4 factors). Confirmatory factor analysis (CFA) using maximum likelihood estimation in EQS. Rotation: substantive factors modeled obliquely (oblique solution) while method factor orthogonal; coded as oblique (2). Response format = 5-point Likert. Sex (% women) computed as 100 - %male from Table 1 (100 - 86 = 14). Mean age not reported (only % \u226424).\",\n      \"evidence\": [\n        {\n          \"snippet\": \"European Journal of Psychological Assessment (2019), 35(1), 29\\u201336\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"Original Article\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": \"Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": \"Table 1. Demographics for French-speaking and English-speaking samples\\n% male    86    84    6.23 (1)    .013\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": \"The TAS-20 items are rated on a 5-point Likert scale ranging from 1 (= strongly disagree) to 5 (= strongly agree); five items are reverse scored (Bagby, Parker, et al., 1994).\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Table 3. Standardized parameter estimates for CFA of the optimal TAS-20 Model: French [English]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": \"All CFA and MG-CFA models were tested with EQS 6.1 statistical software using maximum likelihood estimation (Bentler, 2005); all other analyses were conducted using SPSS 16.0 (SPSS Inc., 2008).\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": \"The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"rot\"\n        }\n      ]\n    },\n    {\n      \"pubyear\": 2019,\n      \"country\": \"Canada\",\n      \"continent\": \"North America\",\n      \"lang\": \"English\",\n      \"pubtype\": 1,\n      \"n\": 12706,\n      \"sex\": 16,\n      \"age\": null,\n      \"clinical\": 0,\n      \"res\": 5,\n      \"nfac\": 4,\n      \"cfa\": 1,\n      \"met\": 3,\n      \"rot\": 2,\n      \"notes\": \"English-speaking subsample of Canadian Armed Forces recruits (n=12,706). Model = 3 substantive factors (DIF, DDF, EOT) plus an orthogonal method factor for reverse-scored items (total 4 factors). Confirmatory factor analysis (CFA) using maximum likelihood estimation in EQS. Rotation: substantive factors modeled obliquely; coded as oblique (2). Response format = 5-point Likert. Sex (% women) computed as 100 - %male from Table 1 (100 - 84 = 16). Mean age not reported (only % \u226424).\",\n      \"evidence\": [\n        {\n          \"snippet\": \"European Journal of Psychological Assessment (2019), 35(1), 29\\u201336\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"Original Article\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": \"Of the total number of recruits who met this criterion (N = 17,866), 71% (n = 12,706) spoke English as their first language; the remaining 29% (n = 5,160) spoke French as their first language.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": \"Table 1. Demographics for French-speaking and English-speaking samples\\n% male    86    84    6.23 (1)    .013\",\n          \"page\": 3,\n          \"source\": \"Table 1\",\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"The participants in the larger study were 21,817 Canadian Armed Forces (CAF) recruits who completed the CAF Recruit Health Questionnaire (RHQ; Lee, Whitehead, & Dubiniecki, 2010) in the first few weeks of their basic training at the CAF Leadership and Recruit School between July 2003 and December 2009.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": \"The TAS-20 items are rated on a 5-point Likert scale ranging from 1 (= strongly disagree) to 5 (= strongly agree); five items are reverse scored (Bagby, Parker, et al., 1994).\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Table 3. Standardized parameter estimates for CFA of the optimal TAS-20 Model: French [English]\",\n          \"page\": 5,\n          \"source\": \"Table 3\",\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": \"All CFA and MG-CFA models were tested with EQS 6.1 statistical software using maximum likelihood estimation (Bentler, 2005); all other analyses were conducted using SPSS 16.0 (SPSS Inc., 2008).\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": \"The optimal fitting model for both English-speaking and French-speaking samples was the standard oblique 3-factor model (DIF, DDF, EOT) with an orthogonal method factor comprised of the reverse-scored items.\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"rot\"\n        }\n      ]\n    }\n  ]\n}"
+}

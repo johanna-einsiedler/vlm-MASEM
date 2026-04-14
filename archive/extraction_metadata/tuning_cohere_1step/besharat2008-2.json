@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "pubyear": 2008,
+      "country": "string|null",
+      "continent": "string|null",
+      "lang": "string|null",
+      "pubtype": 1,
+      "n": 321,
+      "sex": 0,
+      "age": null,
+      "clinical": 0,
+      "res": null,
+      "nfac": null,
+      "cfa": null,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear":  {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "country":  {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "continent":{"snippet": "string|null", "page": 0, "source": "string|null"},
+        "lang":     {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "pubtype":  {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "n":        {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "sex":      {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "age":      {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "clinical": {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "res":      {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "nfac":     {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "cfa":      {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "met":      {"snippet": "string|null", "page": 0, "source": "string|null"},
+        "rot":      {"snippet": "string|null", "page": 0, "source": "string|null"}
+      }
+    }
+  ]
+}

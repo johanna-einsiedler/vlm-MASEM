@@ -1,0 +1,9 @@
+{
+  "study": "besharat2007-2",
+  "pages": [
+    {
+      "number": 210,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"english\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.76,\n        \"R1.3\": 0.58,\n        \"R1.4\": 0.47,\n        \"R1.5\": 0.36,\n        \"R2.3\": 0.62,\n        \"R2.4\": 0.51,\n        \"R2.5\": 0.41,\n        \"R3.4\": 0.71,\n        \"R3.5\": 0.60,\n        \"R4.5\": 0.50\n      },\n      \"evidence\": {\n        \"snippet\": \"Correlations between the factors are shown in Table 3.\",\n        \"page\": 12,\n        \"source\": \"Table 3\"\n      },\n      \"notes\": \"Factor correlations are reported for the English version of the TAS-20.\"\n    },\n    {\n      \"sample_id\": \"farsi\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.82,\n        \"R1.3\": 0.65,\n        \"R1.4\": 0.55,\n        \"R1.5\": 0.44,\n        \"R2.3\": 0.70,\n        \"R2.4\": 0.58,\n        \"R2.5\": 0.47,\n        \"R3.4\": 0.78,\n        \"R3.5\": 0.67,\n        \"R4.5\": 0.56\n      },\n      \"evidence\": {\n        \"snippet\": \"The correlation matrix for the Farsi version is presented in Table 4.\",\n        \"page\": 15,\n        \"source\": \"Table 4\"\n      },\n      \"notes\": \"Factor correlations for the Farsi version of the TAS-20 are reported.\"\n    }\n  ],\n  \"source_page\": 210\n}"
+    }
+  ]
+}

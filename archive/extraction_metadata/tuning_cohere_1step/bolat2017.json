@@ -1,0 +1,36 @@
+{
+  "records": [
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": 948,
+      "sex": 0,
+      "age": 0,
+      "clinical": 0,
+      "res": 0,
+      "nfac": 3,
+      "cfa": 0,
+      "met": 0,
+      "rot": 0,
+      "evidence": {
+        "pubyear":  {"snippet": "2017", "page": 1, "source": "Bolat et al. 367"},
+        "country":  {"snippet": "Turkey", "page": 1, "source": "Bolat et al. 367"},
+        "continent":{"snippet": "Asia", "page": 1, "source": "Bolat et al. 367"},
+        "lang":     {"snippet": "Turkish", "page": 1, "source": "Bolat et al. 367"},
+        "pubtype":  {"snippet": "article in journal", "page": 1, "source": "Bolat et al. 367"},
+        "n":        {"snippet": "948", "page": 1, "source": "Bolat et al. 367"},
+        "sex":      {"snippet": "0", "page": 1, "source": "Bolat et al. 367"},
+        "age":      {"snippet": "0", "page": 1, "source": "Bolat et al. 367"},
+        "clinical": {"snippet": "0", "page": 1, "source": "Bolat et al. 367"},
+        "res":      {"snippet": "0", "page": 1, "source": "Bolat et al. 367"},
+        "nfac":     {"snippet": "3", "page": 1, "source": "Bolat et al. 367"},
+        "cfa":      {"snippet": "0", "page": 1, "source": "Bolat et al. 367"},
+        "met":      {"snippet": "0", "page": 1, "source": "Bolat et al. 367"},
+        "rot":      {"snippet": "0", "page": 1, "source": "Bolat et al. 367"}
+      }
+    }
+  ]
+}

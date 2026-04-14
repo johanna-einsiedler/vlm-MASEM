@@ -1,0 +1,94 @@
+```json
+{
+  "records": [
+    {
+      "pubyear": 2007,
+      "country": "Iran",
+      "continent": "Asia",
+      "lang": "Farsi",
+      "pubtype": 1,
+      "n": 587,
+      "sex": 59.45,
+      "age": 20.2,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "evidence": {
+        "pubyear": {
+          "snippet": "Psychological Reports, 2007, 101, 209-220.",
+          "page": 1,
+          "source": null
+        },
+        "country": {
+          "snippet": "Participants were 587 undergraduate students (349 women and 238 men) from the University of Tehran.",
+          "page": 4,
+          "source": null
+        },
+        "continent": {
+          "snippet": "Inferred from country: Iran → Asia",
+          "page": 4,
+          "source": null
+        },
+        "lang": {
+          "snippet": "The 20-item Toronto Alexithymia Scale (Bagby, Parker, & Taylor, 1994) was translated into Farsi",
+          "page": 4,
+          "source": null
+        },
+        "pubtype": {
+          "snippet": "Psychological Reports, 2007, 101, 209-220.",
+          "page": 1,
+          "source": null
+        },
+        "n": {
+          "snippet": "Participants were 587 undergraduate students",
+          "page": 4,
+          "source": null
+        },
+        "sex": {
+          "snippet": "Participants were 587 undergraduate students (349 women and 238 men)",
+          "page": 4,
+          "source": null
+        },
+        "age": {
+          "snippet": "The mean age of the sample was 20.2 yr.",
+          "page": 4,
+          "source": null
+        },
+        "clinical": {
+          "snippet": "Participants were 587 undergraduate students",
+          "page": 4,
+          "source": null
+        },
+        "res": {
+          "snippet": "Each item is rated on a 5-point Likert-type scale",
+          "page": 4,
+          "source": null
+        },
+        "nfac": {
+          "snippet": "Using confirmatory factor analysis, the three-factor structure of the FTAS-20 was tested",
+          "page": 6,
+          "source": null
+        },
+        "cfa": {
+          "snippet": "Using confirmatory factor analysis, the three-factor structure of the FTAS-20 was tested",
+          "page": 6,
+          "source": null
+        },
+        "met": {
+          "snippet": null,
+          "page": null,
+          "source": null
+        },
+        "rot": {
+          "snippet": null,
+          "page": null,
+          "source": null
+        }
+      }
+    }
+  ]
+}
+```

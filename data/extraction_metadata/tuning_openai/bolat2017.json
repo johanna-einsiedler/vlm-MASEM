@@ -1,0 +1,319 @@
+{
+  "filename": "bolat2017.pdf",
+  "pages_processed": 8,
+  "model": "gpt-5-mini",
+  "prompt": "Goal\n\nExtract study- and sample-level metadata from the provided paper pages, using previously extracted factor-analytic results (factor loadings + factor correlations) provided as JSON input.\n\nYour task is to output one clean metadata record per sample/group reported in the paper.\n\n\nInputs\n\nYou will be given two inputs:\n\nA) EXTRACTED_RESULTS_JSON\n- A JSON object containing extracted factor loadings and/or factor correlations.\n- It includes one or more samples, each with a sample_id field.\n\nB) Paper pages (images)\n- The full paper as page images.\n\n\nWhat to output\n\nReturn exactly one valid JSON object (parsable by json.loads). No extra text.\n\nJSON schema\n{\n  \"records\": [\n    {\n      \"pubyear\": number,\n      \"country\": \"string|null\",\n      \"continent\": \"string|null\",\n      \"lang\": \"string|null\",\n      \"pubtype\": number|null,\n      \"n\": number|null,\n      \"sex\": number|null,\n      \"age\": number|null,\n      \"clinical\": number|null,\n      \"res\": number|null,\n      \"nfac\": number|null,\n      \"cfa\": number|null,\n      \"met\": number|null,\n      \"rot\": number|null,\n      \"notes\": \"string\"\n    }\n  ]\n}\n\n\nVariables (must follow exactly)\n\npubyear:\n- Publication year (<= 2020 per spec).\n- Extract from the paper (preferred) or from citation header. If not visible, null.\n\ncountry:\n- Country of origin of participants (open text).\n- Only fill if explicitly stated or clearly inferable from recruitment location (e.g., \"German university students in Berlin\" -> Germany).\n- If origin is unclear but author affiliation is mainly United States, use USA.\n- If unclear, null.\n\ncontinent:\n- Continent of origin of participants (open text).\n- If country is available, map the country to the continent.\n- If country is null and continent is explicitly stated, fill continent; otherwise null.\n\nlang:\n- Language of questionnaire (open text), e.g., \"German\", \"English\", \"French\".\n- Use explicit statements like \"German version\", \"translated into \u2026\", etc. If not stated, null.\n- If multiple versions are used, match language to the sample_id from EXTRACTED_RESULTS_JSON.\n- If no language is explicitly mentioned but the sample originates from an English-speaking country, use English.\n\npubtype:\n- Publication type:\n  1 = article in journal\n  2 = book\n  3 = thesis (master/phd)\n  4 = presentation/proceedings\n  5 = other\n- Determine from paper context; if uncertain, null and explain in notes.\n\nn:\n- Sample size (integer).\n- Usually given in the abstract or method section following statements like \"sample is comprised \u2026\", \"sample consists of\u2026\", \"administered to\u2026\"\n- If multiple groups, use the n corresponding to the record's sample_id.\n- If not clearly matched, set null and describe ambiguity in notes.\n\nsex:\n- Percentage of women in sample (%) in [0, 100].\n- Extract if reported. If only counts are reported, compute percentage if n is known: ratio = women/(women + men); mention computation in notes.\n- If not reported, null.\n\nage:\n- Mean age (years).\n- Usually given in the abstract or method section.\n- If mean age is reported separately for gender groups, compute subsample-size weighted mean.\n- Prefer mean; if only a range/median is given, set null and note.\n\nclinical:\n- 0 = no (non-clinical)\n- 1 = yes (clinical patients)\n- 2 = mixed\n- Determine from sample description; if unclear, null.\n\nres:\n- Number of response options (Likert points), integer >= 5.\n- Extract from TAS-20 response format description (e.g., \"5-point Likert scale\" -> 5).\n- If there is no mention of adaptation or translation, use 5.\n- Otherwise, null.\n\nnfac:\n- Number of extracted factors (1\u201310).\n- Determine from the factor-analytic model described in the paper AND/OR from EXTRACTED_RESULTS_JSON (e.g., if loadings include F1..F3 -> 3).\n- If inconsistent across models, prefer the main/final/preferred solution; explain in notes.\n\ncfa:\n- Factor-analytic type:\n  0 = EFA\n  1 = CFA\n- Search for expressions like \"exploratory factor analysis\" (EFA) or \"confirmatory factor analysis\" (CFA).\n- Determine based on the method corresponding to the extracted results.\n- If both EFA and CFA exist but extracted results correspond to one, code that one and note both in notes.\n\nmet:\n- Extraction/estimation method:\n  1 = principal component\n  2 = principal axis\n  3 = maximum likelihood\n  4 = other\n- Search for expressions like \"principal component\" (PCA), \"principal axis\" (PAF), or \"maximum likelihood\" (ML).\n- Use the method used for the extracted solution. If not stated, null.\n- If \"other\", briefly name it in notes (e.g., \"ULS\", \"WLSMV\", \"GLS\", \"Bayesian\", etc.).\n\nrot:\n- Rotation method:\n  1 = orthogonal (e.g., varimax)\n  2 = oblique (e.g., oblimin, promax)\n- Search for terms such as \"varimax,\" \"quartimax,\" \"equamax,\" \"orthomax,\" and \"parsimax\" \u2192 orthogonal.\n- Search for terms such as \"promax,\" \"oblimin,\" \"quartimin,\" \"biquartimin,\" and \"geomin\" \u2192 oblique.\n- If all factor correlations are zero, use 1.\n\n\nMatching rules: linking metadata to extracted samples\n- Use sample_id labels inside EXTRACTED_RESULTS_JSON (e.g., \"sample1\", \"clinical\", \"english\", \"french\") to find the corresponding group in the paper.\n- Match by explicit headings, group descriptors, or n values if uniquely identifiable.\n- Output one record per sample in the same order as EXTRACTED_RESULTS_JSON.\n\n\nStrict rules\n\n- Do not invent values.\n- If a value is not explicitly stated, cannot be reasonably inferred from the paper text, and no default is specified above, use null.\n- The output must be JSON only, no markdown, no commentary.\n\n\nNow perform the task:\n\n=== EXTRACTED FACTOR LOADINGS ===\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"12-17\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.67,\n        \"F1.2\": 0.0,\n        \"F1.3\": 0.48,\n        \"F1.4\": 0.0,\n        \"F1.5\": 0.0,\n        \"F1.6\": 0.57,\n        \"F1.7\": 0.60,\n        \"F1.8\": 0.0,\n        \"F1.9\": 0.73,\n        \"F1.10\": 0.0,\n        \"F1.11\": 0.0,\n        \"F1.12\": 0.0,\n        \"F1.13\": 0.75,\n        \"F1.14\": 0.57,\n        \"F1.15\": 0.0,\n        \"F1.16\": 0.0,\n        \"F1.17\": 0.0,\n        \"F1.18\": 0.0,\n        \"F1.19\": 0.0,\n        \"F1.20\": 0.0,\n        \"F2.1\": 0.0,\n        \"F2.2\": 0.73,\n        \"F2.3\": 0.0,\n        \"F2.4\": 0.69,\n        \"F2.5\": 0.0,\n        \"F2.6\": 0.0,\n        \"F2.7\": 0.0,\n        \"F2.8\": 0.0,\n        \"F2.9\": 0.0,\n        \"F2.10\": 0.0,\n        \"F2.11\": 0.54,\n        \"F2.12\": 0.23,\n        \"F2.13\": 0.0,\n        \"F2.14\": 0.0,\n        \"F2.15\": 0.0,\n        \"F2.16\": 0.0,\n        \"F2.17\": 0.54,\n        \"F2.18\": 0.0,\n        \"F2.19\": 0.0,\n        \"F2.20\": 0.0,\n        \"F3.1\": 0.0,\n        \"F3.2\": 0.0,\n        \"F3.3\": 0.0,\n        \"F3.4\": 0.0,\n        \"F3.5\": 0.59,\n        \"F3.6\": 0.0,\n        \"F3.7\": 0.0,\n        \"F3.8\": 0.39,\n        \"F3.9\": 0.0,\n        \"F3.10\": 0.29,\n        \"F3.11\": 0.0,\n        \"F3.12\": 0.0,\n        \"F3.13\": 0.0,\n        \"F3.14\": 0.0,\n        \"F3.15\": 0.06,\n        \"F3.16\": -0.07,\n        \"F3.17\": 0.0,\n        \"F3.18\": 0.25,\n        \"F3.19\": 0.32,\n        \"F3.20\": 0.12,\n        \"F4.1\": null,\n        \"F4.2\": null,\n        \"F4.3\": null,\n        \"F4.4\": null,\n        \"F4.5\": null,\n        \"F4.6\": null,\n        \"F4.7\": null,\n        \"F4.8\": null,\n        \"F4.9\": null,\n        \"F4.10\": null,\n        \"F4.11\": null,\n        \"F4.12\": null,\n        \"F4.13\": null,\n        \"F4.14\": null,\n        \"F4.15\": null,\n        \"F4.16\": null,\n        \"F4.17\": null,\n        \"F4.18\": null,\n        \"F4.19\": null,\n        \"F4.20\": null,\n        \"F5.1\": null,\n        \"F5.2\": null,\n        \"F5.3\": null,\n        \"F5.4\": null,\n        \"F5.5\": null,\n        \"F5.6\": null,\n        \"F5.7\": null,\n        \"F5.8\": null,\n        \"F5.9\": null,\n        \"F5.10\": null,\n        \"F5.11\": null,\n        \"F5.12\": null,\n        \"F5.13\": null,\n        \"F5.14\": null,\n        \"F5.15\": null,\n        \"F5.16\": null,\n        \"F5.17\": null,\n        \"F5.18\": null,\n        \"F5.19\": null,\n        \"F5.20\": null\n      },\n      \"notes\": \"Table 3 presents a three-factor solution (Factor 1 = DIF, Factor 2 = DDF, Factor 3 = EOT) with separate columns for age groups. This sample corresponds to the 12-17 (total) age column from Table 3. Because a 3-factor model is reported, all F4.* and F5.* entries are null. Items are placed under their factor heading in the table; non-reported loadings for other existing factors are set to 0.0 per extraction rules.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female). The participants were grouped as total sample (range: 12-17 years), younger (range: 12-14 years) and older (range: 15 and 17 years) adolescents.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Table 3. Factor parameter estimates for the T-TAS-20 items\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 1. Difficulty Identifying Feelings (DIF)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Item 1 (I am often confused about what I feel exactly) 0.67 0.62 0.72\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 2. Difficulty Describing Feelings (DDF)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Item 2 (It is difficult for me to find the appropriate words for my feelings) 0.73 0.68 0.82\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 3. Externally-Oriented Thinking (EOT)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"Item 5 (I would rather solve problems than just describe them) 0.59 0.51 0.66\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"replicate the originally created three-factor model for the TAS-20.2,16\",\n          \"page\": 5,\n          \"source\": null,\n          \"field\": \"factor count\"\n        }\n      ]\n    },\n    {\n      \"sample_id\": \"12-14\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.62,\n        \"F1.2\": 0.0,\n        \"F1.3\": 0.40,\n        \"F1.4\": 0.0,\n        \"F1.5\": 0.0,\n        \"F1.6\": 0.55,\n        \"F1.7\": 0.56,\n        \"F1.8\": 0.0,\n        \"F1.9\": 0.71,\n        \"F1.10\": 0.0,\n        \"F1.11\": 0.0,\n        \"F1.12\": 0.0,\n        \"F1.13\": 0.69,\n        \"F1.14\": 0.58,\n        \"F1.15\": 0.0,\n        \"F1.16\": 0.0,\n        \"F1.17\": 0.0,\n        \"F1.18\": 0.0,\n        \"F1.19\": 0.0,\n        \"F1.20\": 0.0,\n        \"F2.1\": 0.0,\n        \"F2.2\": 0.68,\n        \"F2.3\": 0.0,\n        \"F2.4\": 0.62,\n        \"F2.5\": 0.0,\n        \"F2.6\": 0.0,\n        \"F2.7\": 0.0,\n        \"F2.8\": 0.0,\n        \"F2.9\": 0.0,\n        \"F2.10\": 0.0,\n        \"F2.11\": 0.51,\n        \"F2.12\": 0.13,\n        \"F2.13\": 0.0,\n        \"F2.14\": 0.0,\n        \"F2.15\": 0.0,\n        \"F2.16\": 0.0,\n        \"F2.17\": 0.44,\n        \"F2.18\": 0.0,\n        \"F2.19\": 0.0,\n        \"F2.20\": 0.0,\n        \"F3.1\": 0.0,\n        \"F3.2\": 0.0,\n        \"F3.3\": 0.0,\n        \"F3.4\": 0.0,\n        \"F3.5\": 0.51,\n        \"F3.6\": 0.0,\n        \"F3.7\": 0.0,\n        \"F3.8\": 0.24,\n        \"F3.9\": 0.0,\n        \"F3.10\": 0.29,\n        \"F3.11\": 0.0,\n        \"F3.12\": 0.0,\n        \"F3.13\": 0.0,\n        \"F3.14\": 0.0,\n        \"F3.15\": -0.12,\n        \"F3.16\": -0.24,\n        \"F3.17\": 0.0,\n        \"F3.18\": 0.17,\n        \"F3.19\": 0.29,\n        \"F3.20\": 0.03,\n        \"F4.1\": null,\n        \"F4.2\": null,\n        \"F4.3\": null,\n        \"F4.4\": null,\n        \"F4.5\": null,\n        \"F4.6\": null,\n        \"F4.7\": null,\n        \"F4.8\": null,\n        \"F4.9\": null,\n        \"F4.10\": null,\n        \"F4.11\": null,\n        \"F4.12\": null,\n        \"F4.13\": null,\n        \"F4.14\": null,\n        \"F4.15\": null,\n        \"F4.16\": null,\n        \"F4.17\": null,\n        \"F4.18\": null,\n        \"F4.19\": null,\n        \"F4.20\": null,\n        \"F5.1\": null,\n        \"F5.2\": null,\n        \"F5.3\": null,\n        \"F5.4\": null,\n        \"F5.5\": null,\n        \"F5.6\": null,\n        \"F5.7\": null,\n        \"F5.8\": null,\n        \"F5.9\": null,\n        \"F5.10\": null,\n        \"F5.11\": null,\n        \"F5.12\": null,\n        \"F5.13\": null,\n        \"F5.14\": null,\n        \"F5.15\": null,\n        \"F5.16\": null,\n        \"F5.17\": null,\n        \"F5.18\": null,\n        \"F5.19\": null,\n        \"F5.20\": null\n      },\n      \"notes\": \"This sample corresponds to the younger age column (12-14 years) from Table 3. A three-factor solution (DIF, DDF, EOT) is reported; therefore F4/F5 are null. Loadings are the values reported under the 12-14 column in Table 3; non-reported loadings for other existing factors are set to 0.0.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female). The participants were grouped as total sample (range: 12-17 years), younger (range: 12-14 years) and older (range: 15 and 17 years) adolescents.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Table 3. Factor parameter estimates for the T-TAS-20 items\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 2. Difficulty Describing Feelings (DDF)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Item 2 (It is difficult for me to find the appropriate words for my feelings) 0.73 0.68 0.82\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 1. Difficulty Identifying Feelings (DIF)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Item 1 (I am often confused about what I feel exactly) 0.67 0.62 0.72\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 3. Externally-Oriented Thinking (EOT)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"Item 5 (I would rather solve problems than just describe them) 0.59 0.51 0.66\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"replicate the originally created three-factor model for the TAS-20.2,16\",\n          \"page\": 5,\n          \"source\": null,\n          \"field\": \"factor count\"\n        }\n      ]\n    },\n    {\n      \"sample_id\": \"15-17\",\n      \"factor_loadings\": {\n        \"F1.1\": 0.72,\n        \"F1.2\": 0.0,\n        \"F1.3\": 0.55,\n        \"F1.4\": 0.0,\n        \"F1.5\": 0.0,\n        \"F1.6\": 0.58,\n        \"F1.7\": 0.64,\n        \"F1.8\": 0.0,\n        \"F1.9\": 0.77,\n        \"F1.10\": 0.0,\n        \"F1.11\": 0.0,\n        \"F1.12\": 0.0,\n        \"F1.13\": 0.80,\n        \"F1.14\": 0.58,\n        \"F1.15\": 0.0,\n        \"F1.16\": 0.0,\n        \"F1.17\": 0.0,\n        \"F1.18\": 0.0,\n        \"F1.19\": 0.0,\n        \"F1.20\": 0.0,\n        \"F2.1\": 0.0,\n        \"F2.2\": 0.82,\n        \"F2.3\": 0.0,\n        \"F2.4\": 0.76,\n        \"F2.5\": 0.0,\n        \"F2.6\": 0.0,\n        \"F2.7\": 0.0,\n        \"F2.8\": 0.0,\n        \"F2.9\": 0.0,\n        \"F2.10\": 0.0,\n        \"F2.11\": 0.56,\n        \"F2.12\": 0.32,\n        \"F2.13\": 0.0,\n        \"F2.14\": 0.0,\n        \"F2.15\": 0.0,\n        \"F2.16\": 0.0,\n        \"F2.17\": 0.64,\n        \"F2.18\": 0.0,\n        \"F2.19\": 0.0,\n        \"F2.20\": 0.0,\n        \"F3.1\": 0.0,\n        \"F3.2\": 0.0,\n        \"F3.3\": 0.0,\n        \"F3.4\": 0.0,\n        \"F3.5\": 0.66,\n        \"F3.6\": 0.0,\n        \"F3.7\": 0.0,\n        \"F3.8\": 0.48,\n        \"F3.9\": 0.0,\n        \"F3.10\": 0.32,\n        \"F3.11\": 0.0,\n        \"F3.12\": 0.0,\n        \"F3.13\": 0.0,\n        \"F3.14\": 0.0,\n        \"F3.15\": 0.21,\n        \"F3.16\": 0.06,\n        \"F3.17\": 0.0,\n        \"F3.18\": 0.36,\n        \"F3.19\": 0.40,\n        \"F3.20\": 0.20,\n        \"F4.1\": null,\n        \"F4.2\": null,\n        \"F4.3\": null,\n        \"F4.4\": null,\n        \"F4.5\": null,\n        \"F4.6\": null,\n        \"F4.7\": null,\n        \"F4.8\": null,\n        \"F4.9\": null,\n        \"F4.10\": null,\n        \"F4.11\": null,\n        \"F4.12\": null,\n        \"F4.13\": null,\n        \"F4.14\": null,\n        \"F4.15\": null,\n        \"F4.16\": null,\n        \"F4.17\": null,\n        \"F4.18\": null,\n        \"F4.19\": null,\n        \"F4.20\": null,\n        \"F5.1\": null,\n        \"F5.2\": null,\n        \"F5.3\": null,\n        \"F5.4\": null,\n        \"F5.5\": null,\n        \"F5.6\": null,\n        \"F5.7\": null,\n        \"F5.8\": null,\n        \"F5.9\": null,\n        \"F5.10\": null,\n        \"F5.11\": null,\n        \"F5.12\": null,\n        \"F5.13\": null,\n        \"F5.14\": null,\n        \"F5.15\": null,\n        \"F5.16\": null,\n        \"F5.17\": null,\n        \"F5.18\": null,\n        \"F5.19\": null,\n        \"F5.20\": null\n      },\n      \"notes\": \"This sample corresponds to the older age column (15-17 years) from Table 3. The table reports a 3-factor solution (DIF, DDF, EOT); F4/F5 are set to null. Loadings are the values shown in the 15-17 column; other existing-factor cells for each item are set to 0.0 per extraction rules.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female). The participants were grouped as total sample (range: 12-17 years), younger (range: 12-14 years) and older (range: 15 and 17 years) adolescents.\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"Table 3. Factor parameter estimates for the T-TAS-20 items\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 3. Externally-Oriented Thinking (EOT)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"Item 5 (I would rather solve problems than just describe them) 0.59 0.51 0.66\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F3 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 1. Difficulty Identifying Feelings (DIF)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Item 1 (I am often confused about what I feel exactly) 0.67 0.62 0.72\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F1 loadings\"\n        },\n        {\n          \"snippet\": \"Factor 2. Difficulty Describing Feelings (DDF)\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"Item 2 (It is difficult for me to find the appropriate words for my feelings) 0.73 0.68 0.82\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"F2 loadings\"\n        },\n        {\n          \"snippet\": \"replicate the originally created three-factor model for the TAS-20.2,16\",\n          \"page\": 5,\n          \"source\": null,\n          \"field\": \"factor count\"\n        }\n      ]\n    }\n  ]\n}\n\n=== EXTRACTED CORRELATIONS ===\n{\n  \"samples\": [\n    {\n      \"sample_id\": \"sample1\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.68,\n        \"R1.3\": 0.19,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.24,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"The paper reports a 3-factor solution (Factor 1 = DIF, Factor 2 = DDF, Factor 3 = EOT). Only correlations among these three factors are reported; correlations involving Factors 4\u20135 do not exist and are set to null. Values are for the total sample. Age-group specific correlations are mentioned in the text but not used here. \",\n      \"evidence\": [\n        {\n          \"snippet\": \"Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"sample identification\"\n        },\n        {\n          \"snippet\": \"For the total sample, the DIF and DDF factors were significantly and strongly correlated with each other (r=0.68), and the EOT factor exhibited a lesser degree of correlation with DIF (r=0.19) and DDF (r=0.24).\",\n          \"page\": 4,\n          \"source\": null,\n          \"field\": \"factor correlations\"\n        }\n      ]\n    }\n  ]\n}\n\nNow look at the paper pages below and extract the metadata.\n---\nSUPPORTING EVIDENCE REQUIREMENT\n\nAdd an \"evidence\" key to every sample/record object in your output. Its value is a JSON array. Each array element must have exactly these four keys:\n\n- \"snippet\": the exact verbatim text from the paper that supports the extraction (do not paraphrase \u2014 quote directly)\n- \"page\": the sequential PDF page number (1 = first page provided). Do NOT use the journal or book page number printed in the document header/footer.\n- \"source\": the table or figure identifier (e.g. \"Table 2\", \"Figure 1A\"), or null if not from a named element\n- \"field\": a short label for what this evidence supports\n\nDo NOT embed snippet/page/source inline with extracted values \u2014 keep all evidence in the \"evidence\" array only.\n\nCoverage: include one evidence entry per extracted field (e.g. n, age, country, rot). Use the field name as the \"field\" value. If a field is null because the information is absent, include the entry with snippet/source/page all set to null.\n\nExample:\n\"evidence\": [\n  {\"snippet\": \"The sample consisted of 312 undergraduate students\", \"page\": 2, \"source\": null, \"field\": \"n\"},\n  {\"snippet\": \"mean age was 21.3 years\", \"page\": 2, \"source\": null, \"field\": \"age\"},\n  {\"snippet\": \"promax rotation\", \"page\": 3, \"source\": null, \"field\": \"rot\"}\n]",
+  "entries": [
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": 948,
+      "sex": 54,
+      "age": 14.54,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "notes": "Total sample (age 12-17) from Turkish adolescents. N = 948 as reported. Sex = 54% female (46% male, 54% female reported). Mean age = 14.54 years. A three-factor solution (DIF, DDF, EOT) was reported and evaluated via confirmatory factor analysis (LISREL); factor loadings correspond to the 12-17 column of Table 3. Estimation method and rotation not specified. A subset (n=691) was retested for reliability.",
+      "evidence": [
+        {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey",
+          "page": 1,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey",
+          "page": 1,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).",
+          "page": 1,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": "Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).",
+          "page": 1,
+          "source": null,
+          "field": "n"
+        },
+        {
+          "snippet": "Of these participants, 46% were male, 54% were female.",
+          "page": 2,
+          "source": null,
+          "field": "sex"
+        },
+        {
+          "snippet": "The mean age of the sample was 14.54\u00b11.54 years.",
+          "page": 3,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.",
+          "page": 2,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": "TAS-20 is a self-evaluation scale that consists of 20 items scored on a five-point Likert scale;",
+          "page": 2,
+          "source": null,
+          "field": "res"
+        },
+        {
+          "snippet": "Table 3. Factor parameter estimates for the T-TAS-20 items",
+          "page": 4,
+          "source": "Table 3",
+          "field": "nfac"
+        },
+        {
+          "snippet": "Confirmatory factor analysis was performed via LISREL 8.7.",
+          "page": 3,
+          "source": null,
+          "field": "cfa"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "rot"
+        }
+      ]
+    },
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "notes": "Younger subgroup corresponding to the 12-14 years column in Table 3. Table 3 reports factor parameter estimates for this age group, but subgroup sample size and subgroup-specific sex/mean-age values are not provided in the paper, so n/sex/age are left null. Three-factor CFA solution reported; estimation method and rotation not specified.",
+      "evidence": [
+        {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey",
+          "page": 1,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey",
+          "page": 1,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).",
+          "page": 1,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "n"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "sex"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.",
+          "page": 2,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": "TAS-20 is a self-evaluation scale that consists of 20 items scored on a five-point Likert scale;",
+          "page": 2,
+          "source": null,
+          "field": "res"
+        },
+        {
+          "snippet": "Table 3. Factor parameter estimates for the T-TAS-20 items",
+          "page": 4,
+          "source": "Table 3",
+          "field": "nfac"
+        },
+        {
+          "snippet": "Confirmatory factor analysis was performed via LISREL 8.7.",
+          "page": 3,
+          "source": null,
+          "field": "cfa"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "rot"
+        }
+      ]
+    },
+    {
+      "pubyear": 2017,
+      "country": "Turkey",
+      "continent": "Asia",
+      "lang": "Turkish",
+      "pubtype": 1,
+      "n": null,
+      "sex": null,
+      "age": null,
+      "clinical": 0,
+      "res": 5,
+      "nfac": 3,
+      "cfa": 1,
+      "met": null,
+      "rot": null,
+      "notes": "Older subgroup corresponding to the 15-17 years column in Table 3. Table 3 reports factor parameter estimates for this age group, but subgroup sample size and subgroup-specific sex/mean-age values are not provided in the paper, so n/sex/age are left null. Three-factor CFA solution reported; estimation method and rotation not specified.",
+      "evidence": [
+        {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null,
+          "field": "pubyear"
+        },
+        {
+          "snippet": "MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey",
+          "page": 1,
+          "source": null,
+          "field": "country"
+        },
+        {
+          "snippet": "MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey",
+          "page": 1,
+          "source": null,
+          "field": "continent"
+        },
+        {
+          "snippet": "Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).",
+          "page": 1,
+          "source": null,
+          "field": "lang"
+        },
+        {
+          "snippet": "Anatolian Journal of Psychiatry 2017; 18(4):362-368",
+          "page": 1,
+          "source": null,
+          "field": "pubtype"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "n"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "sex"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "age"
+        },
+        {
+          "snippet": "Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.",
+          "page": 2,
+          "source": null,
+          "field": "clinical"
+        },
+        {
+          "snippet": "TAS-20 is a self-evaluation scale that consists of 20 items scored on a five-point Likert scale;",
+          "page": 2,
+          "source": null,
+          "field": "res"
+        },
+        {
+          "snippet": "Table 3. Factor parameter estimates for the T-TAS-20 items",
+          "page": 4,
+          "source": "Table 3",
+          "field": "nfac"
+        },
+        {
+          "snippet": "Confirmatory factor analysis was performed via LISREL 8.7.",
+          "page": 3,
+          "source": null,
+          "field": "cfa"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "met"
+        },
+        {
+          "snippet": null,
+          "page": null,
+          "source": null,
+          "field": "rot"
+        }
+      ]
+    }
+  ],
+  "human_overrides": [],
+  "original_model_response": "{\n  \"records\": [\n    {\n      \"pubyear\": 2017,\n      \"country\": \"Turkey\",\n      \"continent\": \"Asia\",\n      \"lang\": \"Turkish\",\n      \"pubtype\": 1,\n      \"n\": 948,\n      \"sex\": 54,\n      \"age\": 14.54,\n      \"clinical\": 0,\n      \"res\": 5,\n      \"nfac\": 3,\n      \"cfa\": 1,\n      \"met\": null,\n      \"rot\": null,\n      \"notes\": \"Total sample (age 12-17) from Turkish adolescents. N = 948 as reported. Sex = 54% female (46% male, 54% female reported). Mean age = 14.54 years. A three-factor solution (DIF, DDF, EOT) was reported and evaluated via confirmatory factor analysis (LISREL); factor loadings correspond to the 12-17 column of Table 3. Estimation method and rotation not specified. A subset (n=691) was retested for reliability.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Anatolian Journal of Psychiatry 2017; 18(4):362-368\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"Anatolian Journal of Psychiatry 2017; 18(4):362-368\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": \"Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": \"Of these participants, 46% were male, 54% were female.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": \"The mean age of the sample was 14.54\u00b11.54 years.\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": \"TAS-20 is a self-evaluation scale that consists of 20 items scored on a five-point Likert scale;\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"Table 3. Factor parameter estimates for the T-TAS-20 items\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Confirmatory factor analysis was performed via LISREL 8.7.\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"rot\"\n        }\n      ]\n    },\n    {\n      \"pubyear\": 2017,\n      \"country\": \"Turkey\",\n      \"continent\": \"Asia\",\n      \"lang\": \"Turkish\",\n      \"pubtype\": 1,\n      \"n\": null,\n      \"sex\": null,\n      \"age\": null,\n      \"clinical\": 0,\n      \"res\": 5,\n      \"nfac\": 3,\n      \"cfa\": 1,\n      \"met\": null,\n      \"rot\": null,\n      \"notes\": \"Younger subgroup corresponding to the 12-14 years column in Table 3. Table 3 reports factor parameter estimates for this age group, but subgroup sample size and subgroup-specific sex/mean-age values are not provided in the paper, so n/sex/age are left null. Three-factor CFA solution reported; estimation method and rotation not specified.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Anatolian Journal of Psychiatry 2017; 18(4):362-368\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"Anatolian Journal of Psychiatry 2017; 18(4):362-368\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": \"TAS-20 is a self-evaluation scale that consists of 20 items scored on a five-point Likert scale;\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"Table 3. Factor parameter estimates for the T-TAS-20 items\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Confirmatory factor analysis was performed via LISREL 8.7.\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"rot\"\n        }\n      ]\n    },\n    {\n      \"pubyear\": 2017,\n      \"country\": \"Turkey\",\n      \"continent\": \"Asia\",\n      \"lang\": \"Turkish\",\n      \"pubtype\": 1,\n      \"n\": null,\n      \"sex\": null,\n      \"age\": null,\n      \"clinical\": 0,\n      \"res\": 5,\n      \"nfac\": 3,\n      \"cfa\": 1,\n      \"met\": null,\n      \"rot\": null,\n      \"notes\": \"Older subgroup corresponding to the 15-17 years column in Table 3. Table 3 reports factor parameter estimates for this age group, but subgroup sample size and subgroup-specific sex/mean-age values are not provided in the paper, so n/sex/age are left null. Three-factor CFA solution reported; estimation method and rotation not specified.\",\n      \"evidence\": [\n        {\n          \"snippet\": \"Anatolian Journal of Psychiatry 2017; 18(4):362-368\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubyear\"\n        },\n        {\n          \"snippet\": \"MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"country\"\n        },\n        {\n          \"snippet\": \"MD, Department of Child and Adolescent Psychiatry, Izmir Tepecik Training and Research Hospital, Izmir, Turkey\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"continent\"\n        },\n        {\n          \"snippet\": \"Methods: Turkish TAS-20 was administered to 948 adolescents aged between 12 and 17 years (439 male, 509 female).\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"lang\"\n        },\n        {\n          \"snippet\": \"Anatolian Journal of Psychiatry 2017; 18(4):362-368\",\n          \"page\": 1,\n          \"source\": null,\n          \"field\": \"pubtype\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"n\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"sex\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"age\"\n        },\n        {\n          \"snippet\": \"Nine hundred forty-eight adolescents (ranging in age from 12 to 17 years) from one secondary, and one high school were included in this study.\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"clinical\"\n        },\n        {\n          \"snippet\": \"TAS-20 is a self-evaluation scale that consists of 20 items scored on a five-point Likert scale;\",\n          \"page\": 2,\n          \"source\": null,\n          \"field\": \"res\"\n        },\n        {\n          \"snippet\": \"Table 3. Factor parameter estimates for the T-TAS-20 items\",\n          \"page\": 4,\n          \"source\": \"Table 3\",\n          \"field\": \"nfac\"\n        },\n        {\n          \"snippet\": \"Confirmatory factor analysis was performed via LISREL 8.7.\",\n          \"page\": 3,\n          \"source\": null,\n          \"field\": \"cfa\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"met\"\n        },\n        {\n          \"snippet\": null,\n          \"page\": null,\n          \"source\": null,\n          \"field\": \"rot\"\n        }\n      ]\n    }\n  ]\n}"
+}

@@ -1,0 +1,9 @@
+{
+  "study": "chung2003",
+  "pages": [
+    {
+      "number": null,
+      "result": "{\n  \"samples\": [\n    {\n      \"sample_id\": \"TAS-20K(2003)\",\n      \"factor_correlations\": {\n        \"R1.2\": 0.74,\n        \"R1.3\": 0.09,\n        \"R1.4\": null,\n        \"R1.5\": null,\n        \"R2.3\": 0.39,\n        \"R2.4\": null,\n        \"R2.5\": null,\n        \"R3.4\": null,\n        \"R3.5\": null,\n        \"R4.5\": null\n      },\n      \"notes\": \"Values extracted from Table 3 (Correlations of the three factors) for TAS-20K(2003). Only 3 factors reported (F1,F2,F3); correlations involving factors 4\u20135 set to null. Reported correlations in table include significance markers (*) which are not retained here.\"\n    }\n  ]\n}"
+    }
+  ]
+}

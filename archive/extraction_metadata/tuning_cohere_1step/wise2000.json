@@ -1,0 +1,35 @@
+{
+  "records": [
+    {
+      "pubyear": 2000,
+      "country": "Canada",
+      "continent": "North America",
+      "lang": "English",
+      "pubtype": 1,
+      "n": 257,
+      "sex": 0,
+      "age": null,
+      "clinical": 0,
+      "res": null,
+      "nfac": 3,
+      "cfa": 0,
+      "met": 1,
+      "rot": 1,
+      "evidence": {
+        "pubyear": {"snippet": "2000", "page": 127, "source": "Psychological Reports 2000"},
+        "country": {"snippet": "Canada", "page": 127, "source": "Psychological Reports 2000"},
+        "continent": {"snippet": "North America", "page": 127, "source": "Psychological Reports 2000"},
+        "lang": {"snippet": "English", "page": 127, "source": "Psychological Reports 2000"},
+        "pubtype": {"snippet": "article in journal", "page": 127, "source": "Psychological Reports 2000"},
+        "n": {"snippet": "257", "page": 128, "source": "Psychological Reports 2000"},
+        "sex": {"snippet": "0", "page": 128, "source": "Psychological Reports 2000"},
+        "clinical": {"snippet": "non-clinical", "page": 128, "source": "Psychological Reports 2000"},
+        "res": {"snippet": "null", "page": 128, "source": "Psychological Reports 2000"},
+        "nfac": {"snippet": "3", "page": 130, "source": "Psychological Reports 2000"},
+        "cfa": {"snippet": "0", "page": 130, "source": "Psychological Reports 2000"},
+        "met": {"snippet": "principal component", "page": 130, "source": "Psychological Reports 2000"},
+        "rot": {"snippet": "varimax", "page": 130, "source": "Psychological Reports 2000"}
+      }
+    }
+  ]
+}
